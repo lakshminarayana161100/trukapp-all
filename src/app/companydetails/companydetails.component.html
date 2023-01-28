@@ -1,0 +1,67 @@
+
+
+
+
+<form  class="ion-margin">
+  
+  <div class="ion-margin-vertical">
+   
+    <ion-item >
+      <ion-input placeholder="Enter FirstName" type="text" clearInput="true" [(ngModel)]="FirstName" [ngModelOptions]="{standalone: true}" ></ion-input>
+    </ion-item>
+  
+  </div> 
+  <div class="ion-margin-vertical">
+   
+    <ion-item >
+      <ion-input placeholder="Enter LastName" type="text" clearInput="true" [(ngModel)]="LastName" [ngModelOptions]="{standalone: true}"  ></ion-input>
+    </ion-item>
+  
+  </div>
+
+  <div class="ion-margin-vertical">
+   
+    <ion-item >
+      <ion-input placeholder="Enter City" type="text" clearInput="true" [(ngModel)]="city" [ngModelOptions]="{standalone: true}"  ></ion-input>
+    </ion-item>
+  
+  </div>
+
+  <div class="ion-margin-vertical">
+   
+    <ion-item >
+      <ion-input placeholder="Enter CompanyName" type="text" clearInput="true" [(ngModel)]="companyName" [ngModelOptions]="{standalone: true}"  ></ion-input>
+    </ion-item>
+  
+  </div>
+
+  <div class="ion-margin-vertical">
+   
+    <ion-item >
+      <ion-input placeholder="Referal Code(optional)" type="text" clearInput="true" [(ngModel)]="ReferalCode" [ngModelOptions]="{standalone: true}" ></ion-input>
+    </ion-item>
+  
+  </div>
+
+
+  
+</form>
+
+
+  <ion-button
+   class="ion-margin-horizontal"
+    
+    expand="block" 
+
+    (click)="RegisterFor()" [disabled]="!FirstName || !LastName || !ReferalCode || !city"
+    >
+    <ion-text>Next</ion-text>
+  </ion-button>
+
+  
+
+
+
+
+
+

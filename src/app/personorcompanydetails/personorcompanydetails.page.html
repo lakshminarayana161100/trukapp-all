@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      
+      <ion-icon name="arrow-back-outline" routerLink=""></ion-icon>
+      </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true">
+
+  <div align="center">
+    <h2>Add Details for your profile</h2>
+  </div>
+
+  <ion-list>
+    <div class="two" class="ion-margin marginBottom" (ionChange)="segmentChanged($event)">
+      <ion-segment mode="ios" [value]="segmentValue">
+        <ion-segment-button value="1">
+          <ion-label>Individual</ion-label>
+        </ion-segment-button>
+        
+      </ion-segment>
+
+      <ion-segment mode="ios" [value]="segmentValue">
+     
+        <ion-segment-button value="2">
+          <ion-label>Company</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    </div>
+
+    <app-personaldetails style="transition: 0.9s;" *ngIf="segmentValue == '1'"></app-personaldetails>
+    <app-companydetails style="transition: 0.9s;" *ngIf="segmentValue == '2'"></app-companydetails>
+
+  </ion-list>
+
+</ion-content>

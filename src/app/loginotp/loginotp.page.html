@@ -1,0 +1,33 @@
+<ion-header [translucent]="true" class="header">
+  <ion-toolbar>
+    <ion-title >
+      &nbsp;&nbsp; SignUp/Login
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <h1>Welcome,</h1>
+  <h3>Enter mobile number to continue!</h3>
+
+  <div>
+    <ion-img src="assets/trucklogo.jpeg"></ion-img>
+   </div>
+  <form>
+    &nbsp;&nbsp;<ion-label>Enter Your Mobile Number</ion-label><br>
+   
+    <ion-item class="ion-margin">
+      <ion-input  type="text"   clearInput="true" placeholder="Enter Mobile Number" [(ngModel)]="phoneNumber" min="10" [ngModelOptions]="{standalone: true}"></ion-input>
+    </ion-item>
+   
+    
+  
+<div class="genotp">
+    <ion-button class="btn" color="#a13cd7;" [disabled]="phoneNumber == null" (click)="getOTP()">Generate OTP</ion-button>
+    </div>
+    <div id="sign-in-button"></div>
+    
+  </form>
+
+  
+</ion-content>

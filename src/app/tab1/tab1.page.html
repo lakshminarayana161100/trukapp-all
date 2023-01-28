@@ -1,17 +1,132 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 1
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-app>
+  <ion-menu contentId="main-content">
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
-</ion-content>
+    <ion-content >
+      <div class="menu-header-bg"></div>
+      <div class="header-content">
+        <img src="https://th.bing.com/th/id/OIP.c3xZFEubLwRrbMU1w2W1uwHaHa?w=198&h=198&c=7&r=0&o=5&dpr=1.3&pid=1.7" alt="">
+        <ion-label>
+          <h2>Orumpati Sai</h2>
+          <p>Fullstack Developer</p>
+        </ion-label>
+      </div>
+      <!--<div class="action-button">
+        <ion-button>
+          <ion-icon slot="start" name="add">Add Branch</ion-icon>
+        </ion-button>
+      </div>-->
+
+      <ion-list class="menu-items">
+        <ion-item>
+          <ion-icon name="pie-chart-outline"></ion-icon>Dashboard
+        </ion-item>
+        <ion-item>
+          <ion-icon name="pie-chart-outline"></ion-icon>Post session
+        </ion-item>
+        <ion-item class="active">
+          <ion-icon name="flash"></ion-icon>Live session
+        </ion-item>
+        <ion-item>
+          <ion-icon name="chatbubble-ellipses-outline"></ion-icon>Messages
+        </ion-item>
+        <ion-item>
+          <ion-icon name="heart-outline"></ion-icon>Locum lbrary
+        </ion-item>
+        <ion-item>
+          <ion-icon name="exit-outline"></ion-icon>Signout
+        </ion-item>
+      </ion-list>
+
+      <div class="action-button">
+
+      </div>
+    </ion-content>
+  </ion-menu>
+
+  <div class="ion-page" id="main-content">
+    <ion-header>
+      <ion-toolbar >
+        
+  
+
+  <ion-buttons slot="start">  
+    <ion-menu-button color="dark"></ion-menu-button>   
+  </ion-buttons>
+        
+        <ion-icon name="notifications-outline" style=" margin-top: 7px; font-size: 30px; margin-left: -3px;" slot="end" ></ion-icon>
+       
+      </ion-toolbar>
+  
+    </ion-header>
+    <ion-content class="ion-padding">
+      <ion-list>
+        <div class="ion-margin marginBottom" (ionChange)="segmentChanged($event)">
+          <ion-segment mode="ios" [value]="segmentValue">
+            <ion-segment-button value="1">
+              <ion-label>Load Listing</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="2">
+              <ion-label>My Bids</ion-label>
+            </ion-segment-button>
+          </ion-segment>
+        </div>
+        <app-loadlisting *ngIf="segmentValue =='1'"></app-loadlisting>
+        <app-mybids *ngIf="segmentValue =='2'"></app-mybids>
+      </ion-list>
+    
+      <!-- </ion-toolbar> -->
+    
+    
+    </ion-content>
+    <ion-button class="postLoad" routerLink="/attach-new-load" expand="full">Post Load</ion-button>
+
+  </div>
+
+  
+</ion-app>
+
+    <!--<ion-header>
+      <ion-toolbar color="white">
+        <div slot="start" style="padding: 0px 10px;">
+          <ion-icon name="person-circle" style="font-size: 35px; margin-left: 1rem;"></ion-icon>
+        </div>
+  <h1 style="margin-left: -3px; margin-top: 8px;">Ro-one</h1>
+
+  <ion-buttons slot="start">  
+    <ion-menu-button color="dark"></ion-menu-button>   
+  </ion-buttons>
+        
+        <ion-icon name="notifications-outline" style=" margin-top: 7px; font-size: 30px; margin-left: -3px;" slot="end" menu="main-menu"></ion-icon>
+        <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+      </ion-toolbar>
+  
+    </ion-header>
+
+<ion-content>-->
+  <!-- <ion-toolbar class="new-background-color"> -->
+
+  <!-- <ion-button  class="homeButtons" >Load listing</ion-button>
+  <ion-button class="secondButton" style="margin-left: 170px;">My Bids</ion-button> -->
+  <!--<ion-list>
+    <div class="ion-margin marginBottom" (ionChange)="segmentChanged($event)">
+      <ion-segment mode="ios" [value]="segmentValue">
+        <ion-segment-button value="1">
+          <ion-label>Load Listing</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="2">
+          <ion-label>My Bids</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    </div>
+    <app-loadlisting *ngIf="segmentValue =='1'"></app-loadlisting>
+    <app-mybids *ngIf="segmentValue =='2'"></app-mybids>
+  </ion-list>-->
+
+  <!-- </ion-toolbar> -->
+
+
+<!--</ion-content>
+<ion-button class="postLoad" routerLink="/attach-new-load" expand="full">Post Load</ion-button>-->

@@ -31,8 +31,14 @@
                 "output": "./svg"
               }
             ],
-            "styles": ["src/theme/variables.scss", "src/global.scss"],
-            "scripts": []
+            "styles": [
+              "src/theme/variables.scss",
+               "src/global.scss"
+               
+              ],
+            "scripts": [
+              
+            ]
           },
           "configurations": {
             "production": {
@@ -136,7 +142,8 @@
   "cli": {
     "schematicCollections": [
       "@ionic/angular-toolkit"
-    ]
+    ],
+    "analytics": "b71e1940-e473-428b-9d5e-d46980ffe984"
   },
   "schematics": {
     "@ionic/angular-toolkit:component": {

@@ -1,0 +1,18 @@
+
+
+ion-button {
+  height: 40px;
+  border-radius: 10px;
+  //margin: 5vh 0;
+  --background: #f58e26;
+  margin-top: 130px;
+}
+
+ion-item {
+    border: 1px solid var(--ion-color-light);
+    border-radius: 20px;
+    -webkit-box-shadow: 0 6px 4px -4px var(--ion-color-medium);
+    -moz-box-shadow: 0 6px 4px -4px var(--ion-color-medium);
+    box-shadow: 0 6px 4px -4px var(--ion-color-medium);
+}
+

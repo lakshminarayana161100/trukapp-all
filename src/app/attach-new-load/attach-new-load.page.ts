@@ -17,7 +17,12 @@ export class AttachNewLoadPage implements OnInit {
   Number:any;
   vehicle:any;
   loadCapacity:any;
-  expectedPrice:any
+  expectedPrice:any;
+  typeOfPay:any;
+  comments:any;
+  length:any;
+  breadth:any;
+  height:any;
 
 
   map: any;
@@ -42,6 +47,7 @@ export class AttachNewLoadPage implements OnInit {
 
   
   Items: any;
+  data: any;
   
 
   constructor(
@@ -85,6 +91,11 @@ export class AttachNewLoadPage implements OnInit {
 
     // console.log(this.DestinationLocation)
 
+  }
+
+  out(data:any){
+    console.log(data)
+    this.data=data
   }
 
   GetDestinationLocation(data: any) {
@@ -178,6 +189,12 @@ calculateAndDisplayRoute() {
       vehicle: this.vehicle,
       loadCapacity: this.loadCapacity,
       expectedPrice: this.expectedPrice,
+      data:this.data,
+      typeOfPay:this.typeOfPay,
+      length:this.length,
+      breadth:this.breadth,
+      height:this.height,
+      comments:this.comments
 
 
     }
@@ -192,10 +209,31 @@ calculateAndDisplayRoute() {
 
     })
       .then(response => response.json())
-      .then(result => {
+      .then(async result => {
     console.log(result)
           this.Items = result     
-        
+          const alert = await this.alertController.create({
+            header: 'Successfull',
+           // subHeader: 'Important message',
+            message: 'Load posted Successfully',
+            buttons: [
+      
+       {
+                text: 'Okay',
+                handler: () => {
+                  console.log('Confirm Okay');
+                   //you can write your code or redirection 
+                   // sample redirection code 
+                   window.location.href = '/tab/tab1';
+                   
+                }
+              }
+            ],
+          
+      
+          });
+      
+          await alert.present();
 
       }
 
@@ -203,29 +241,7 @@ calculateAndDisplayRoute() {
         console.log(err))
 
 
-       /* const alert = await this.alertController.create({
-          header: 'Successfull',
-         // subHeader: 'Important message',
-          message: 'Load posted Successfully',
-          buttons: [
-    
-     {
-              text: 'Okay',
-              handler: () => {
-                console.log('Confirm Okay');
-                 //you can write your code or redirection 
-                 // sample redirection code 
-                 window.location.href = '/tab/tab1';
-                 
-              }
-            }
-          ],
-        
-    
-        });
-    
-        await alert.present();*/
-      
+     
   }
 
 }

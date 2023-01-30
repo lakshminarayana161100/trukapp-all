@@ -9,11 +9,12 @@ import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
 //import { HasRoleDirective } from './directives/has-role.directive';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
+import {Ng2SearchPipeModule} from 'ng2-search-filter';
 @NgModule({
   declarations: [AppComponent, 
    // HasRoleDirective
   ],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,BrowserAnimationsModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,BrowserAnimationsModule,Ng2SearchPipeModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },FormsModule,CommonModule,ReactiveFormsModule],
   bootstrap: [AppComponent],
 })

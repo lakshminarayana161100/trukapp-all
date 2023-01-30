@@ -5,6 +5,11 @@
 </ion-header>
 
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="autorefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" refreshingSpinner="circles" refreshingText="Refreshing..">
+
+    </ion-refresher-content>
+  </ion-refresher>
   <ion-card-title>We just want few informtion to get yourself Registered  </ion-card-title>
 
   <h1 style="margin-left: 20px;">Sign Up As:</h1>

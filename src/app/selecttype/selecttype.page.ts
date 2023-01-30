@@ -23,5 +23,12 @@ type:any
     this.router.navigate(['personorcompanydetails'])
 
   }
+  autorefresh(event:any){
+   
+    setTimeout(() => {
+      event.target.complete()
+      this.router.navigate(['selecttype'])
+    }, 2000);
+  }
 
 }

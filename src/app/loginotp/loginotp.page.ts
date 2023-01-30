@@ -5,7 +5,7 @@ import 'firebase/compat/auth';
 import  'firebase/auth';
 import 'firebase/compat/firestore';
 import { Router } from '@angular/router';
-
+import { AlertController } from '@ionic/angular';
 var config = {
   apiKey: "AIzaSyDM4C1YRZ14Lx_8NzbDnChklv9VInrgUmw",
   authDomain: "otplogin-c4da2.firebaseapp.com",
@@ -26,7 +26,8 @@ regData:any
   reCaptchaVerifier!: any;
   regNumber:any
   num!:Number
-  constructor(private router: Router, private ngZone: NgZone,public loadingCtrl:LoadingController,public toastCtrl:ToastController) {}
+  spin!: boolean;
+  constructor(private router: Router, private ngZone: NgZone,public loadingCtrl:LoadingController,public toastCtrl:ToastController,private alert:AlertController) {}
 
 
   ngOnInit() {
@@ -58,14 +59,16 @@ getOTP(){
     }).then(res => res.json())
     
     .then(
-      result =>{
+      async result =>{
         console.log(result)
     
     this.regData=result.data
+ 
     console.log(this.regData)
 console.log(this.phoneNumber)
  this.regNumber = this.regData.find((t: { mobileNo: any; })=>t.mobileNo == this.phoneNumber);
 console.log(this.regNumber)
+localStorage.setItem('regdata',JSON.stringify(this.regNumber))
 if(this.regNumber.mobileNo == this.phoneNumber){
 
   this.reCaptchaVerifier = new firebase.auth.RecaptchaVerifier(
@@ -89,9 +92,12 @@ if(this.regNumber.mobileNo == this.phoneNumber){
         'mobileNo',
         JSON.stringify(this.phoneNumber)
       );
-      this.ngZone.run(() => {
-        this.router.navigate(['/verifyotp']);
-      });
+  
+        this.ngZone.run(() => {
+          this.router.navigate(['/verifyotp']);
+        });
+      
+    
     })
     .catch((error:any) => {
       console.log(error.message);
@@ -102,23 +108,47 @@ if(this.regNumber.mobileNo == this.phoneNumber){
     });
 
 }else{
-  setTimeout(() =>{
-    this.loadingCtrl.dismiss();
   
-      this.presentToast("Not Registered","danger");
+    //this.loadingCtrl.dismiss();
+    const alert = await this.alert.create({
+      header: 'Alert',
+      subHeader: 'Your Number is Not Registered',
+      message: 'Please Follow these steps',
+      buttons: ['OK'],
+    });
+
+    await alert.present();
+  
+      //this.presentToast("Not Registered","danger");
       this.router.navigate(['/selecttype'])
-  },2000)
  
   
 }
-      }).catch(error =>{
-        setTimeout(() =>{
-          this.loadingCtrl.dismiss();
+      }).catch(async error =>{
         
-            this.presentToast("Something went Wrong","danger");
-            this.router.navigate(['/selecttype'])
-        },2000)
+         // this.loadingCtrl.dismiss();
         
+         const alert = await this.alert.create({
+          header: 'Alert',
+          subHeader: 'Your Number is Not Registered',
+          message: 'Please Follow these steps',
+          buttons: ['OK'],
+          
+        });
+       
+        await alert.present();
+       this.router.navigate(['/selecttype']) 
+         
+              
+            
+       /*setTimeout(() => {
+        this.spin=false
+        this.ngZone.run(() => {
+          this.router.navigate(['/selecttype']);
+        });
+      }, 2000);*/
+        
+       
       
          console.log(error)
         });

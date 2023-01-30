@@ -19,6 +19,8 @@ export class VerifyotpPage implements OnInit {
   verify:any
   one:any
   mobileNo:any
+  spin!:boolean
+  verified:any
     constructor(public loadingCtrl:LoadingController ,public toastCtrl:ToastController,private router: Router, private ngZone: NgZone) {}
     config = {
       allowNumbersOnly: true,
@@ -38,7 +40,8 @@ export class VerifyotpPage implements OnInit {
       this.mobileNo = JSON.parse(localStorage.getItem('mobileNo') || '{}');
       console.log(this.verify);
   //this.setfocus()
-
+ this.verified=JSON.parse(localStorage.getItem('regdata') || '{}')
+ console.log(this.verified.role)
     }
   
     /*setfocus(){
@@ -151,13 +154,35 @@ export class VerifyotpPage implements OnInit {
         .then((response) => {
           console.log(response);
           localStorage.setItem('user_data', JSON.stringify(response));
-          this.ngZone.run(() => {
-            this.router.navigate(['/tab/tab1']);
-          });
+if(this.verified.role === "Shipper"){
+  this.ngZone.run(() => {
+    this.router.navigate(['/tab/tab1'])
+    localStorage.setItem('loginrole',JSON.stringify(this.verified.role))
+  });
+
+}else if(this.verified.role === "Agent/Broker"){
+alert('route to agent/broker')
+localStorage.setItem('loginrole',JSON.stringify(this.verified.role))
+}else if(this.verified.role === "Transporter"){
+  alert('route to  transporter')
+  localStorage.setItem('loginrole',JSON.stringify(this.verified.role))
+}else if(this.verified.role === 'Fleet Owner'){
+  alert('route to Fleet Owner')
+  localStorage.setItem('loginrole',JSON.stringify(this.verified.role))
+}
+     
+
         })
         .catch((error) => {
           console.log(error);
-          alert(error.message);
+          setTimeout(() => {
+            this.spin=false
+            alert(error.message);
+          }, 2000);
+          
+          
+           
+          
         });
     }
 

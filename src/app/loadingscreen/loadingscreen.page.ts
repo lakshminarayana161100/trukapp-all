@@ -9,13 +9,16 @@ import { Router } from '@angular/router';
 export class LoadingscreenPage implements OnInit {
 
   constructor(public loadingCtrl:LoadingController ,public toastCtrl:ToastController,private router:Router) { }
-
+spin!:boolean
   async ngOnInit() {
-   await this.presentLoading()
-   
+   //await this.presentLoading()
+   setTimeout(() => {
+    this.spin=false
+    this.router.navigate(['selectlanguage'])
+   }, 2500);
   }
 
-  async presentLoading(){
+  /*async presentLoading(){
     const loading = await this.loadingCtrl.create({
       
       message:'Please Wait..',
@@ -29,6 +32,6 @@ export class LoadingscreenPage implements OnInit {
     if(await this.loadingCtrl.dismiss()){
       this.router.navigate(['selectlanguage'])
     }
-  }
+  }*/
 
 }

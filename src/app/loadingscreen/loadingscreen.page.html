@@ -9,8 +9,11 @@
     <img src="assets/trucklogo.jpeg">
    </div>
 
-  <!-- <div class="spinner">
-   <ion-spinner></ion-spinner>
-   </div>-->
+
+   
+   <div class="spinner" *ngIf="!spin" style="size: 1;">
+    <ion-spinner name="bubbles"></ion-spinner>
+    </div>
+ 
    
 </ion-content>

@@ -10,7 +10,7 @@ role:any
 boss!:boolean
   constructor() {}
   ngOnInit(): void {
-  this.role=  JSON.parse( localStorage.getItem('selectType') || "{}")
+  this.role=  JSON.parse( localStorage.getItem('loginrole') || "{}")
   console.log(this.role)
   this.hide()
   }

@@ -43,14 +43,14 @@ ion-button{
 }
 
 label{
-  border: 3px solid #f58e26;
+  border: 3px solid #d2d0ce;
   display: flex;
   margin-left: 8px;
   margin-right: 8px ;
   border-radius: 10px;
   position: relative;
   color: #f58e26;
-
+  box-shadow: 0 5px 5px rgba(172, 179, 175, 0.984);
 }
 
 label>span {
@@ -66,5 +66,5 @@ label>span {
 input[type=radio]:checked + label {
 	background-color: #f58e26;
 	color: #ffffff;
-	box-shadow: 0 15px 45px rgb(24,249,141,0.2);
+	//box-shadow: 0 15px 45px rgb(24,249,141,0.2);
 }

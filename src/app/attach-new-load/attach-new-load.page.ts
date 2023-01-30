@@ -199,7 +199,7 @@ calculateAndDisplayRoute() {
 
     }
     console.log(body)
-    fetch("http://localhost:3000/quotes/post", {
+    fetch("https://amused-crow-cowboy-hat.cyclic.app/quotes/post", {
       method: 'post',
       headers: {
         "access-Control-Allow-Origin": "*",

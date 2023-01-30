@@ -42,7 +42,7 @@ const final ={
   role:this.role
 }
 console.log(final)
-    fetch("http://localhost:3000/TruckAppUsers/signup", {
+    fetch("https://amused-crow-cowboy-hat.cyclic.app/TruckAppUsers/signup", {
       method:'post',
       headers:{
                 "Access-Control-Allow-Origin": "*",

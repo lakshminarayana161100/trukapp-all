@@ -33,7 +33,7 @@ export class LoadlistingComponent implements OnInit {
     this.get()
   }
   get() {
-    fetch("http://localhost:3000/quotes/allLoads", {
+    fetch("https://amused-crow-cowboy-hat.cyclic.app/quotes/allLoads", {
       method: 'GET',
       headers: {
         "access-Control-Allow-Origin": "*",

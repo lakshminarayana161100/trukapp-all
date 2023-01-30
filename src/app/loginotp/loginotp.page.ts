@@ -49,7 +49,7 @@ regData:any
 
 //get all register data send otp with verification of old user
 getOTP(){
-  fetch("http://localhost:3000/TruckAppUsers/getRegisterData", {
+  fetch("https://amused-crow-cowboy-hat.cyclic.app/TruckAppUsers/getRegisterData", {
     method:'GET',
     headers:{
               "Access-Control-Allow-Origin": "*",

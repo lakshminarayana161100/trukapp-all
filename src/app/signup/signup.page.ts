@@ -43,6 +43,7 @@ const final ={
 }
 console.log(final)
     fetch("https://amused-crow-cowboy-hat.cyclic.app/TruckAppUsers/signup", {
+      
       method:'post',
       headers:{
                 "Access-Control-Allow-Origin": "*",
@@ -56,8 +57,12 @@ console.log(final)
      
           if(result.status === "failed" ){
             alert("Already registered please login")
-            }else{
-              console.log(result)
+            this.router.navigate(['/loginotp'])
+            }else if(result.status === "faileds"){
+              alert('something went wrong')
+            }
+            else{
+              alert('Your account is registered')
               this.router.navigate(['/loginotp'])
             }
         
@@ -65,8 +70,10 @@ console.log(final)
       
         }
         ).catch(
-            error =>{alert('register not  successfull'); console.log(error)}
-             );
+            error =>{
+              alert('register not  successfull');
+             console.log(error)
+            });
             // localStorage.removeItem('selectType');
              //localStorage.removeItem('language');
             // localStorage.removeItem('allDetails');

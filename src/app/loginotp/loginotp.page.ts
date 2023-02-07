@@ -49,27 +49,31 @@ regData:any
 
 //get all register data send otp with verification of old user
 getOTP(){
-  fetch("https://amused-crow-cowboy-hat.cyclic.app/TruckAppUsers/getRegisterData", {
-    method:'GET',
+  var data ={
+    mobileNo:this.phoneNumber
+  }
+  //fetch("https://amused-crow-cowboy-hat.cyclic.app/TruckAppUsers/getRegisterData", {
+    fetch("http://localhost:3000/login/loginDetails", {
+    method:'post',
     headers:{
               "Access-Control-Allow-Origin": "*",
-                "Content-Type":'application/json'
+              "Content-Type":'application/json'
             },
-    
+            body:JSON.stringify(data)
     }).then(res => res.json())
     
     .then(
-      async result =>{
+       async result =>{
         console.log(result)
     
-    this.regData=result.data
+    /*this.regData=result.data
  
     console.log(this.regData)
 console.log(this.phoneNumber)
  this.regNumber = this.regData.find((t: { mobileNo: any; })=>t.mobileNo == this.phoneNumber);
-console.log(this.regNumber)
-localStorage.setItem('regdata',JSON.stringify(this.regNumber))
-if(this.regNumber.mobileNo == this.phoneNumber){
+console.log(this.regNumber)*/
+localStorage.setItem('regdata',JSON.stringify(result))
+if(result.mobileNo == this.phoneNumber){
 
   this.reCaptchaVerifier = new firebase.auth.RecaptchaVerifier(
     'sign-in-button',
@@ -102,15 +106,13 @@ if(this.regNumber.mobileNo == this.phoneNumber){
     .catch((error:any) => {
       console.log(error.message);
       alert(error.message);
-      setTimeout(() => {
-        window.location.reload();
-      }, 5000);
+   
     });
 
 }else{
   
     //this.loadingCtrl.dismiss();
-    const alert = await this.alert.create({
+    const alert = await  this.alert.create({
       header: 'Alert',
       subHeader: 'Your Number is Not Registered',
       message: 'Please Follow these steps',
@@ -121,7 +123,7 @@ if(this.regNumber.mobileNo == this.phoneNumber){
   
       //this.presentToast("Not Registered","danger");
       this.router.navigate(['/selecttype'])
- 
+     // window.location.href="/selecttype"
   
 }
       }).catch(async error =>{
@@ -138,7 +140,7 @@ if(this.regNumber.mobileNo == this.phoneNumber){
        
         await alert.present();
        this.router.navigate(['/selecttype']) 
-         
+        // window.location.href="/selecttype"
               
             
        /*setTimeout(() => {

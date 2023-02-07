@@ -155,7 +155,7 @@ calculateAndDisplayRoute() {
   //wE CALL THIS FROM EACH ITEM.
   SelectSearchResult(item: { place_id: any; description: any }) {
     ///WE CAN CONFIGURE MORE COMPLEX FUNCTIONS SUCH AS UPLOAD DATA TO FIRESTORE OR LINK IT TO SOMETHING
-    //alert(JSON.stringify(item))   
+    console.log(JSON.stringify(item))   
     console.log(item.description)
     this.placeid = item.description;
 

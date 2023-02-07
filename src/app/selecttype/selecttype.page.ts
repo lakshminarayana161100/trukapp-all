@@ -26,8 +26,10 @@ type:any
   autorefresh(event:any){
    
     setTimeout(() => {
+  window.location.href="/selecttype"
       event.target.complete()
-      this.router.navigate(['selecttype'])
+      
+      
     }, 2000);
   }
 

@@ -61,6 +61,11 @@
   
     </ion-header>
     <ion-content class="ion-padding">
+      <ion-refresher slot="fixed" (ionRefresh)="autorefresh($event)">
+        <ion-refresher-content pullingIcon="arrow-dropdown" refreshingSpinner="circles" refreshingText="Refreshing..">
+
+        </ion-refresher-content>
+      </ion-refresher>
       <ion-list>
         <div class="ion-margin marginBottom" (ionChange)="segmentChanged($event)">
           <ion-segment mode="ios" [value]="segmentValue">
@@ -72,8 +77,18 @@
             </ion-segment-button>
           </ion-segment>
         </div>
-        <app-loadlisting *ngIf="segmentValue =='1'"></app-loadlisting>
-        <app-mybids *ngIf="segmentValue =='2'"></app-mybids>
+        <app-loadlisting *ngIf="segmentValue =='1'">   <ion-refresher slot="fixed" (ionRefresh)="autorefresh($event)">
+          <ion-refresher-content pullingIcon="arrow-dropdown" refreshingSpinner="circles" refreshingText="Refreshing..">
+  
+          </ion-refresher-content>
+        </ion-refresher></app-loadlisting>
+        <app-mybids *ngIf="segmentValue =='2'">
+          <ion-refresher slot="fixed" (ionRefresh)="autorefresh($event)">
+            <ion-refresher-content pullingIcon="arrow-dropdown" refreshingSpinner="circles" refreshingText="Refreshing..">
+    
+            </ion-refresher-content>
+          </ion-refresher>
+        </app-mybids>
       </ion-list>
     
       <!-- </ion-toolbar> -->

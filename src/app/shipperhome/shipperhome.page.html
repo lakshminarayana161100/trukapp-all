@@ -1,0 +1,115 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>shipperhomes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card style=" height:80px; background:rgb(239, 202, 132); ">
+  
+  
+   <span>kyc Pending</span>
+  </ion-card>
+
+<div class="lower-box">
+  <div class="wrapper">
+    <div class="item">
+      <div style="display:flex;">
+        <div >
+          <ion-icon name="logo-dropbox" style="font-size:35px;padding-left:10px;margin-top:16px; color:orange;"></ion-icon>
+        </div>
+         <p class="count">0</p>
+       
+      </div>
+      <h6>Active loads</h6>
+    
+    </div>
+    <div class="item">
+      
+    </div>
+    
+  </div>
+</div>
+
+<ion-slides pager="true" [options]="slideOpts" >
+  <ion-slide *ngFor="let image of slide">  
+    <img class="banner-image" [src]="image?.url"/>
+    <button style="position:absolute; margin-top:100px; padding:7px;border-radius:10px; background-color:orange;">place order</button>
+  </ion-slide>
+</ion-slides>
+
+<h5 style="margin-left: 13px;">Top recomdations</h5>
+&nbsp;&nbsp;&nbsp;<button style="border:2px; padding:10px;border-radius:8px;background-color:orange;">Top Trucks</button>
+
+
+<ion-slides #slides autoplay="true" loop="true" pager="false" scrollbar="true" [options]="slideOpt">
+  <ion-slide class="bg-1">
+    <ion-card>
+      <div style="height:60px;">
+        <img src="https://th.bing.com/th/id/R.3bcf2c417c3012c66d7469ce42d13fca?rik=9o3GRFdBkstaaw&riu=http%3a%2f%2fwww.pixelstalk.net%2fwp-content%2fuploads%2f2016%2f06%2fSemi-Truck-Images-HD.jpg&ehk=yulfpi8iWb5BOndkHjfFDK7IqS2D7dNbLSJq24%2fubYo%3d&risl=&pid=ImgRaw&r=0">
+        </div>
+      
+      <ion-card-content>
+        <p>LCV</p> 
+        <p>1-6 Tonns</p>
+      </ion-card-content>
+    </ion-card>
+  </ion-slide>
+  <ion-slide class="bg-2">
+    <ion-card>
+      <div style="height:60px;">
+        <img src="https://th.bing.com/th/id/R.3bcf2c417c3012c66d7469ce42d13fca?rik=9o3GRFdBkstaaw&riu=http%3a%2f%2fwww.pixelstalk.net%2fwp-content%2fuploads%2f2016%2f06%2fSemi-Truck-Images-HD.jpg&ehk=yulfpi8iWb5BOndkHjfFDK7IqS2D7dNbLSJq24%2fubYo%3d&risl=&pid=ImgRaw&r=0">
+        </div>
+      
+      <ion-card-content>
+        <p>LCV</p> 
+        <p>1-6 Tonns</p>
+      </ion-card-content>
+      </ion-card>
+  </ion-slide>
+  <ion-slide class="bg-3">
+    <ion-card>
+      <div style="height:60px;">
+        <img src="https://th.bing.com/th/id/R.3bcf2c417c3012c66d7469ce42d13fca?rik=9o3GRFdBkstaaw&riu=http%3a%2f%2fwww.pixelstalk.net%2fwp-content%2fuploads%2f2016%2f06%2fSemi-Truck-Images-HD.jpg&ehk=yulfpi8iWb5BOndkHjfFDK7IqS2D7dNbLSJq24%2fubYo%3d&risl=&pid=ImgRaw&r=0">
+        </div>
+      
+      <ion-card-content>
+        <p>LCV</p> 
+        <p>1-6 Tonns</p>
+      </ion-card-content>
+    </ion-card>
+  </ion-slide>
+  <ion-slide class="bg-4">
+    <ion-card>
+      <div style="height:60px;">
+        <img src="https://th.bing.com/th/id/R.3bcf2c417c3012c66d7469ce42d13fca?rik=9o3GRFdBkstaaw&riu=http%3a%2f%2fwww.pixelstalk.net%2fwp-content%2fuploads%2f2016%2f06%2fSemi-Truck-Images-HD.jpg&ehk=yulfpi8iWb5BOndkHjfFDK7IqS2D7dNbLSJq24%2fubYo%3d&risl=&pid=ImgRaw&r=0">
+        </div>
+      
+      <ion-card-content>
+        <p>LCV</p> 
+        <p>1-6 Tonns</p>
+      </ion-card-content>
+    </ion-card>
+  </ion-slide>
+  <ion-slide class="bg-5">
+    <ion-card >
+      <div style="height:60px;">
+        <img src="https://th.bing.com/th/id/R.3bcf2c417c3012c66d7469ce42d13fca?rik=9o3GRFdBkstaaw&riu=http%3a%2f%2fwww.pixelstalk.net%2fwp-content%2fuploads%2f2016%2f06%2fSemi-Truck-Images-HD.jpg&ehk=yulfpi8iWb5BOndkHjfFDK7IqS2D7dNbLSJq24%2fubYo%3d&risl=&pid=ImgRaw&r=0">
+        </div>
+      
+      <ion-card-content>
+        <p>LCV</p> 
+        <p>1-6 Tonns</p>
+      </ion-card-content>
+    </ion-card>
+  </ion-slide>
+</ion-slides>
+<h4>Learn about</h4>
+<div class="about">
+  <div class="aboutimage">
+
+  </div>
+  <div>How to use truck app</div>
+
+</div>
+</ion-content>

@@ -1,0 +1,74 @@
+<ion-header>
+  <ion-toolbar align="center">
+    <ion-title>Edit Your Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list lines="none" class="ion-margin">
+   
+    <!--<ion-list-header>WELCOME !</ion-list-header>
+    <h3>Sign Up Page</h3>-->
+    <form [formGroup]="updatedFormed" (ngSubmit)="saveDetails(userpost.value)" #userpost="ngForm">
+      <ion-label>Edit Your Person Details</ion-label>
+      <ion-item class="ion-margin">
+        <ion-input placeholder="Enter First Name" type="text" [(ngModel)]="detailsforEdit.firstName"   clearInput="true" formControlName="firstName"></ion-input>
+      </ion-item>
+      <ion-item class="ion-margin">
+        <ion-input placeholder="Enter Last Name" type="text" [(ngModel)]="detailsforEdit.lastName"  clearInput="true" formControlName="lastName" ></ion-input>
+      </ion-item>
+      <ion-item class="ion-margin">
+        <ion-input placeholder="Enter role" type="text" [(ngModel)]="detailsforEdit.role"  clearInput="true" formControlName="role"></ion-input>
+      </ion-item>
+      <ion-item class="ion-margin">
+        <ion-input placeholder="Enter mobileNo" type="text" [(ngModel)]="detailsforEdit.mobileNo"  clearInput="true" formControlName="mobileNo"></ion-input>
+      </ion-item>
+    
+      <ion-item class="ion-margin">
+        <ion-input placeholder="Enter companyName" type="text" [(ngModel)]="detailsforEdit.companyName"  clearInput="true" formControlName="companyName"></ion-input>
+      </ion-item>
+      
+
+    <ion-label>Edit Your Address Deatails</ion-label>
+      <ion-radio-group value="strawberries"   style="display: flex; margin-left:27px;" [(ngModel)]="detailsforEdit.addressType"  formControlName="addressType">
+        <ion-item style="margin-right: 5px;">
+          <ion-label>Home</ion-label>
+          <ion-radio slot="end" value="home" ></ion-radio>
+        </ion-item>
+    
+        <ion-item>
+          <ion-label>Office</ion-label>
+          <ion-radio slot="end" value="office" ></ion-radio>
+        </ion-item>
+    
+    
+      </ion-radio-group>
+
+    <ion-item class="ion-margin">
+      <ion-input placeholder="Enter DoorNo/Building No" type="text" [(ngModel)]="detailsforEdit.doorNo"   clearInput="true" formControlName="doorNo"></ion-input>
+    </ion-item>
+    <ion-item class="ion-margin">
+      <ion-input placeholder="Enter Street/Area" type="text" [(ngModel)]="detailsforEdit.areaName"   clearInput="true" formControlName="areaName"></ion-input>
+    </ion-item>
+    <ion-item class="ion-margin">
+      <ion-input placeholder="Enter LandMark" type="text" [(ngModel)]="detailsforEdit.landMark"  clearInput="true" formControlName="landMark"></ion-input>
+    </ion-item>
+    <ion-item class="ion-margin">
+      <ion-input placeholder="Enter City" type="text" [(ngModel)]="detailsforEdit.city"   clearInput="true" formControlName="city"></ion-input>
+    </ion-item>
+    <ion-item class="ion-margin">
+      <ion-input placeholder="Enter Pincode" type="text" [(ngModel)]="detailsforEdit.pincode"  clearInput="true" formControlName="pincode"></ion-input>
+    </ion-item>
+
+   
+    
+  
+      <ion-button shape="round" expand="full" strong="true" (click)="saveDetails(userpost.value)" >
+        Save
+        <!--<ion-icon name="log-in" slot="end"></ion-icon>-->
+      </ion-button>
+    
+    </form>
+  </ion-list>
+</ion-content>

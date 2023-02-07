@@ -1,0 +1,51 @@
+#bg {
+    height: 20%;
+    width: 200px;
+    background: url('https://img.freepik.com/free-vector/destination-concept-international-travel-journey-red-pointer-with-grey-world-map-inside_333792-53.jpg?w=900&t=st=1675265068~exp=1675265668~hmac=b0d0bcf2cff54e722f34ed8f7f5f3bb52d371220336477582e6ccb2a57167e9d') no-repeat center center/cover;
+    //border-radius: 0 0 45% 45%;
+    //margin-left: -21vw;
+   // position: relative;
+
+    display:block;
+    margin-left: auto;
+    margin-right: auto;
+
+    width: 50%;
+}
+/* ion-fab {
+
+    ion-icon {
+        font-size: 2.5rem;
+    }
+} */
+
+ion-list {
+    margin-top: 4vh;
+    ion-list-header {
+        font-weight: 1000;
+        font-size: 1.5rem;
+    }
+    ion-item {
+        border: 1px solid var(--ion-color-light);
+        border-radius: 20px;
+        -webkit-box-shadow: 0 6px 4px -4px var(--ion-color-medium);
+        -moz-box-shadow: 0 6px 4px -4px var(--ion-color-medium);
+        box-shadow: 0 6px 4px -4px var(--ion-color-medium);
+    }
+    p {
+        font-size: 0.8rem;
+        padding-left: 5vw;
+    }
+}
+
+h3 {
+    color: #4e5358;
+    font-weight: 600;
+display: flex;
+justify-content: center;
+  }
+  ion-button{
+    --background:#f58e26;
+    margin-top: 60px;
+    height: 40px;
+  }

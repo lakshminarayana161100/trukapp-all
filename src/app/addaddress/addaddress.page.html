@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar align="center">
+    <ion-title>Add Your Address</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div id="bg">
+
+  </div>
+  <ion-list lines="none" class="ion-margin">
+   
+    <!--<ion-list-header>WELCOME !</ion-list-header>
+    <h3>Sign Up Page</h3>-->
+    <form   #userPost="ngForm" [formGroup]="signupForm">
+      <ion-radio-group value="strawberries"  formControlName="addressType" style="display: flex; margin-left:27px;">
+        <ion-item style="margin-right: 5px;">
+          <ion-label>Home</ion-label>
+          <ion-radio slot="end" value="home"></ion-radio>
+        </ion-item>
+    
+        <ion-item>
+          <ion-label>Office</ion-label>
+          <ion-radio slot="end" value="office"></ion-radio>
+        </ion-item>
+    
+    
+      </ion-radio-group>
+
+    <ion-item class="ion-margin">
+      <ion-input placeholder="Enter DoorNo/Building No" type="text"  formControlName="doorNo" clearInput="true" ></ion-input>
+    </ion-item>
+    <ion-item class="ion-margin">
+      <ion-input placeholder="Enter Street/Area" type="text"  formControlName="areaName" clearInput="true" ></ion-input>
+    </ion-item>
+    <ion-item class="ion-margin">
+      <ion-input placeholder="Enter LandMark" type="text"  formControlName="landMark" clearInput="true" ></ion-input>
+    </ion-item>
+    <ion-item class="ion-margin">
+      <ion-input placeholder="Enter City" type="text"  formControlName="city" clearInput="true" ></ion-input>
+    </ion-item>
+    <ion-item class="ion-margin">
+      <ion-input placeholder="Enter Pincode" type="text"  formControlName="pincode" clearInput="true" ></ion-input>
+    </ion-item>
+    
+  
+      <ion-button shape="round" expand="full" strong="true" type="submit" [disabled]="userPost.invalid" (click)="Addaddress(userPost.value)" >
+        Save
+        <!--<ion-icon name="log-in" slot="end"></ion-icon>-->
+      </ion-button>
+    
+    </form>
+  </ion-list>
+</ion-content>

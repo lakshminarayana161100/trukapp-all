@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { AleartModalPage } from './aleart-modal.page';
+import { VrifyaadharotpPage } from './vrifyaadharotp.page';
 
-describe('AleartModalPage', () => {
-  let component: AleartModalPage;
-  let fixture: ComponentFixture<AleartModalPage>;
+describe('VrifyaadharotpPage', () => {
+  let component: VrifyaadharotpPage;
+  let fixture: ComponentFixture<VrifyaadharotpPage>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ AleartModalPage ],
+      declarations: [ VrifyaadharotpPage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(AleartModalPage);
+    fixture = TestBed.createComponent(VrifyaadharotpPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

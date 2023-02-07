@@ -155,6 +155,7 @@ export class VerifyotpPage implements OnInit {
           console.log(response);
           localStorage.setItem('user_data', JSON.stringify(response));
 if(this.verified.role === "Shipper"){
+
   this.ngZone.run(() => {
     this.router.navigate(['/tab/tab1'])
     localStorage.setItem('loginrole',JSON.stringify(this.verified.role))
@@ -175,10 +176,9 @@ localStorage.setItem('loginrole',JSON.stringify(this.verified.role))
         })
         .catch((error) => {
           console.log(error);
-          setTimeout(() => {
-            this.spin=false
+    localStorage.removeItem('regdata')
             alert(error.message);
-          }, 2000);
+  
           
           
            

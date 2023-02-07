@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { AleartModalPageRoutingModule } from './aleart-modal-routing.module';
+import { PageNotFoundPageRoutingModule } from './page-not-found-routing.module';
 
-import { AleartModalPage } from './aleart-modal.page';
+import { PageNotFoundPage } from './page-not-found.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    AleartModalPageRoutingModule
+    PageNotFoundPageRoutingModule
   ],
-  declarations: [AleartModalPage]
+  declarations: [PageNotFoundPage]
 })
-export class AleartModalPageModule {}
+export class PageNotFoundPageModule {}

@@ -1,0 +1,99 @@
+
+    span{
+        float:right;
+
+        margin-top: 22px;
+        border: 2px solid red;
+        color: red;
+        padding: 6px;
+        border-radius: 9px;
+        margin-right: 4px;
+    }
+
+
+.lower-box{
+    margin-bottom: 13px;
+    .wrapper{
+        max-width: 731px;
+        border: none;
+        display: flex;
+        overflow-x: auto;
+        margin-left: 10px;
+    }
+    .item{
+        min-width: 110px;
+        height: 90px;
+    
+        margin-right: 10px;
+        
+        
+
+
+        border: 1px solid orange;
+        border-radius: 20px;
+        -webkit-box-shadow: 0 6px 4px -4px var(--ion-color-medium);
+        -moz-box-shadow: 0 6px 4px -4px var(--ion-color-medium);
+        box-shadow: 0 6px 4px -4px var(--ion-color-medium);
+    }
+}
+.count{
+    position: relative;
+    margin-top: 23px;
+    margin-left: 40px;
+}
+h6{
+    padding-top:3px ;
+    padding-left: 7px;
+    margin-top: -3px;
+}
+
+ion-title {
+    font-weight: 600;
+}
+ion-slides{
+    ion-slide{
+        ion-card{
+            height: 140px;
+        }
+    }
+}
+
+/*ion-card {
+  
+    
+    img {
+        object-fit: cover;
+        width: 50%;
+        height: 100%;
+        transform: scale(1.1, 1.1) rotate(1deg);
+        transition: 600ms all ease-in-out;
+    }
+}*/
+
+/*.swiper-slide-active {
+    transform: scale(1.05, 1.05);
+
+    ion-card {
+        img {
+            transform: scale(1, 1);
+        }
+    }
+}
+
+.swiper-slide {
+    transition: 400ms all ease-in-out;
+}*/
+
+.about{
+    width: 200px;
+    height: 60px;
+    border-radius: 9px;
+    border: 2px solid green;
+    display: flex;
+}
+.aboutimage{
+    width: 100px;
+    height: 50px;
+    //border: 2px solid red;
+    margin-right: 14px;
+}

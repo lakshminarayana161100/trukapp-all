@@ -20,7 +20,8 @@ city:any
       FirstName:this.FirstName,
       LastName:this.LastName,
       ReferalCode:this.ReferalCode,
-      city:this.city
+      city:this.city,
+      companyName:null
     }
     localStorage.setItem('allDetails',JSON.stringify(individual))
 this.router.navigate(['signup'])

@@ -6,7 +6,7 @@ import  'firebase/auth';
 import 'firebase/compat/firestore';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
-import { AleartModalPage } from '../aleart-modal/aleart-modal.page';
+
 import { AlertController } from '@ionic/angular';
 import Swal from 'sweetalert2'
 @Component({
@@ -35,7 +35,7 @@ export class Tab3Page {
 
    options = {
     "key": "rzp_live_W93qXq63hhLhjQ",
-    "amount": "50000",
+    "amount": 100,
     "currency": "INR",
     "name": "Acme Corp",
     "description": "Test Transaction",

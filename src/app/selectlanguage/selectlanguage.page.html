@@ -7,6 +7,11 @@
 </ion-header>
 
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="autorefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" refreshingSpinner="circles" refreshingText="Refreshing..">
+
+    </ion-refresher-content>
+  </ion-refresher>
 <div class="row">
 
 <!--<ion-card color="light"  [class.color1]="isSelected === 'color1'" (click)="setColor1('color1')">

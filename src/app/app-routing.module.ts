@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -9,7 +10,8 @@ const routes: Routes = [
   },
   {
     path: 'tab',
-    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule),
+    //canActivate: [AuthGuard]
   },
   {
     path: 'signup',
@@ -40,10 +42,7 @@ const routes: Routes = [
     path: 'loadingscreen',
     loadChildren: () => import('./loadingscreen/loadingscreen.module').then( m => m.LoadingscreenPageModule)
   },
-  {
-    path: 'aleart-modal',
-    loadChildren: () => import('./aleart-modal/aleart-modal.module').then( m => m.AleartModalPageModule)
-  },
+
   {
     path: 'attach-new-load',
     loadChildren: () => import('./attach-new-load/attach-new-load.module').then( m => m.AttachNewLoadPageModule)
@@ -51,6 +50,34 @@ const routes: Routes = [
   {
     path: 'tab4',
     loadChildren: () => import('./tab4/tab4.module').then( m => m.Tab4PageModule)
+  },
+  {
+    path: 'page-not-found',
+    loadChildren: () => import('./page-not-found/page-not-found.module').then( m => m.PageNotFoundPageModule)
+  },
+  {
+    path: 'profile',
+    loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
+  },
+  {
+    path: 'addaddress',
+    loadChildren: () => import('./addaddress/addaddress.module').then( m => m.AddaddressPageModule)
+  },
+  {
+    path: 'editalldetails',
+    loadChildren: () => import('./editalldetails/editalldetails.module').then( m => m.EditalldetailsPageModule)
+  },
+  {
+    path: 'vrifyaadharotp',
+    loadChildren: () => import('./verifyaadharotp/vrifyaadharotp.module').then( m => m.VrifyaadharotpPageModule)
+  },
+  {
+    path: 'verifygstotp',
+    loadChildren: () => import('./verifygstotp/verifygstotp.module').then( m => m.VerifygstotpPageModule)
+  },
+  {
+    path: 'shipperhome',
+    loadChildren: () => import('./shipperhome/shipperhome.module').then( m => m.ShipperhomePageModule)
   },
 
 

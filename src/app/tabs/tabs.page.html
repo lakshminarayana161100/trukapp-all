@@ -1,33 +1,41 @@
 <ion-tabs>
 
-  <ion-tab-bar slot="bottom">
-    <ion-tab-button tab="tab1">
+  <ion-tab-bar slot="bottom" >
+    <ion-tab-button tab="tab1" [hidden]="loads ||fleet">
       <ion-icon name="logo-dropbox"></ion-icon>
-      <ion-label>Tab 1</ion-label>
+      <ion-label>My Loads</ion-label>
       <ion-router-outlet name="logo-dropbox"></ion-router-outlet>
     </ion-tab-button>
 
-    <ion-tab-button tab="tab2">
+    <ion-tab-button tab="tab2" [hidden]="boss ||trucks" >
       <ion-icon name="home"></ion-icon>
-      <ion-label>Tab 2</ion-label>
+      <ion-label>Load Market</ion-label>
       <ion-router-outlet name="home"></ion-router-outlet>
     </ion-tab-button>
     
     <ion-tab-button tab="shipperhome">
       <ion-icon name="home"></ion-icon>
-      <ion-label>shipperhome</ion-label>
+      <ion-label>home</ion-label>
       <ion-router-outlet name="shipperhome"></ion-router-outlet>
     </ion-tab-button>
 
-    <ion-tab-button tab="tab3">
+    <ion-tab-button tab="tab3" [hidden]="boss ||trasporter ||fleet">
       <ion-icon name="square"></ion-icon>
       <ion-label>Tab 3</ion-label>
       <ion-router-outlet name="square"></ion-router-outlet>
     </ion-tab-button>
 
-    <ion-tab-button tab="tab4"   [hidden]="boss">
+    
+    <ion-tab-button tab="mytrucks" [hidden]="boss || trucks">
       <ion-icon name="square"></ion-icon>
-      <ion-label>Tab 4</ion-label>
+      <ion-label>mytruks</ion-label>
+      
+    </ion-tab-button>
+
+    <ion-tab-button tab="tab4"  [hidden]="loads ||fleet" >
+      <ion-icon name="car"></ion-icon>
+      
+      <ion-label>Truck Market</ion-label>
     </ion-tab-button>
 
   </ion-tab-bar>

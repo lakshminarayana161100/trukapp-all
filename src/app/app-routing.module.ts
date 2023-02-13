@@ -79,6 +79,57 @@ const routes: Routes = [
     path: 'shipperhome',
     loadChildren: () => import('./shipperhome/shipperhome.module').then( m => m.ShipperhomePageModule)
   },
+  {
+    path: 'view-bid',
+    loadChildren: () => import('./view-bid/view-bid.module').then( m => m.ViewBidPageModule)
+  },
+  {
+    path: 'place-bid',
+    loadChildren: () => import('./place-bid/place-bid.module').then( m => m.PlaceBidPageModule)
+  },
+  {
+    path: 'edit-page',
+    loadChildren: () => import('./edit-page/edit-page.module').then( m => m.EditPagePageModule)
+  },
+  {
+    path: 'load-details',
+    loadChildren: () => import('./load-details/load-details.module').then( m => m.LoadDetailsPageModule)
+  },
+  {
+    path: 'mytrucks',
+    loadChildren: () => import('./mytrucks/mytrucks.module').then( m => m.MytrucksPageModule)
+  },
+  {
+    path: 'truk-edit-page',
+    loadChildren: () => import('./truk-edit-page/truk-edit-page.module').then( m => m.TrukEditPagePageModule)
+  },
+  {
+    path: 'your-truck-posted',
+    loadChildren: () => import('./your-truck-posted/your-truck-posted.module').then( m => m.YourTruckPostedPageModule)
+  },
+  {
+    path: 'add-truck',
+    loadChildren: () => import('./add-truck/add-truck.module').then( m => m.AddTruckPageModule)
+  },
+  {
+    path: 'add-new-truck',
+    loadChildren: () => import('./add-new-truck/add-new-truck.module').then( m => m.AddNewTruckPageModule)
+  },
+  {
+    path: 'add-new-truck-details',
+    loadChildren: () => import('./add-new-truck-details/add-new-truck-details.module').then( m => m.AddNewTruckDetailsPageModule)
+  },
+  {
+    path: 'lookingfor',
+    loadChildren: () => import('./lookingfor/lookingfor.module').then( m => m.LookingforPageModule)
+  },
+  {
+    path: 'attach-load',
+    loadChildren: () => import('./attach-load/attach-load.module').then( m => m.AttachLoadPageModule)
+  },
+  
+
+
 
 
 

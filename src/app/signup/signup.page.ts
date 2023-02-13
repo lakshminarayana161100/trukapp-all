@@ -21,10 +21,10 @@ console.log(this.allDetails)
 
    this.signupForm= new FormGroup ({
     
-    'firstName': new FormControl('', [Validators.required]),
-    'lastName': new FormControl('', [Validators.required]),
+    'userNumber': new FormControl('', [Validators.required]),
+    //'lastName': new FormControl('', [Validators.required]),
  
-    'mobileNo': new FormControl('', [Validators.required, ]),
+    mobileNo: new FormControl( Number, [Validators.required, ]),
   });
   }
 
@@ -34,8 +34,9 @@ console.log(this.allDetails)
 console.log(data)
 
 const final ={
-  firstName:data.firstName,
-  lastName:data.lastName,
+  userNumber:data.userNumber,
+  firstName:this.allDetails.firstName,
+  lastName:this.allDetails.lastName,
   mobileNo:data.mobileNo,
   city:this.allDetails.city,
   companyName:this.allDetails.companyName,

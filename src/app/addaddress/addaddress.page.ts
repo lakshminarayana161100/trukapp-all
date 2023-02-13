@@ -28,7 +28,7 @@ export class AddaddressPage implements OnInit {
 Addaddress(data:any){
   console.log(data)
   console.log(this.logindata)
-  fetch("http://localhost:3000/TruckAppUsers/putprofile/" +this.logindata.Authentication, {
+  fetch("https://amused-crow-cowboy-hat.cyclic.app/TruckAppUsers/putprofile/" +this.logindata.Authentication, {
       
   method:'put',
   headers:{

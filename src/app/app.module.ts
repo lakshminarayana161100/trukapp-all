@@ -10,21 +10,31 @@ import { ReactiveFormsModule } from '@angular/forms';
 //import { HasRoleDirective } from './directives/has-role.directive';
 //import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 import {Ng2SearchPipeModule} from 'ng2-search-filter';
-import {ImagePicker} from '@awesome-cordova-plugins/image-picker/ngx';
+
 import { Camera } from '@awesome-cordova-plugins/camera/ngx';
 import {File} from'@awesome-cordova-plugins/file/ngx';
 import {Crop} from '@ionic-native/crop/ngx'
 import { HttpClient } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
+
+import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
+
+import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
+//import { OneSignal } from '@ionic-native/onesignal';
 @NgModule({
   declarations: [AppComponent, 
    // HasRoleDirective
   ],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,Ng2SearchPipeModule,],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,Ng2SearchPipeModule,HttpClientModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },FormsModule,CommonModule,ReactiveFormsModule,HttpClient,
+  
   File,
   Camera,
-  ImagePicker,
-  Crop
+  UniqueDeviceID,
+  
+  AndroidPermissions,
+  Crop,
+  
   ],
   bootstrap: [AppComponent],
 })

@@ -1,16 +1,161 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>tab4</ion-title>
+    <ion-title>TrukMarket</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-<ion-button (click)="verify()" >verify</ion-button>
+  <ion-card>
+    <ion-card-header>
+      <ion-list>
+        <ion-item>
+          <ion-label position="floating">Enter Pick up Location</ion-label>
+          <ion-icon name="location-outline" slot="start" color="primary"></ion-icon>
+           <ion-input > 
+            <ion-select interface="popover" [(ngModel)]="pickupLocation">
+            <ion-select-option >Amaravati</ion-select-option>
+           <ion-select-option>Itanagar</ion-select-option>
+           <ion-select-option>Dispur</ion-select-option>
+           <ion-select-option>Patna</ion-select-option>
+           <ion-select-option>Raipur</ion-select-option>
+           <ion-select-option>Panaji</ion-select-option>
+           <ion-select-option>Gandhinagar</ion-select-option>
+           <ion-select-option>Chandigarh</ion-select-option>
+           <ion-select-option>Shimla</ion-select-option>
+           <ion-select-option>Ranchi</ion-select-option>
+           <ion-select-option>Bengaluru</ion-select-option>
+           <ion-select-option>Thiruvananthapuram</ion-select-option>
+           <ion-select-option>Bhopal</ion-select-option>
+           <ion-select-option>mumbai</ion-select-option>
+           <ion-select-option>Imphal</ion-select-option>
+           <ion-select-option>Shillong</ion-select-option>
+           <ion-select-option>Aizawl</ion-select-option>
+           <ion-select-option>Kohima</ion-select-option>
+           <ion-select-option>Bhubaneswar</ion-select-option>
+           <ion-select-option>Chandigarh</ion-select-option>
+           <ion-select-option>Jaipur</ion-select-option>
+           <ion-select-option>Gangtok</ion-select-option>
+           <ion-select-option>Chennai</ion-select-option>
+           <ion-select-option>Hyderabad</ion-select-option>
+           <ion-select-option>Agartala</ion-select-option>
+           <ion-select-option>Lucknow</ion-select-option>
+           <ion-select-option>Kolkata</ion-select-option>
+           <ion-select-option>delhi</ion-select-option>
+          </ion-select>
+        </ion-input> 
+          <ion-icon name="search-outline" slot="end"></ion-icon>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Enter Drop Loaction</ion-label>
+          <ion-icon name="location-outline" slot="start" color="danger"></ion-icon>
+          <ion-input >
+             <ion-select interface="popover" [(ngModel)]="dropLocation">
+              <ion-select-option >Amaravati</ion-select-option>
+             <ion-select-option>Itanagar</ion-select-option>
+             <ion-select-option>Dispur</ion-select-option>
+             <ion-select-option>Patna</ion-select-option>
+             <ion-select-option>Raipur</ion-select-option>
+             <ion-select-option>Panaji</ion-select-option>
+             <ion-select-option>Gandhinagar</ion-select-option>
+             <ion-select-option>Chandigarh</ion-select-option>
+             <ion-select-option>Shimla</ion-select-option>
+             <ion-select-option>Ranchi</ion-select-option>
+             <ion-select-option>Bengaluru</ion-select-option>
+             <ion-select-option>Thiruvananthapuram</ion-select-option>
+             <ion-select-option>Bhopal</ion-select-option>
+             <ion-select-option>mumbai</ion-select-option>
+             <ion-select-option>Imphal</ion-select-option>
+             <ion-select-option>Shillong</ion-select-option>
+             <ion-select-option>Aizawl</ion-select-option>
+             <ion-select-option>Kohima</ion-select-option>
+             <ion-select-option>Bhubaneswar</ion-select-option>
+             <ion-select-option>Chandigarh</ion-select-option>
+             <ion-select-option>Jaipur</ion-select-option>
+             <ion-select-option>Gangtok</ion-select-option>
+             <ion-select-option>Chennai</ion-select-option>
+             <ion-select-option>Hyderabad</ion-select-option>
+             <ion-select-option>Agartala</ion-select-option>
+             <ion-select-option>Lucknow</ion-select-option>
+             <ion-select-option>Kolkata</ion-select-option>
+             <ion-select-option>delhi</ion-select-option>
+            </ion-select> 
+          </ion-input>
+          <ion-icon name="search-outline" slot="end"></ion-icon>
+        </ion-item>
+        <ion-button fill="solid" shape="round" class="search" style="float: inline-end;" (click)="get()">Search</ion-button>
+      </ion-list>
+    </ion-card-header>
+  </ion-card>
+
+  <h3 class="container">Select Vechile Type For Your load</h3>
+
+  <div class="container">
+    <ion-segment [scrollable]="true"  >
+      <ion-segment-button >
+
+        <ion-label>Filter</ion-label>
+        <p><ion-icon name="filter"></ion-icon></p>
+        
+      </ion-segment-button>
+      <ion-segment-button (click)="toggle('LCV')" >
+        <ion-label>LCV</ion-label>
+        <p>1-8 Tonne</p>
+      </ion-segment-button>
+
+      <ion-segment-button (click)="toggle('Open Truck')">
+        <ion-label>Truk</ion-label>
+        <p>1-42Tonne</p>
+      </ion-segment-button>
+      <ion-segment-button (click)="toggle('Hyva')" >
+        <ion-label>Hyva</ion-label>
+        <p>1-35 Tonne</p>
+      </ion-segment-button>
+      <ion-segment-button (click)="toggle('Container')" >
+        <ion-label>container</ion-label>
+        <p>1-18 Tonne</p>
+      </ion-segment-button>
+      <ion-segment-button (click)="toggle('Trailer')" >
+        <ion-label>Trailer</ion-label>
+        <p>1-100 Tonne</p>
+      </ion-segment-button>
+      <ion-segment-button (click)="toggle('Tanker')" >
+        <ion-label>Tanker</ion-label>
+        <p>1-35 Tonne</p>
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  
 
 
 
-<ng-otp-input #ngOtpInput (onInputChange)="onOtpChange($event)" [config]="config"></ng-otp-input>
+  <ion-card *ngFor="let text of item">
+    <div style="float: left; margin-left: 1rem;">
+      <img src="https://vamosys.com/wp-content/uploads/2021/05/top-6-lcv-vehicles-tata-ace-gold-petrol.png" width="25%"
+        height="25%">
+      <h4> {{text.capacity}}Tons {{text.data}}</h4>
+    </div>
+
+    <div style="float: right; margin-top: -5rem;">
+      <p>Current Location<b>{{text.currentLocation}}</b></p>
+      <p>Routes <u>{{text.operatingRoutes.length}} Location</u> <ion-icon name="location-outline"
+          color="danger"></ion-icon></p>
+      <h3>Placeholder For Badges</h3>
+    </div>
+    <ion-chip>
+      <ion-avatar>
+        <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+      </ion-avatar>
+      <ion-label>Transpoter</ion-label>
+    </ion-chip>
+
+    <div style="text-align: center">
+      ...............................................................................................</div>
+    <ion-button style="float: right; margin-bottom: 12px;" shape="round" class="attach" id="open-modal" routerLink="/attach-load">Attach Load</ion-button>
+    
+  </ion-card>
 
 
-<ion-button style="height:50px;"  (click)="handleClick()" >Verify OTP</ion-button>
+ 
+
 </ion-content>

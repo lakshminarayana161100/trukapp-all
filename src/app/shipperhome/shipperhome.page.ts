@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IonSlides } from '@ionic/angular';
+import { reload } from 'firebase/auth';
 @Component({
   selector: 'app-shipperhome',
   templateUrl: './shipperhome.page.html',
@@ -8,6 +9,8 @@ import { IonSlides } from '@ionic/angular';
 export class ShipperhomePage implements OnInit {
   bannerImages:any
   slide:any
+  adsarray:any=[]
+  logindata:any
    // variables
     slideOpt = {
     slidesPerView: 3
@@ -43,13 +46,14 @@ option = {
   constructor() { }
 
   ngOnInit() {
-
+    this.logindata=  JSON.parse(localStorage.getItem('regdata')|| '{}')
+    console.log(this.logindata)
     /*this.http.get('http://localhost:3000/images').subscribe(images => {
       console.log(images)
       this.bannerImages = images;
     });*/
 
-    fetch("http://localhost:3000/images",{
+    fetch("http://localhost:3000/truckinfo/gethome",{
       //fetch("https://api.emptra.com/aadhaarVerification/requestOtp", {
         
         method:'get',
@@ -63,11 +67,22 @@ option = {
         .then(
           async result =>{
             this.slide=result
+          
        console.log(result)
+       for(let i=0;i<result.data.length;i++){
+        this.adsarray=result.data[i]
+        console.log(this.adsarray)
+       }
+      
           })
         
   }
+  looking(data:any){
+    console.log(data)
+    localStorage.setItem('lookingfor',JSON.stringify(data))
+    
 
+  }
 
   /*bannerImages = [
     {

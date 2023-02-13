@@ -3,7 +3,7 @@ import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import{ActionSheetController, ModalController,PopoverController}from '@ionic/angular'
 import { Router, NavigationExtras } from '@angular/router';
 import { Camera, CameraOptions } from '@awesome-cordova-plugins/camera/ngx';
-import { ImagePicker, ImagePickerOptions } from '@awesome-cordova-plugins/image-picker/ngx';
+
 import { Crop } from '@ionic-native/crop/ngx';
 import { DomSanitizer } from '@angular/platform-browser';
 import { File } from '@awesome-cordova-plugins/file/ngx';
@@ -27,12 +27,12 @@ otp:any
  passdata:any
 
 
- imageurl: any;
+ 
  securepath: any = window;
  url: any;
   
   constructor(private modal:ModalController,private router: Router,private actionsheet:ActionSheetController,
-   private camera:Camera,private file:File, private imagepicker:ImagePicker ,private crop:Crop,private domsanitize: DomSanitizer
+   private camera:Camera,private file:File,private crop:Crop,private domsanitize: DomSanitizer
     ) { }
   config = {
     allowNumbersOnly: true,
@@ -48,45 +48,46 @@ otp:any
   ngOnInit() {
 
   this.logindata=  JSON.parse(localStorage.getItem('regdata')|| '{}')
-  console.log(this.logindata._id)
+  console.log(this.logindata)
+  console.log(this.logindata.Authentication)
   this.hide()
   this.getaddressdetails()
     this.dropdownList = [
-      { item_id: 1, item_text: 'Andaman and Nicobar Islands' },
-      { item_id: 2, item_text: 'Andhra Pradesh' },
-      { item_id: 3, item_text: 'Arunachal Pradesh' },
-      { item_id: 4, item_text: 'Assam' },
-      { item_id: 5, item_text: 'Bihar' },
-      { item_id: 6, item_text: 'Chandigarh' },
-      { item_id: 7, item_text: 'Chhattisgarh' },
-      { item_id: 8, item_text: 'Dadra Nagar Haveli and Daman Diu' },
-      { item_id: 9, item_text: 'Goa' },
-      { item_id: 10, item_text: 'Gujarat' },
-      { item_id: 11, item_text: 'Haryana' },
-      { item_id: 12, item_text: 'Himachal Pradesh' },
-      { item_id: 13, item_text: 'Jammu and Kashmir' },
-      { item_id: 14, item_text: 'Jharkhand' },
-      { item_id: 15, item_text: 'Karnataka' },
-      { item_id: 16, item_text: 'Kerala' },
-      { item_id: 17, item_text: 'Lakshadweep' },
-      { item_id: 18, item_text: 'Ladakh' },
-      { item_id: 19, item_text: 'Madhya Pradesh' },
-      { item_id: 20, item_text: 'Maharashtra' },
-      { item_id: 21, item_text: 'Manipur' },
-      { item_id: 22, item_text: 'Meghalaya' },
-      { item_id: 23, item_text: 'Mizoram' },
-      { item_id: 24, item_text: 'Nagaland' },
-      { item_id: 25, item_text: 'National Capital Territory (Delhi)' },
-      { item_id: 26, item_text: 'Odisha' },
-      { item_id: 27, item_text: 'Puducherry' },
-      { item_id: 28, item_text: 'Punjab' },
-      { item_id: 29, item_text: 'Rajasthan' },
-      { item_id: 30, item_text: 'Tamil Nadu' },
-      { item_id: 31, item_text: 'Telangana' },
-      { item_id: 32, item_text: 'Tripura' },
-      { item_id: 33, item_text: 'Uttar Pradesh' },
-      { item_id: 34, item_text: 'Uttarakhand' },
-      { item_id: 35, item_text: 'West Bengal' },
+      'Andaman and Nicobar Islands' ,
+      'Andhra Pradesh' ,
+       'Arunachal Pradesh' ,
+     'Assam' ,
+    'Bihar' ,
+       'Chandigarh' ,
+       'Chhattisgarh' ,
+     'Dadra Nagar Haveli and Daman Diu' ,
+       'Goa' ,
+     'Gujarat' ,
+       'Haryana' ,
+        'Himachal Pradesh' ,
+        'Jammu and Kashmir' ,
+     'Jharkhand' ,
+        'Karnataka' ,
+        'Kerala' ,
+        'Lakshadweep' ,
+        'Ladakh' ,
+        'Madhya Pradesh' ,
+        'Maharashtra' ,
+        'Manipur' ,
+        'Meghalaya' ,
+        'Mizoram' ,
+        'Nagaland' ,
+        'National Capital Territory (Delhi)' ,
+        'Odisha' ,
+        'Puducherry' ,
+        'Punjab' ,
+        'Rajasthan' ,
+        'Tamil Nadu' ,
+       'Telangana' ,
+        'Tripura' ,
+        'Uttar Pradesh' ,
+        'Uttarakhand' ,
+        'West Bengal' ,
     
     ];
     this.selectedItems = [
@@ -96,7 +97,7 @@ otp:any
     this.dropdownSettings = {
       singleSelection: false,
       idField: 'item_id',
-      textField: 'item_text',
+      textField: '',
       selectAllText: 'Select All',
       unSelectAllText: 'UnSelect All',
       itemsShowLimit: 3,
@@ -119,71 +120,10 @@ otp:any
     localStorage.setItem('detailsforEdit',JSON.stringify(this.passdata))
     this.router.navigate(['editalldetails'])
   }
-  chooseFromCamera(sourceType:any){
-    const options: CameraOptions = {
-       quality: 100,
-       mediaType: this.camera.MediaType.PICTURE,
-       destinationType: this.camera.DestinationType.FILE_URI,
-       encodingType: this.camera.EncodingType.JPEG,
-       sourceType: sourceType,
-    };
+ 
 
-    this.camera.getPicture(options).then((result:any) => {
-      console.log('Camera URL',result);
-      // this.imageurl = result;
-      this.imageurl = this.securepath.Ionic.WebView.convertFileSrc(result);
-    }, error=>{
-      console.log('Error CAMERA', error);
-    });
-  }
-
-  santizeUrl(imageUrl:any){
-    return this.domsanitize.bypassSecurityTrustUrl(imageUrl);
-  }
-
-  pickImagesFromLibrary(){
-    const options: ImagePickerOptions = {
-      quality: 100,
-      maximumImagesCount: 1,
-    };
-    this.imagepicker.getPictures(options).then((imageresult)=> {
-    console.log('image Picker Results', imageresult);
-
-     for(let i=0; i<imageresult.length; i++){
-      this.url = this.securepath.Ionic.WebView.convertFileSrc(imageresult[i]);
-     }
-    }, (error: any)=>{
-      console.log('Image Picker Error:', error);
-    });
-  }
-
-  async choosePhotos(){
-    const actionsheet = await this.actionsheet.create({
-      header: 'Select image Source',
-      buttons: [
-        {
-          text: 'Load from Gallery',
-          handler: ()=>{
-            this.pickImagesFromLibrary();
-            console.log('Image Selected from Gallery');
-          }
-        },
-        {
-          text: 'Select Camera',
-          handler: ()=>{
-            this.chooseFromCamera(this.camera.PictureSourceType.CAMERA);
-            console.log('Camera Selected');
-          }
-        },
-        {
-          text: 'Cancel',
-          role: 'cancel'
-        }
-      ]
-     });
-     await actionsheet.present();
-   }
-
+ 
+ 
   
 
   onItemSelect(item: any) {
@@ -219,7 +159,7 @@ otp:any
           .then(
             async result =>{
          console.log(result)
-         var sai =result
+      
             console.log(result.result.data.client_id)
            localStorage.setItem("client_id",JSON.stringify(result.result.data.client_id))
 
@@ -300,7 +240,7 @@ otp:any
 
 
   getaddressdetails(){
-    fetch("http://localhost:3000/TruckAppUsers/getprofiledetails/" + this.logindata._id, {
+    fetch("https://amused-crow-cowboy-hat.cyclic.app/TruckAppUsers/getprofiledetails/" + this.logindata.Authentication, {
       
       method:'get',
       headers:{
@@ -317,10 +257,14 @@ otp:any
          this.addressdetail = result.data
      
 
-         for(let i=0;i<this.addressdetail.length;i++)
+         for(let i=0;i<this.addressdetail.length;i++){
          this.routes=this.addressdetail[i]
-         this.passdata =this.routes
          console.log(this.routes)
+         this.passdata =this.routes//store pbject into localstorage
+
+         console.log(this.passdata.routes)
+         }
+     
         }
         ).catch(
             error =>{
@@ -334,12 +278,13 @@ otp:any
 
   //addroutes
   addroutes(){
+    console.log(this.selectedItems)
     var data ={
       routes:this.selectedItems
     
     }
     console.log(data)
-    fetch("http://localhost:3000/TruckAppUsers/putprofile/" +this.logindata._id, {
+    fetch("https://amused-crow-cowboy-hat.cyclic.app/TruckAppUsers/putroutes/" +this.logindata.Authentication, {
       
     method:'put',
     headers:{
@@ -362,10 +307,7 @@ otp:any
             alert('unable to add routes');
            console.log(error)
           });
-          // localStorage.removeItem('selectType');
-           //localStorage.removeItem('language');
-          // localStorage.removeItem('allDetails');
-           //localStorage.removeItem('mobileNo');
+     
   
   }
     

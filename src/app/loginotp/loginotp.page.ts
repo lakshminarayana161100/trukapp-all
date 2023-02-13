@@ -4,8 +4,16 @@ import  firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import  'firebase/auth';
 import 'firebase/compat/firestore';
+//import 'firebase/compat/database.'
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { DeviceDetectorService, DeviceInfo } from 'ngx-device-detector';
+
+import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
+
+import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
+
+
 var config = {
   apiKey: "AIzaSyDM4C1YRZ14Lx_8NzbDnChklv9VInrgUmw",
   authDomain: "otplogin-c4da2.firebaseapp.com",
@@ -22,19 +30,78 @@ var config = {
 })
 export class LoginotpPage implements OnInit {
 regData:any
-  phoneNumber: any;
+  phoneNumber!: number;
   reCaptchaVerifier!: any;
   regNumber:any
   num!:Number
   spin!: boolean;
-  constructor(private router: Router, private ngZone: NgZone,public loadingCtrl:LoadingController,public toastCtrl:ToastController,private alert:AlertController) {}
+  
+  deviceInfo!:DeviceInfo;
+
+  UniqueDeviceID!:string;
+  constructor(private router: Router,
+    private uniqueDeviceID: UniqueDeviceID,
+  
+    private androidPermissions: AndroidPermissions,
+
+     private ngZone: NgZone,public loadingCtrl:LoadingController,public toastCtrl:ToastController,private alert:AlertController,private deviceDetectorService: DeviceDetectorService ) {
+
+      
+     }
 
 
   ngOnInit() {
     firebase.initializeApp(config);
-
+    this.deviceInfo = this.deviceDetectorService.getDeviceInfo();
+    
+    console.log(this.deviceInfo)
+ //const firbase = firebase.messaging().getToken()
+ //console.log(firbase)
+    //firebaseMessaging.instance.getToken().then((value: any) =>{
+     // console.log(value)
+   // })
+   //var uuid = new DeviceUUID().get();
+   this.getPermission();
+   this.getUniqueDeviceID();
 
   }
+  
+  
+  getUniqueDeviceID() {
+    this.uniqueDeviceID.get()
+      .then((uuid: any) => {
+        console.log(uuid);
+        this.UniqueDeviceID = uuid;
+
+        alert(this.UniqueDeviceID)
+      })
+      .catch((error: any) => {
+        console.log(error);
+        this.UniqueDeviceID = "Error! ${error}";
+      });
+  }
+
+
+
+
+  getPermission(){
+    this.androidPermissions.checkPermission(
+      this.androidPermissions.PERMISSION.READ_PHONE_STATE
+    ).then(res => {
+      if(res.hasPermission){
+        
+      }else{
+        this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.READ_PHONE_STATE).then(res => {
+          alert("Persmission Granted Please Restart App!");
+        }).catch(error => {
+          alert("Error! "+error);
+        });
+      }
+    }).catch(error => {
+      alert("Error! "+error);
+    });
+  }
+  
 
 
   async presentToast(message: any,color: any){
@@ -53,7 +120,7 @@ getOTP(){
     mobileNo:this.phoneNumber
   }
   //fetch("https://amused-crow-cowboy-hat.cyclic.app/TruckAppUsers/getRegisterData", {
-    fetch("http://localhost:3000/login/loginDetails", {
+    fetch("https://amused-crow-cowboy-hat.cyclic.app/login/loginDetails", {
     method:'post',
     headers:{
               "Access-Control-Allow-Origin": "*",
@@ -73,7 +140,7 @@ console.log(this.phoneNumber)
  this.regNumber = this.regData.find((t: { mobileNo: any; })=>t.mobileNo == this.phoneNumber);
 console.log(this.regNumber)*/
 localStorage.setItem('regdata',JSON.stringify(result))
-if(result.mobileNo == this.phoneNumber){
+if(result.mobileNo === this.phoneNumber){
 
   this.reCaptchaVerifier = new firebase.auth.RecaptchaVerifier(
     'sign-in-button',
@@ -86,7 +153,7 @@ if(result.mobileNo == this.phoneNumber){
   console.log(this.phoneNumber);
   firebase
     .auth()
-    .signInWithPhoneNumber(this.phoneNumber, this.reCaptchaVerifier)
+    .signInWithPhoneNumber( '+91' + this.phoneNumber, this.reCaptchaVerifier)
     .then((confirmationResult:any) => {
       localStorage.setItem(
         'verificationId',

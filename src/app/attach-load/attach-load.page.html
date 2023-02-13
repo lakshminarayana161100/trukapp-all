@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar>
+    <div style="display: flex;">
+      <ion-icon name="arrow-back-sharp"  router-direction="forward"
+        style="font-size: 30px;"></ion-icon>
+      <ion-title>Loads</ion-title>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<!-- <ion-content>
+  <ion-card *ngFor="let card of item">
+    <input type="radio" name="payment" id="card" (change)="out('Tanker')">
+    <label for="card" class="label">
+      <ion-card-header>
+        <ion-card-title>{{card.OriginLocation}}--{{card.DestinationLocation}}</ion-card-title>
+        <ion-card-subtitle>Posted on {{card.date}}|Exprire in 24hrs</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        {{card.product}}
+        <br>
+        <h1>{{card.data}} --{{card.Quantity}}</h1>
+      </ion-card-content>
+      <ion-content>
+        ₹{{card.expectedPrice}}
+      </ion-content>
+    </label>
+  </ion-card>
+</ion-content> -->
+
+<ion-content>
+  <ion-list>
+    <ion-radio-group >
+      <ion-item *ngFor="let card of item">
+        <ion-radio slot="start" (click)="sendData(card)"></ion-radio>
+        <ion-label>
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>{{card.OriginLocation}}--{{card.DestinationLocation}}</ion-card-title>
+              <ion-card-subtitle>Posted on {{card.date}}|Exprire in 24hrs</ion-card-subtitle>
+            </ion-card-header>
+
+            <ion-card-content>
+              {{card.product}}
+              <br>
+              <h1>{{card.data}} --{{card.Quantity}}</h1>
+            </ion-card-content>
+            <ion-content>
+              ₹{{card.expectedPrice}}
+            </ion-content>
+          </ion-card>
+        </ion-label>
+
+      </ion-item>
+    </ion-radio-group>
+  </ion-list>
+</ion-content>

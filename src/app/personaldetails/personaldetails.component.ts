@@ -7,8 +7,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./personaldetails.component.scss'],
 })
 export class PersonaldetailsComponent implements OnInit {
-FirstName:any
-LastName:any
+firstName:any
+lastName:any
 ReferalCode:any
 city:any
   constructor(private router:Router) { }
@@ -17,8 +17,8 @@ city:any
 
   RegisterFor(){
     const individual={
-      FirstName:this.FirstName,
-      LastName:this.LastName,
+      firstName:this.firstName,
+      lastName:this.lastName,
       ReferalCode:this.ReferalCode,
       city:this.city,
       companyName:null

@@ -2,10 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
+
+//import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { IonicModule } from '@ionic/angular';
-
 import { Tab4PageRoutingModule } from './tab4-routing.module';
-
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { Tab4Page } from './tab4.page';
 import {NgOtpInputModule} from 'ng-otp-input';
 @NgModule({
@@ -14,7 +15,9 @@ import {NgOtpInputModule} from 'ng-otp-input';
     FormsModule,
     IonicModule,
     Tab4PageRoutingModule,
-    NgOtpInputModule
+    NgOtpInputModule,
+    NgMultiSelectDropDownModule.forRoot()
+    //MatButtonToggleModule
   ],
   declarations: [Tab4Page]
 })

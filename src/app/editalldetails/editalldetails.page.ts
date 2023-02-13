@@ -59,7 +59,7 @@ export class EditalldetailsPage implements OnInit {
   saveDetails(data:any){
    
     console.log(data)
-    fetch("http://localhost:3000/TruckAppUsers/updateprofile/" +this.detailsforEdit._id, {
+    fetch("https://amused-crow-cowboy-hat.cyclic.app/TruckAppUsers/updateprofile/" +this.detailsforEdit._id, {
       
     method:'put',
     headers:{

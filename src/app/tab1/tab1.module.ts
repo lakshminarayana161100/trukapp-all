@@ -6,8 +6,6 @@ import { Tab1Page } from './tab1.page';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 
 import { Tab1PageRoutingModule } from './tab1-routing.module';
-import { MybidsComponent } from '../mybids/mybids.component';
-import { LoadlistingComponent } from '../loadlisting/loadlisting.component';
 @NgModule({
   imports: [
     IonicModule,
@@ -16,6 +14,6 @@ import { LoadlistingComponent } from '../loadlisting/loadlisting.component';
     ExploreContainerComponentModule,
     Tab1PageRoutingModule,
   ],
-  declarations: [Tab1Page,MybidsComponent,LoadlistingComponent]
+  declarations: [Tab1Page]
 })
 export class Tab1PageModule {}

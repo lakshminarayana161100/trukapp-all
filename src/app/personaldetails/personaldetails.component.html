@@ -1,12 +1,12 @@
 <form class="ion-margin"> 
   <div class="ion-margin-vertical">
     <ion-item >
-      <ion-input placeholder="Enter FirstName" type="text" clearInput="true" [(ngModel)]="FirstName" [ngModelOptions]="{standalone: true}" ></ion-input>
+      <ion-input placeholder="Enter FirstName" type="text" clearInput="true" [(ngModel)]="firstName" [ngModelOptions]="{standalone: true}" ></ion-input>
     </ion-item>
   </div>
   <div class="ion-margin-vertical">
     <ion-item >
-      <ion-input placeholder="Enter LasttName" type="text" clearInput="true" [(ngModel)]="LastName" [ngModelOptions]="{standalone: true}"></ion-input>
+      <ion-input placeholder="Enter LasttName" type="text" clearInput="true" [(ngModel)]="lastName" [ngModelOptions]="{standalone: true}"></ion-input>
     </ion-item>
   </div>
 
@@ -24,7 +24,7 @@
 </form>
 
 
-  <ion-button class="ion-margin-horizontal"  expand="block"   (click)="RegisterFor()" [disabled]="!FirstName || !LastName || !ReferalCode">
+  <ion-button class="ion-margin-horizontal"  expand="block"   (click)="RegisterFor()" [disabled]="!firstName || !lastName || !ReferalCode">
     <ion-text>Next</ion-text>
   </ion-button>
 

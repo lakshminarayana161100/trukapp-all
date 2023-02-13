@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 })
 export class VrifyaadharotpPage implements OnInit {
 otp:any;
-
+logindata:any
 
 config = {
   allowNumbersOnly: true,
@@ -23,6 +23,7 @@ config = {
   constructor(private router:Router) { }
 
   ngOnInit() {
+    this.logindata=  JSON.parse(localStorage.getItem('regdata')|| '{}')
   }
   onOtpChange(otp: string) {
     this.otp = otp;
@@ -59,6 +60,7 @@ config = {
               alert('Enter valid OTP')
         }else{
           alert('OTP verified')
+          this.aadharverifystatus()
           this.router.navigate(['profile'])
         }
         
@@ -70,6 +72,40 @@ config = {
              console.log(error)
             });
           
+    
+    }
+
+
+    aadharverifystatus(){
+      var data ={
+        aadharVerify:'Verified'
+      
+      }
+      console.log(data)
+      fetch("http://localhost:3000/TruckAppUsers/putprofile/" +this.logindata._id, {
+        
+      method:'put',
+      headers:{
+                "Access-Control-Allow-Origin": "*",
+                  "Content-Type":'application/json'
+              },
+      body:JSON.stringify(data),
+      }).then(res => res.json())
+      
+      .then(
+        result =>{
+     console.log(result.routes)
+        
+        
+        
+      
+        }
+        ).catch(
+            error =>{
+              alert('unable to add routes');
+             console.log(error)
+            });
+       
     
     }
 }

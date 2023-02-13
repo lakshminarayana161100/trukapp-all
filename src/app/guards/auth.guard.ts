@@ -7,8 +7,10 @@ import { Observable } from 'rxjs';
 })
 export class AuthGuard implements CanActivate {
   num:any
+  logindata:any
   constructor(private router :Router){
     this.num =localStorage.getItem('mobileNo')
+    this.logindata=  JSON.parse(localStorage.getItem('regdata')|| '{}')
   }
 
   /*IsLoggedIn(){
@@ -26,7 +28,23 @@ if(this.num === null){
   
   
  
-}else{
+}else if(this.logindata.role === 'Shipper'){
+  this.router.navigate(['/tab/tab1'])
+
+  return true
+ 
+}else if(this.logindata.role === 'Agent/Broker'){
+  this.router.navigate(['/tab/shipperhome'])
+
+  return true
+ 
+}else if(this.logindata.role === 'Transporter'){
+  this.router.navigate(['/tab/shipperhome'])
+
+  return true
+ 
+}else if(this.logindata.role === 'Fleet Owner'){
+  this.router.navigate(['/tab/shipperhome'])
 
   return true
  

@@ -10,19 +10,19 @@ declare var google :any;
 export class AttachNewLoadPage implements OnInit {
 
   @ViewChild('map', { static: false }) mapElement: any;
-  tonnes:any;
-  product:any;
-  date:any;
-  Quantity:any;
-  Number:any;
-  vehicle:any;
-  loadCapacity:any;
-  expectedPrice:any;
-  typeOfPay:any;
-  comments:any;
-  length:any;
-  breadth:any;
-  height:any;
+  tonnes: any;
+  product: any;
+  date: any;
+  Quantity: any;
+  Number: any;
+  vehicle: any;
+  loadCapacity: any;
+  expectedPrice: any;
+  typeOfPay: any;
+  comments: any;
+  length: any;
+  breadth: any;
+  height: any;
 
 
   map: any;
@@ -45,20 +45,20 @@ export class AttachNewLoadPage implements OnInit {
   directionsRenderer = new google.maps.DirectionsRenderer();
 
 
-  
+
   Items: any;
   data: any;
-  
+
 
   constructor(
-    public zone: NgZone,private alertController:AlertController
+    public zone: NgZone, private alertController: AlertController
   ) {
     this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
     this.autocomplete = { input: '' };
     this.autocompleteItems = [];
   }
   ngOnInit(): void {
-    
+  
   }
 
   ngAfterViewInit(): void {
@@ -66,7 +66,7 @@ export class AttachNewLoadPage implements OnInit {
   }
 
 
-  
+
 
 
   loadMapWithDirection() {
@@ -93,9 +93,9 @@ export class AttachNewLoadPage implements OnInit {
 
   }
 
-  out(data:any){
+  out(data: any) {
     console.log(data)
-    this.data=data
+    this.data = data
   }
 
   GetDestinationLocation(data: any) {
@@ -128,34 +128,34 @@ export class AttachNewLoadPage implements OnInit {
       });
   }
 
-//this is a main function
-calculateAndDisplayRoute() {
-  this.directionsService.route(
-    {
-      origin: {
-        //this.Originlocation
-        query: this.OriginLocation,
+  //this is a main function
+  calculateAndDisplayRoute() {
+    this.directionsService.route(
+      {
+        origin: {
+          //this.Originlocation
+          query: this.OriginLocation,
+        },
+        destination: {
+          //this.destination location
+          query: this.DestinationLocation,
+        },
+        travelMode: google.maps.TravelMode.DRIVING,
       },
-      destination: {
-        //this.destination location
-        query: this.DestinationLocation,
-      },
-      travelMode: google.maps.TravelMode.DRIVING,
-    },
-    (response: any, status: string) => {
-      if (status === 'OK') {
-        this.directionsRenderer.setDirections(response);
+      (response: any, status: string) => {
+        if (status === 'OK') {
+          this.directionsRenderer.setDirections(response);
+        }
+        else {
+          window.alert('Directions request failed dut to ' + status);
+        }
       }
-      else {
-        window.alert('Directions request failed dut to ' + status);
-      }
-    }
-  );
-}
+    );
+  }
   //wE CALL THIS FROM EACH ITEM.
   SelectSearchResult(item: { place_id: any; description: any }) {
     ///WE CAN CONFIGURE MORE COMPLEX FUNCTIONS SUCH AS UPLOAD DATA TO FIRESTORE OR LINK IT TO SOMETHING
-    console.log(JSON.stringify(item))   
+    //alert(JSON.stringify(item))   
     console.log(item.description)
     this.placeid = item.description;
 
@@ -170,14 +170,14 @@ calculateAndDisplayRoute() {
     }
   }
 
-   //lET'S BE CLEAN! THIS WILL JUST CLEAN THE LIST WHEN WE CLOSE THE SEARCH BAR.
-   ClearAutocomplete() {
+  //lET'S BE CLEAN! THIS WILL JUST CLEAN THE LIST WHEN WE CLOSE THE SEARCH BAR.
+  ClearAutocomplete() {
     this.autocompleteItems = []
     this.autocomplete.input = ''
   }
-  
-  
-  async sendData(){
+
+
+  async sendData() {
 
     var body = {
       DestinationLocation: this.DestinationLocation,
@@ -189,17 +189,15 @@ calculateAndDisplayRoute() {
       vehicle: this.vehicle,
       loadCapacity: this.loadCapacity,
       expectedPrice: this.expectedPrice,
-      data:this.data,
-      typeOfPay:this.typeOfPay,
-      length:this.length,
-      breadth:this.breadth,
-      height:this.height,
-      comments:this.comments
-
-
+      data: this.data,
+      typeOfPay: this.typeOfPay,
+      length: this.length,
+      breadth: this.breadth,
+      height: this.height,
+      comments: this.comments
     }
     console.log(body)
-    fetch("https://amused-crow-cowboy-hat.cyclic.app/quotes/post", {
+    fetch("https://amused-crow-cowboy-hat.cyclic.app/quotes/generateQuote", {
       method: 'post',
       headers: {
         "access-Control-Allow-Origin": "*",
@@ -210,30 +208,27 @@ calculateAndDisplayRoute() {
     })
       .then(response => response.json())
       .then(async result => {
-    console.log(result)
-          this.Items = result     
-          const alert = await this.alertController.create({
-            header: 'Successfull',
-           // subHeader: 'Important message',
-            message: 'Load posted Successfully',
-            buttons: [
-      
-       {
-                text: 'Okay',
-                handler: () => {
-                  console.log('Confirm Okay');
-                   //you can write your code or redirection 
-                   // sample redirection code 
-                   window.location.href = '/tab/tab1';
-                   
-                }
+        console.log(result)
+        this.Items = result
+        const alert = await this.alertController.create({
+          header: 'Successfull',
+          message: 'Load posted Successfully',
+          buttons: [
+            {
+              text: 'Okay',
+              handler: () => {
+                console.log('Confirm Okay');
+                //you can write your code or redirection 
+                // sample redirection code 
+                window.location.href = '/tab/tab1';
+
               }
-            ],
-          
-      
-          });
-      
-          await alert.present();
+            }
+          ],
+        });
+
+        await alert.present();
+
 
       }
 
@@ -241,7 +236,7 @@ calculateAndDisplayRoute() {
         console.log(err))
 
 
-     
+
   }
 
 }

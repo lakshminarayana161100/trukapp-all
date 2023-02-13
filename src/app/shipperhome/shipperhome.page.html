@@ -3,12 +3,29 @@
     <ion-title>shipperhomes</ion-title>
   </ion-toolbar>
 </ion-header>
+<ion-card style="height:60px;">
+  <div style="display: flex; margin-top:22px;">
 
+    <div class="form-check  form-check-inline " (click)="looking('trucks')" style="margin-right: 100px;">
+      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="trucks" >
+      <label class="form-check-label" for="exampleRadios1">
+        Looking for Truks
+      </label>
+    </div>
+    <div class="form-check form-check-inline" slot="end" class="load" (click)="looking('loads')">
+      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+      <label class="form-check-label" for="exampleRadios2">
+        Looking for loads
+      </label>
+    </div>
+  </div>
+  </ion-card>
 <ion-content>
   <ion-card style=" height:80px; background:rgb(239, 202, 132); ">
   
   
-   <span>kyc Pending</span>
+   <span *ngIf="logindata.aadharVerify === 'notVerified'">KYC Pending</span>
+   <span *ngIf="logindata.aadharVerify === 'Verified'" style="border: 2px solid green; color:green; padding:7px; border-radius:8px;">KYC Verified</span>
   </ion-card>
 
 <div class="lower-box">
@@ -24,17 +41,28 @@
       <h6>Active loads</h6>
     
     </div>
+
+
     <div class="item">
-      
+      <div style="display:flex;">
+        <div >
+          <ion-icon name="logo-dropbox" style="font-size:35px;padding-left:10px;margin-top:16px; color:orange;"></ion-icon>
+        </div>
+         <p class="count">0</p>
+       
+      </div>
+      <h6>Active Trucks</h6>
+    
     </div>
+ 
     
   </div>
 </div>
 
-<ion-slides pager="true" [options]="slideOpts" >
-  <ion-slide *ngFor="let image of slide">  
-    <img class="banner-image" [src]="image?.url"/>
-    <button style="position:absolute; margin-top:100px; padding:7px;border-radius:10px; background-color:orange;">place order</button>
+<ion-slides pager="true" [options]="slideOpts" style="border-radius: 13px;" >
+  <ion-slide *ngFor="let image of adsarray.AdsArray index as i">  
+    <img class="banner-image" [src]="image"/>
+    <button style="position:absolute; margin-top:100px; padding:7px;border-radius:10px; background-color:orange;">Post Load</button>
   </ion-slide>
 </ion-slides>
 
@@ -58,11 +86,11 @@
   <ion-slide class="bg-2">
     <ion-card>
       <div style="height:60px;">
-        <img src="https://th.bing.com/th/id/R.3bcf2c417c3012c66d7469ce42d13fca?rik=9o3GRFdBkstaaw&riu=http%3a%2f%2fwww.pixelstalk.net%2fwp-content%2fuploads%2f2016%2f06%2fSemi-Truck-Images-HD.jpg&ehk=yulfpi8iWb5BOndkHjfFDK7IqS2D7dNbLSJq24%2fubYo%3d&risl=&pid=ImgRaw&r=0">
+        <img src="https://th.bing.com/th?id=OIP.-J0izxxAEepm_xXyzdF9OAHaEo&w=316&h=197&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2">
         </div>
       
       <ion-card-content>
-        <p>LCV</p> 
+        <p>open truck</p> 
         <p>1-6 Tonns</p>
       </ion-card-content>
       </ion-card>
@@ -70,11 +98,11 @@
   <ion-slide class="bg-3">
     <ion-card>
       <div style="height:60px;">
-        <img src="https://th.bing.com/th/id/R.3bcf2c417c3012c66d7469ce42d13fca?rik=9o3GRFdBkstaaw&riu=http%3a%2f%2fwww.pixelstalk.net%2fwp-content%2fuploads%2f2016%2f06%2fSemi-Truck-Images-HD.jpg&ehk=yulfpi8iWb5BOndkHjfFDK7IqS2D7dNbLSJq24%2fubYo%3d&risl=&pid=ImgRaw&r=0">
+        <img src="https://th.bing.com/th/id/OIP.6QsFmr0IeYLj0oAM8v3LfgHaEK?w=322&h=181&c=7&r=0&o=5&dpr=1.3&pid=1.7">
         </div>
       
       <ion-card-content>
-        <p>LCV</p> 
+        <p>container</p> 
         <p>1-6 Tonns</p>
       </ion-card-content>
     </ion-card>
@@ -82,11 +110,11 @@
   <ion-slide class="bg-4">
     <ion-card>
       <div style="height:60px;">
-        <img src="https://th.bing.com/th/id/R.3bcf2c417c3012c66d7469ce42d13fca?rik=9o3GRFdBkstaaw&riu=http%3a%2f%2fwww.pixelstalk.net%2fwp-content%2fuploads%2f2016%2f06%2fSemi-Truck-Images-HD.jpg&ehk=yulfpi8iWb5BOndkHjfFDK7IqS2D7dNbLSJq24%2fubYo%3d&risl=&pid=ImgRaw&r=0">
+        <img src="https://th.bing.com/th/id/OIP.Ne0I_uPPj1gUxrJJS1d6pAHaE7?w=268&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7">
         </div>
       
       <ion-card-content>
-        <p>LCV</p> 
+        <p>gg</p> 
         <p>1-6 Tonns</p>
       </ion-card-content>
     </ion-card>

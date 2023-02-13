@@ -157,18 +157,22 @@ export class VerifyotpPage implements OnInit {
 if(this.verified.role === "Shipper"){
 
   this.ngZone.run(() => {
+    alert('Login as Shipper')
     this.router.navigate(['/tab/tab1'])
     localStorage.setItem('loginrole',JSON.stringify(this.verified.role))
   });
 
 }else if(this.verified.role === "Agent/Broker"){
-alert('route to agent/broker')
+alert('Login as agent/broker')
+this.router.navigate(['/tab/shipperhome'])
 localStorage.setItem('loginrole',JSON.stringify(this.verified.role))
 }else if(this.verified.role === "Transporter"){
-  alert('route to  transporter')
+  alert('Login as transporter')
+  this.router.navigate(['/tab/shipperhome'])
   localStorage.setItem('loginrole',JSON.stringify(this.verified.role))
 }else if(this.verified.role === 'Fleet Owner'){
-  alert('route to Fleet Owner')
+  alert('Login as Fleet Owner')
+  this.router.navigate(['/tab/shipperhome'])
   localStorage.setItem('loginrole',JSON.stringify(this.verified.role))
 }
      

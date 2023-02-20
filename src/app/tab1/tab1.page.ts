@@ -50,7 +50,7 @@ body={
     this.get()
   }
   get() {
-    fetch("https://amused-crow-cowboy-hat.cyclic.app/quotes/allQuotes", {
+    fetch("http://localhost:3000/quotes/allQuotes", {
       method: 'GET',
       headers: {
         "access-Control-Allow-Origin": "*",
@@ -84,7 +84,7 @@ body={
    // console.log(data)
 
     console.log(docData)
-    fetch("https://amused-crow-cowboy-hat.cyclic.app/quotes/quoteDeactivate/" + docData._id, {
+    fetch("http://localhost:3000/postLoad/loadDeactivate/" + docData._id, {
       method: 'PUT',
       headers: {
         "access-Control-Allow-Origin": "*",
@@ -117,10 +117,10 @@ body={
      bidById(bid: any) {
       //   console.log(load)
         localStorage.setItem("viewBid", JSON.stringify(bid));
-        this.router.navigate(["view-bid"])
+        this.router.navigate(["all-bids"])
        }
 
-
+ 
        toggle(isActive:any){
         this.isactive=isActive
         this.activeGet()
@@ -129,7 +129,7 @@ body={
 
        activeGet(){
         console.log(this.isactive)
-    fetch("https://amused-crow-cowboy-hat.cyclic.app/quotes/loadsByStatus/" + this.isactive, {
+    fetch("http://localhost:3000/quotes/loadsByStatus/" + this.isactive, {
       method: 'GET',
       headers: {
         "access-Control-Allow-Origin": "*",

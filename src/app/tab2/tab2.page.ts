@@ -42,7 +42,7 @@ export class Tab2Page {
     this.get()
   }
   get() {
-    fetch("https://amused-crow-cowboy-hat.cyclic.app/quotes/allQuotes", {
+    fetch("http://localhost:3000/quotes/allQuotes", {
       method: 'GET',
       headers: {
         "access-Control-Allow-Origin": "*",
@@ -65,25 +65,16 @@ export class Tab2Page {
    loadById(load: any) {
   //   console.log(load)
     localStorage.setItem("loadBy", JSON.stringify(load));
-    this.router.navigate(["place-bid"])
+    this.router.navigate(['place-bid'], 
+        { state: { profile: load._id }});
+    //this.router.navigate(["place-bid"])
    }
-
-
-
- 
-autorefresh(event:any){
-  this.get()
-  setTimeout(() => {
-    event.target.complete()
-  }, 2000);
-}
-
- /* if(this.otp ==this.verify){
-    this.presentToast("OTP Verified","success");
-  }else{
-    this.presentToast("Invalid OTP","danger");
-  }*/
-
+   autorefresh(event:any){
+    this.get()
+    setTimeout(() => {
+      event.target.complete()
+    }, 2000);
+  }
 
 
  

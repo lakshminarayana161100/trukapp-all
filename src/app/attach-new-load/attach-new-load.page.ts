@@ -23,6 +23,7 @@ export class AttachNewLoadPage implements OnInit {
   length: any;
   breadth: any;
   height: any;
+  state:any;
 
 
   map: any;
@@ -48,6 +49,7 @@ export class AttachNewLoadPage implements OnInit {
 
   Items: any;
   data: any;
+  regdata: any;
 
 
   constructor(
@@ -58,7 +60,7 @@ export class AttachNewLoadPage implements OnInit {
     this.autocompleteItems = [];
   }
   ngOnInit(): void {
-  
+    this.regdata =JSON.parse(localStorage.getItem('regdata') || '{}')
   }
 
   ngAfterViewInit(): void {
@@ -182,6 +184,7 @@ export class AttachNewLoadPage implements OnInit {
     var body = {
       DestinationLocation: this.DestinationLocation,
       OriginLocation: this.OriginLocation,
+      state: this.state,
       Number: this.Number,
       date: this.date,
       product: this.product,
@@ -197,7 +200,8 @@ export class AttachNewLoadPage implements OnInit {
       comments: this.comments
     }
     console.log(body)
-    fetch("https://amused-crow-cowboy-hat.cyclic.app/quotes/generateQuote", {
+    if(this.regdata.aadharVerify === 'Verified' || this.regdata.gstVerify === 'Verified'){
+    fetch("http://localhost:3000/quotes/generateQuote", {
       method: 'post',
       headers: {
         "access-Control-Allow-Origin": "*",
@@ -210,6 +214,10 @@ export class AttachNewLoadPage implements OnInit {
       .then(async result => {
         console.log(result)
         this.Items = result
+        if(result.status === 'failed'){
+       alert('No providers available')
+
+      }else{
         const alert = await this.alertController.create({
           header: 'Successfull',
           message: 'Load posted Successfully',
@@ -226,17 +234,19 @@ export class AttachNewLoadPage implements OnInit {
             }
           ],
         });
-
+      
         await alert.present();
 
-
+      }
       }
 
       ).catch(err =>
         console.log(err))
-
+      }else{
+        alert('Verify Aadhar/GST')
+        window.location.href='/profle'
+      }
 
 
   }
-
 }

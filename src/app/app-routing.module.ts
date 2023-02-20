@@ -127,6 +127,10 @@ const routes: Routes = [
     path: 'attach-load',
     loadChildren: () => import('./attach-load/attach-load.module').then( m => m.AttachLoadPageModule)
   },
+  {
+    path: 'all-bids',
+    loadChildren: () => import('./all-bids/all-bids.module').then( m => m.AllBidsPageModule)
+  },
   
 
 

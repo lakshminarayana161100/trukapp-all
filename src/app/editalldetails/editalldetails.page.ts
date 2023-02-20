@@ -32,6 +32,7 @@ export class EditalldetailsPage implements OnInit {
 
   ngOnInit() {
    this.detailsforEdit=JSON.parse( localStorage.getItem('detailsforEdit') || "{}")
+   console.log(this.detailsforEdit)
    for(let i=0;i<this.detailsforEdit.routes.length;i++){
       this.routeDetails=this.detailsforEdit.routes[i]
    }

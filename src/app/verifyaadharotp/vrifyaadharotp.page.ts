@@ -24,6 +24,7 @@ config = {
 
   ngOnInit() {
     this.logindata=  JSON.parse(localStorage.getItem('regdata')|| '{}')
+    console.log(this.logindata)
   }
   onOtpChange(otp: string) {
     this.otp = otp;

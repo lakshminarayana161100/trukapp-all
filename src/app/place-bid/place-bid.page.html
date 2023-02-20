@@ -21,12 +21,103 @@
       <p style="font-size: large; font-weight: bold; "> {{objects.data}} -- {{objects.Quantity}} Tons</p>
     </ion-card-content>
   </ion-card>
+
+  <!-- <ion-card >
   <div >
     <h1>{{finalss}}</h1>
   </div>
+</ion-card> -->
+
+<ion-grid>
+  <ion-row *ngFor="let text of finalss">
+
+    <!-- <ion-col size="9" *ngIf="text.userType!== currentUserType" class="message other-message">
+
+      <b text-left>{{text.userType}}</b><br>
+      <b text-left>{{text.price}}</b><br>
+
+
+
+       <div class="time" text-right><br>
+        {{text.time | date:'short' }}
+      </div> 
+
+    </ion-col> -->
+
+     <ion-col size="9" offset="3" *ngIf="text.userType==currentUserType" class="message my-message">
+<div *ngIf="text.initialAccept === 'Accepted'">
+      <h3>Bid accepted for : {{text.price}}</h3>
+    </div>
+
+
+
+    <div [hidden]="text.initialAccept === 'Accepted'" >
+      <b>{{text.userType}}::</b><br>
+      <span>{{text.price}}</span><br>
+      <b>PHno -{{text.userNo}}</b>
+      <div class="time" text-right><br>
+        {{text.time | date:'short'}}
+      </div>
+    </div>
+    </ion-col> 
+  
+
+
+  <!-- <ion-row *ngFor="let text of finalss"> -->
+
+    <ion-col size="9" *ngIf="text.userType!== currentUserType" class="message other-message">
+
+      <b text-left>{{text.userType}}</b><br>
+      <b text-left>{{text.price}}</b><br>
+
+       <div class="time" text-right><br>
+       <!-- {{text.time | date:'short' }}-->
+      </div> 
+
+    </ion-col>
+
+     <!-- <ion-col size="9" offset="3" *ngIf="text.userType==currentUserType" class="message my-message">
+
+      <b>{{text.userType}}::</b><br>
+      <span>{{text.price}}</span><br>
+      <b>PHno -{{text.userNo}}</b>
+      <div class="time" text-right><br>
+        {{text.time | date:'short'}}
+      </div>
+
+    </ion-col>  -->
+  </ion-row>
+
+
+  <!-- </ion-row> -->
+  <!-- bid acceptance message by agent-->
+</ion-grid>
+<ion-card color="success" *ngIf="item.initialAccept === 'Accepted'">
+<div align="center">
+
+You Accepted the bid for {{item.tentativefinalPrice}}
+</div>
+</ion-card>
+
+<!-- bid acceptance by the shipper-->
+
+<ion-card color="success" *ngIf="item.isAgentAccepted == true" >
+  <div align="center">
+  
+  you accepted the bid for:{{item.tentativefinalPrice}}
+  </div >
+  </ion-card>
+  <ion-card color="success" *ngIf="item.isShipperAccepted == true" >
+    <div align="center">
+    
+    Shipper Approved  for:{{item.tentativefinalPrice}}
+    </div >
+    </ion-card>
+
 </ion-content>
 
-<ion-card>
+<div [hidden]="item.isShipperAccepted == true ||item.isAgentAccepted == true ">
+<ion-card >
   <ion-card-header>
     <ion-card-title>Bidding actions</ion-card-title>
 
@@ -38,13 +129,56 @@
 
 
   <!-- <ion-button fill="clear" style="text-align:center; color: red; float: left;">Reject</ion-button> -->
-  <ion-button fill="clear" style="float: right; color: green;">Accept</ion-button>
+  <ion-button fill="clear" style="float: right; color: green;" (click)="acceptBid()" *ngIf="show">Accept</ion-button>
+  <ion-button fill="clear" style="float: right; color: green;" (click)="acceptBidForFinal()" *ngIf="hide">Accept</ion-button>
+  <ion-button fill="outline" shape="round" style="float: left; " id="open-modall">Initial Bid</ion-button>
+
 </ion-card>
 <ion-button id="open-modal" shape="round" class="next">Negotiate</ion-button>
+</div>
+  <ion-modal trigger="open-modall" [initialBreakpoint]="0.25" [breakpoints]="[0, 0.25, 0.5, 0.75]" handleBehavior="cycle">
+    <ng-template>
+      <ion-content class="ion-padding">
+        <!-- <div class="ion-margin-top">
+          <ion-label>
+            <ion-item fill="outline">
+              <ion-label position="floating">Your Bidding price</ion-label>
+              <ion-input placeholder="Enter new Price"[(ngModel)]="bidPrice"></ion-input>
+            </ion-item>
+            <br>
+            <ion-button expand="full" class="next" shape="round" (click)="placeBid(bidPrice)">Negotiate</ion-button>
+          </ion-label>
+        </div> -->
+  
+        <ion-toolbar color="light">
+          <ion-row>
+            <ion-col size="10">
+              <textarea autosize maxRowx="3" [(ngModel)]="newMsg" class="input">
+      
+              </textarea>
+      
+            </ion-col>
+      
+            <ion-col size="2">
+              <ion-button expand="block" fill="clear" color="primary" [disabled]="newMsg === '' " class="msg-btn"
+              (click)="initialBid()">
+                <ion-icon name="send"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-toolbar>
+  
+  
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+
+
 <ion-modal trigger="open-modal" [initialBreakpoint]="0.25" [breakpoints]="[0, 0.25, 0.5, 0.75]" handleBehavior="cycle">
   <ng-template>
     <ion-content class="ion-padding">
-      <div class="ion-margin-top">
+      <!-- <div class="ion-margin-top">
         <ion-label>
           <ion-item fill="outline">
             <ion-label position="floating">Your Bidding price</ion-label>
@@ -53,7 +187,48 @@
           <br>
           <ion-button expand="full" class="next" shape="round" (click)="placeBid(bidPrice)">Negotiate</ion-button>
         </ion-label>
-      </div>
+      </div> -->
+
+      <ion-toolbar color="light">
+        <ion-row>
+          <ion-col size="10">
+            <textarea autosize maxRowx="3" [(ngModel)]="NegoPrice" class="input">
+    
+            </textarea>
+    
+          </ion-col>
+    
+          <ion-col size="2">
+            <ion-button expand="block" fill="clear" color="primary" [disabled]="NegoPrice === '' " class="msg-btn"
+             (click)="negotiate()" >
+              <ion-icon name="send"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-toolbar>
+
+
     </ion-content>
   </ng-template>
 </ion-modal>
+
+
+<!-- <ion-footer>
+  <ion-toolbar color="light">
+    <ion-row>
+      <ion-col size="10">
+        <textarea autosize maxRowx="3" [(ngModel)]="newMsg" class="input">
+
+        </textarea>
+
+      </ion-col>
+
+      <ion-col size="2">
+        <ion-button expand="block" fill="clear" color="primary" [disabled]="newMsg === '' " class="msg-btn"
+          (click)="sendMessage()">
+          <ion-icon name="send"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer> -->

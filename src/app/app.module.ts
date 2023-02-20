@@ -25,9 +25,9 @@ import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
   declarations: [AppComponent, 
    // HasRoleDirective
   ],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,Ng2SearchPipeModule,HttpClientModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,Ng2SearchPipeModule,HttpClientModule,],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },FormsModule,CommonModule,ReactiveFormsModule,HttpClient,
-  
+    
   File,
   Camera,
   UniqueDeviceID,

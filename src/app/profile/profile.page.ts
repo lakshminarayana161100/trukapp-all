@@ -103,6 +103,7 @@ otp:any
       itemsShowLimit: 3,
       allowSearchFilter: true
     };
+    
   }
   onOtpChange(otp: string) {
     this.otp = otp;

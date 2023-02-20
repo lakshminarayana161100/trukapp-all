@@ -10,7 +10,7 @@ import { AlertController } from '@ionic/angular';
 import { DeviceDetectorService, DeviceInfo } from 'ngx-device-detector';
 
 import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
-
+//import {OneSignal }from 'onesignal-cordova-plugin';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 
 
@@ -41,7 +41,7 @@ regData:any
   UniqueDeviceID!:string;
   constructor(private router: Router,
     private uniqueDeviceID: UniqueDeviceID,
-  
+  //private OneSignal:OneSignal,
     private androidPermissions: AndroidPermissions,
 
      private ngZone: NgZone,public loadingCtrl:LoadingController,public toastCtrl:ToastController,private alert:AlertController,private deviceDetectorService: DeviceDetectorService ) {
@@ -63,9 +63,16 @@ regData:any
    //var uuid = new DeviceUUID().get();
    this.getPermission();
    this.getUniqueDeviceID();
+   
+   /*this.OneSignal.addSubscriptionObserver().subscribe((state: { from: { subscribed: any; }; to: { subscribed: any; userId: string; }; }) => {
+    if (!state.from.subscribed && state.to.subscribed) {
+     console.log("Subscribed for OneSignal push notifications! :: ID "+state.to.userId);
+    }
+ });*/
 
   }
-  
+  	// get the OneSignal userId aka playerId
+  	
   
   getUniqueDeviceID() {
     this.uniqueDeviceID.get()

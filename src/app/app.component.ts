@@ -39,7 +39,10 @@ export class AppComponent {
       console.log("User accepted notifications: " + accepted);
   });
 
-
+OneSignal.setExternalUserId("86744b78-55c9-42a7-92ee-5d93e1434d2b",(result)=>{
+  console.log(result)
+  alert(JSON.stringify(result))
+})
 
   // TO-DO : get details from configuration
   /*OneSignal.startInit("913bcc8c-f580-44fb-94e5-1e5f97a80546", "ZTk0Y2I0NmEtMTVmZC00MDJjLTljYjYtOTNjYWYyZTBjODlh");

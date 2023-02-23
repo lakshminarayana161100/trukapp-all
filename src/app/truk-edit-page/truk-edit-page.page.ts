@@ -9,15 +9,15 @@ import { IDropdownSettings } from 'ng-multiselect-dropdown';
 export class TrukEditPagePage implements OnInit {
 
   toppings: any;
-  data: any;
+  trukname: any;
   dropdownList: any[] = [];
-  operatingRoutes: any = [];
+  trukoperatingRoutes: any = [];
   dropdownSettings!: IDropdownSettings;
-  vehiclenumber: any;
-  currentLocation: any;
-  capacity: any;
+  trukvehiclenumber: any;
+  trukcurrentLocation: any;
+  trukcapacity: any;
   Items: any;
-  date: any;
+  trukdate: any;
   real: any;
 
 
@@ -40,25 +40,49 @@ export class TrukEditPagePage implements OnInit {
     //this.get()
 
     this.updateproductForm = this.fb.group({
-      operatingRoutes: [''],
-      capacity: [''],
-      currentLocation: [''],
-      data: [''],
-      date: [''],
-      vehiclenumber: ['']
+      trukoperatingRoutes: [''],
+      trukcapacity: [''],
+      trukcurrentLocation: [''],
+      trukname: [''],
+      trukdate: [''],
+      trukvehiclenumber: ['']
 
     });
 
 
 
     this.dropdownList = [
-      'Mumbai',
+      'Amaravati', 
+      'Itanagar',
+      'Dispur',
+      'Patna',
+      'Raipur',
+      'Panaji',
+      'Gandhinagar',
+      'Chandigarh',
+      'Shimla',
+      'Ranchi',
       'Bangaluru',
+      'Thiruvananthapuram',
+      'Bhopal',
+      'mumbai',
+      'Imphal',
+      'Shillong',
+      'Aizawl',
+      'Kohima',
+      'Bhubaneswar',
+      'Chandigarh',
+      'Jaipur',
+      'Gangtok',
+      'Chennai',
+      'Hyderabad',
+      'Agartala',
+      'Lucknow',
+      'Kolkata',
+      'delhi',
       'Pune',
-      'Navsari',
-      'New Delhi'
     ];
-    this.operatingRoutes = [
+    this.trukoperatingRoutes = [
 
     ];
     this.dropdownSettings = {
@@ -83,7 +107,7 @@ export class TrukEditPagePage implements OnInit {
 
   out(data: any) {
     console.log(data)
-    this.data = data
+    this.trukname = data
   }
 
 
@@ -94,7 +118,7 @@ export class TrukEditPagePage implements OnInit {
     console.log(data)
     //console.log(this.description, this.image, this.price, this.description, this.name)
     console.log(this.real._id)
-    fetch("http://localhost:3000/addTruk/updateLoads/" + this.real._id, {
+    fetch("https://amused-crow-cowboy-hat.cyclic.app/addTruk/updateLoads/" + this.real._id, {
       method: 'PUT',
       headers: {
         "access-Control-Allow-Origin": "*",

@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar>
+    <div style="display: flex;">
+      <ion-icon name="arrow-back-sharp" routerLink="/view-bid" style="font-size: 30px;"></ion-icon>
+      <ion-title>Make Payment</ion-title>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card style="background-color: antiquewhite; margin-top:200px;">
+    <div align="center" >
+    <ion-card-header style="margin-top: 20px;">
+      <ion-card-title style="display:flex; justify-content:center;">
+        <div style="font-weight: bolder;">Paying</div>&nbsp;&nbsp;&nbsp;  <ion-icon name="person"></ion-icon> &nbsp;  <div>{{filname}}</div>
+      </ion-card-title>
+      <ion-card-subtitle class="amount">
+        <ion-icon name="cash" style="font-size: 28px; margin-top:5px;"></ion-icon>
+        <div style="font-size: 18px; font-weight:bolder; color:black; margin-left:16px; margin-top:5px; ">{{tenPrice}}/-</div>
+      </ion-card-subtitle>
+    </ion-card-header>
+  
+    <!--<ion-card-content style="display:flex; justify-content:center;">
+      <div class="box">
+        <input type="radio" name="payment" id="advance" (change)="out('Advance Payment')">
+        <label for="advance"  placeholder="Advance Payment" 
+        style="text-align:center; padding-top:7px;
+        font-weight: bolder;padding-left:4px;padding-right:4px;"
+        
+        >    
+          Advance Payment
+        </label>
+        </div>
+
+        <div class="box">
+          <input type="radio" name="payment" id="full" (change)="out('Full payment')" >
+          <label for="full" placeholder="Full Payment" style="text-align:center; padding-top:7px;font-weight: bolder; ">
+            Full Payment
+          </label>
+          </div>
+
+    </ion-card-content>-->
+    </div>
+  </ion-card>
+</ion-content>
+<div style="display:flex; margin-left:20px;">
+<ion-checkbox ></ion-checkbox> 
+<p style="padding-left:10px;font-size:19px;">I agree to the terms and conditions</p>
+</div>
+<ion-button color="#a13cd7;" (click)="pay()">Pay Now</ion-button>

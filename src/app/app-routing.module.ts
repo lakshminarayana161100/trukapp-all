@@ -131,6 +131,22 @@ const routes: Routes = [
     path: 'all-bids',
     loadChildren: () => import('./all-bids/all-bids.module').then( m => m.AllBidsPageModule)
   },
+  {
+    path: 'existing-loads',
+    loadChildren: () => import('./existing-loads/existing-loads.module').then( m => m.ExistingLoadsPageModule)
+  },
+  {
+    path: 'attach-existing-loads',
+    loadChildren: () => import('./attach-existing-loads/attach-existing-loads.module').then( m => m.AttachExistingLoadsPageModule)
+  },
+  {
+    path: 'makepayment',
+    loadChildren: () => import('./makepayment/makepayment.module').then( m => m.MakepaymentPageModule)
+  },
+  {
+    path: 'help-and-guide',
+    loadChildren: () => import('./help-and-guide/help-and-guide.module').then( m => m.HelpAndGuidePageModule)
+  },
   
 
 

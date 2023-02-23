@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-card *ngFor="let data of allbids ">
+  <ion-card *ngFor="let data of onlybids" >
     <ion-card-header>
       <ion-card-title>You have a new bid from:{{data.mobileNo}}</ion-card-title>
       
@@ -19,7 +19,7 @@
     
     </ion-card-content>
   
-    <ion-button fill="clear" routerLink="/view-bid">Open</ion-button>
+    <ion-button fill="clear"  (click)="openbid(data)" [disabled]="!data.isShipperAccepted"  >Open</ion-button>
     
   </ion-card>
 </ion-content>

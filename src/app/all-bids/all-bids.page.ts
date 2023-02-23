@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-all-bids',
   templateUrl: './all-bids.page.html',
@@ -8,19 +8,24 @@ import { Component, OnInit } from '@angular/core';
 export class AllBidsPage implements OnInit {
   singlearray: any;
   allbids: any;
+  onlybids: any;
+  filterShipperAccpt: any;
+  sai: any;
 
-  constructor() { }
+  constructor(private router:Router) { }
 
   ngOnInit() {
     this.singlearray =JSON.parse(localStorage.getItem("viewBid") || '{}')
-    console.log(this.singlearray)
+    this.onlybids =this.singlearray.bids
+
+    console.log(this.onlybids)
 
     var data ={
       "_id":this.singlearray._id
     }
 
 
-    fetch("http://localhost:3000/quotes/getsingleloadbids", {
+    fetch("https://amused-crow-cowboy-hat.cyclic.app/quotes/getsingleloadbids", {
       method: 'POST',
       headers: {
         "access-Control-Allow-Origin": "*",
@@ -37,15 +42,27 @@ export class AllBidsPage implements OnInit {
           this.allbids =result.message[i].bids
           console.log(this.allbids)
         }
-           
+          
+        this.filterShipperAccpt = this.allbids.filter((data:any)=>{
+        return  data.isShipperAccepted == true
+        })
+        console.log(this.filterShipperAccpt)
 
-     
+     for(let i=0; i<this.filterShipperAccpt.length;i++){
+      this.sai =this.filterShipperAccpt[i].isShipperAccepted
+     }
       
 
       }
 
       ).catch(err =>
         console.log(err))
+  }
+
+  openbid(data:any){
+
+localStorage.setItem('openedBid',JSON.stringify(data))
+this.router.navigate(['view-bid'])
   }
 
 }

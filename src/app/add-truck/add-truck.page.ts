@@ -9,15 +9,15 @@ import { IDropdownSettings } from 'ng-multiselect-dropdown';
 export class AddTruckPage implements OnInit {
 
   toppings: any;
-  data: any;
+  trukname: any;
   dropdownList: any[] = [];
-  operatingRoutes: any = [];
+  trukoperatingRoutes: any = [];
   dropdownSettings!: IDropdownSettings;
-  vehiclenumber: any;
-  currentLocation: any;
-  capacity: any;
+  trukvehiclenumber: any;
+  trukcurrentLocation: any;
+  trukcapacity: any;
   Items: any;
-  date: any;
+  trukdate: any;
 
 
 
@@ -26,13 +26,37 @@ export class AddTruckPage implements OnInit {
   ngOnInit() {
 
     this.dropdownList = [
-      { item_text: 'Mumbai' },
-      { item_id: 2, item_text: 'Bangaluru' },
-      { item_id: 3, item_text: 'Pune' },
-      { item_id: 4, item_text: 'Navsari' },
-      { item_id: 5, item_text: 'New Delhi' }
+      'Amaravati', 
+      'Itanagar',
+      'Dispur',
+      'Patna',
+      'Raipur',
+      'Panaji',
+      'Gandhinagar',
+      'Chandigarh',
+      'Shimla',
+      'Ranchi',
+      'Bangaluru',
+      'Thiruvananthapuram',
+      'Bhopal',
+      'mumbai',
+      'Imphal',
+      'Shillong',
+      'Aizawl',
+      'Kohima',
+      'Bhubaneswar',
+      'Chandigarh',
+      'Jaipur',
+      'Gangtok',
+      'Chennai',
+      'Hyderabad',
+      'Agartala',
+      'Lucknow',
+      'Kolkata',
+      'delhi',
+      'Pune',
     ];
-    this.operatingRoutes = [
+    this.trukoperatingRoutes = [
 
     ];
     this.dropdownSettings = {
@@ -55,22 +79,22 @@ export class AddTruckPage implements OnInit {
     console.log(items);
   }
 
-  out(data: any) {
-    console.log(data)
+  out(trukname: any) {
+    console.log(trukname)
 
-    this.data = data
-    console.log(this.data)
+    this.trukname = trukname
+    console.log(this.trukname)
 
   }
 
   async postVehile() {
     var body = {
-      vehiclenumber: this.vehiclenumber,
-      capacity: this.capacity,
-      currentLocation: this.currentLocation,
-      operatingRoutes: this.operatingRoutes,
-      data: this.data,
-      date: this.date
+      trukvehiclenumber: this.trukvehiclenumber,
+      trukcapacity: this.trukcapacity,
+      trukcurrentLocation: this.trukcurrentLocation,
+      trukoperatingRoutes: this.trukoperatingRoutes,
+      trukname: this.trukname,
+      trukdate: this.trukdate
     }
     console.log()
     fetch("https://amused-crow-cowboy-hat.cyclic.app/addTruk/vehiclepost", {
@@ -112,5 +136,4 @@ export class AddTruckPage implements OnInit {
       ).catch(err =>
         console.log(err))
   }
-
 }

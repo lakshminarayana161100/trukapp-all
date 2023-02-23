@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators,FormControl,NgControl } from '@angular/forms';
+import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.page.html',
@@ -10,9 +11,11 @@ export class SignupPage implements OnInit {
   signupForm!:FormGroup 
   allDetails:any
   role:any
-  constructor(private router:Router) { }
+  UniqueDeviceID!:string;
+  constructor(private router:Router,private uniqueDeviceID: UniqueDeviceID,) { }
 
   ngOnInit() {
+    this.getUniqueDeviceID();
    this.role = JSON.parse(localStorage.getItem('selectType') || '{}')
    var lang= JSON.parse(localStorage.getItem('language') || '{}') 
     this.allDetails =JSON.parse(localStorage.getItem('allDetails') || '{}') 
@@ -27,7 +30,19 @@ console.log(this.allDetails)
     mobileNo: new FormControl( Number, [Validators.required, ]),
   });
   }
+  getUniqueDeviceID() {
+    this.uniqueDeviceID.get()
+      .then((uuid: any) => {
+        console.log(uuid);
+        this.UniqueDeviceID = uuid;
 
+        alert(this.UniqueDeviceID)
+      })
+      .catch((error: any) => {
+        console.log(error);
+        this.UniqueDeviceID = "Error! ${error}";
+      });
+  }
 
   onSubmit(data:any){
     
@@ -40,7 +55,8 @@ const final ={
   mobileNo:data.mobileNo,
   city:this.allDetails.city,
   companyName:this.allDetails.companyName,
-  role:this.role
+  role:this.role,
+  uniqueDeviceId:this.UniqueDeviceID
 }
 console.log(final)
     fetch("https://amused-crow-cowboy-hat.cyclic.app/TruckAppUsers/signup", {

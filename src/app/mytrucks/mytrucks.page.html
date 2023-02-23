@@ -1,84 +1,24 @@
-<!-- <ion-header>
+<ion-header>
   <ion-toolbar>
     <div style="display: flex;">
 
-      <ion-title>MY Truk Page</ion-title>
+      <div class="form-check  form-check-inline ">
+        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+        <label class="form-check-label" for="exampleRadios1">
+          Looking for Truks
+        </label>
+      </div>
+      <div class="form-check form-check-inline" slot="end" class="load">
+        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+        <label class="form-check-label" for="exampleRadios2">
+          Looking for loads
+        </label>
+      </div>
     </div>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="container">
-
-
-  <div *ngIf="item.length !=0">
-    <ion-card *ngFor="let text of item" style="border: 1px solid #F58E26; ">
-      <ion-card-header>
-        <ion-card-title>vehiclenumber:{{text.vehiclenumber}}</ion-card-title>
-        <ion-card-subtitle>Posted On {{text.date}}</ion-card-subtitle>
-      </ion-card-header>
-       
-      <ion-card-content>
-        {{text.capacity}}Tons   {{text.data}}
-      </ion-card-content>
-      <ion-card-content>
-         Avaiable in {{text.currentLocation}}
-         <h1>{{text.selectedItems.length}}Routes</h1>
-      </ion-card-content>
-    </ion-card>
-  </div>
-  <div *ngIf="item.length ==0">
-    <img src="https://5.imimg.com/data5/SF/YX/MY-2496828/carton-corrugated-box-500x500.jpg"
-      style="height: 70px; width: 70px;">
-  </div>
-
-
-
-
-
-
-
-
-
-
-</ion-content> -->
-
-<!-- <div class="center">
-  <ion-button routerLink="/add-trucks" class="bb" expand="full" shape="round">Add Trucks</ion-button>
-</div> -->
-
-
-
-
-<!-- <div *ngIf="item.length !=0">
-  <ion-card *ngFor="let text of item" style="border: 1px solid #F58E26; ">
-    <ion-card-header>
-      <ion-card-title>vehiclenumber:{{text.vehiclenumber}}</ion-card-title>
-      <ion-card-subtitle>Posted On {{text.date}}</ion-card-subtitle>
-    </ion-card-header>
-     
-    <ion-card-content>
-      {{text.capacity}}Tons   {{text.data}}
-    </ion-card-content>
-    <ion-card-content>
-       Avaiable in {{text.currentLocation}}
-       <h1>{{text.selectedItems.length}}Routes</h1>
-    </ion-card-content>
-  </ion-card>
-</div>
-<div *ngIf="item.length ==0">
-  <img src="https://5.imimg.com/data5/SF/YX/MY-2496828/carton-corrugated-box-500x500.jpg"
-    style="height: 70px; width: 70px;">
-</div>
-<br> -->
-<ion-header>
-  <ion-toolbar>
-    MY Trucks
-  </ion-toolbar>
-</ion-header>
- 
- 
 <ion-content>
-
   <div style="align-items: center; text-align: center;">
     <img src="https://5.imimg.com/data5/SF/YX/MY-2496828/carton-corrugated-box-500x500.jpg" width="50%" height="50%">
   </div>
@@ -86,7 +26,7 @@
     <ion-card-header>
        <!-- <ion-card-subtitle style="float: right;  font-size: 25px;"><ion-icon
         name="filter" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" ></ion-icon></ion-card-subtitle>  -->
-        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" style="float: right;  background: none; border: none;">
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" style="float: right; background: none; border: none;">
           <mat-icon>filter_alt</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
@@ -122,10 +62,10 @@
         </button>
         <button mat-menu-item>
           <mat-icon>deactive</mat-icon>
-          <span (click)="isactive(text)" [(ngModel)]="isActive">Deactive</span>
+          <span (click)="isactive(text)" [(ngModel)]="trukisActive">Deactive</span>
         </button>
         <button mat-menu-item>
-          <mat-icon>more Details</mat-icon>
+          <mat-icon>more Details</mat-icon>.
           <span>More Detail</span>
         </button>
         <button mat-menu-item>
@@ -135,21 +75,21 @@
       </mat-menu>
 
       <div style="text-align: center; margin-top: 10px;">
-        <h1 style="margin-left: -236px;">{{text.isActive}}</h1>
+        <h1 style="margin-left: -236px;">{{text.trukisActive}}</h1>
         <img src="https://5.imimg.com/data5/SF/YX/MY-2496828/carton-corrugated-box-500x500.jpg" width="25%" height="25%"
           style="float: left;">
           
-        <h1 style="margin-top: 28px;">{{text.vehiclenumber}}</h1>
-        <p style="margin-top: -12px;">Posted On {{text.date}} | Exprires in 48 Hours</p>
+        <h1 style="margin-top: 28px;">{{text.trukvehiclenumber}}</h1>
+        <p style="margin-top: -12px;">Posted On {{text.trukdate}} | Exprires in 48 Hours</p>
       </div>
       <hr>
       <div style="text-align: center; margin-top: -15px;">
         ................................................................</div>
 
       <ion-card-content style="text-align: center; margin-top: -11px;">
-        {{text.capacity}} Tons --{{text.data}} <br>
-        Avaliable in {{text.currentLocation}} <br>
-        {{text.operatingRoutes.length}} Routes <br>
+        {{text.trukcapacity}} Tons --{{text.trukname}} <br>
+        Avaliable in {{text.trukcurrentLocation}} <br>
+        {{text.trukoperatingRoutes.length}} Routes <br>
         <ion-button>View Bids</ion-button>
       </ion-card-content>
 
@@ -160,5 +100,5 @@
 </ion-content>
 
 <div class="center">
-  <ion-button routerLink="/add-truck" class="bb" expand="full" shape="round">Add Trucks</ion-button>
+  <ion-button routerLink="/add-trucks" class="bb" expand="full" shape="round">Add Trucks</ion-button>
 </div> 

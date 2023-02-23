@@ -1,0 +1,103 @@
+import { Component, OnInit } from '@angular/core';
+declare var google: any;
+import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router'
+@Component({
+  selector: 'app-attach-existing-loads',
+  templateUrl: './attach-existing-loads.page.html',
+  styleUrls: ['./attach-existing-loads.page.scss'],
+})
+export class AttachExistingLoadsPage implements OnInit {
+
+  Items: any = [];
+  objects: any;
+  real: any;
+  truk: any;
+  TrukPost: any;
+
+
+  trukname:any;
+  trukcurrentLocation:any;
+  trukcapacity:any;
+  trukoperatingRoutes:any;
+  trukdate:any;
+  trukvehiclenumber:any;
+  router: any;
+  trukmobileNo:any;
+
+  // OriginLocation:any;
+  // DestinationLocation:any;
+  // product:any;
+  // Quantity:any;
+  
+  constructor(private alertController: AlertController, router:Router) {  }
+  ngOnInit(): void {
+    this.objects = localStorage.getItem("selectedTruk");  //use the localstorage we getdata from savedData
+    //The localStorage object allows you to save key/value pairs in the browser.
+    this.real = JSON.parse(this.objects)  //parse() The JSON. parse() method parses a JSON string, constructing the JavaScript value or object described by the string.
+
+    console.log(this.objects)
+
+    this.truk = localStorage.getItem("attachload");  //use the localstorage we getdata from savedData
+    //The localStorage object allows you to save key/value pairs in the browser.
+    this.TrukPost = JSON.parse(this.truk)  //parse() The JSON. parse() method parses a JSON string, constructing the JavaScript value or object described by the string.
+
+    console.log(this.truk)
+  }
+
+  async SendExistingload() {
+    var data = {
+
+      trukname:this.real.trukname,
+      trukcurrentLocation:this.real.trukcurrentLocation,
+      trukcapacity:this.real.trukcapacity,
+      trukdate:this.real.trukdate,
+      trukoperatingRoutes:this.real.trukoperatingRoutes,
+      trukmobileNo:this.real.trukmobileNo,
+      //this is addTruckMarketVehicleToLoad ID we have to make this dynamic
+      _id:this.TrukPost._id
+    }
+    console.log(data)
+    localStorage.setItem("newpostAdd", JSON.stringify(data));
+
+    fetch("https://amused-crow-cowboy-hat.cyclic.app/quotes/addTruckMarketVehicleToLoad", {
+      method: 'post',
+      headers: {
+        "access-Control-Allow-Origin": "*",
+        "Content-Type": 'application/json'
+      },
+      body: JSON.stringify(data),
+
+    })
+      .then(response => response.json())
+      .then(async result => {
+        console.log(result),
+          this.Items = result
+          
+          const alert = await this.alertController.create({
+            header: 'Successfull',
+            // subHeader: 'Important message',
+           // message: 'truk  Successfully',
+            buttons: [
+              {
+                text: 'Okay',
+                handler: () => {
+                  console.log('Confirm Okay');
+                  //you can write your code or redirection 
+                  // sample redirection code 
+                  // window.location.href = '/tab5';
+                }
+              }
+            ],
+          });
+  
+          await alert.present();
+       
+
+      }
+
+      ).catch(err =>
+        console.log(err))
+  }
+
+}

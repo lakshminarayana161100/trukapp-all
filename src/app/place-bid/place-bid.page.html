@@ -44,7 +44,7 @@
 
     </ion-col> -->
 
-     <ion-col size="9" offset="3" *ngIf="text.userType==currentUserType" class="message my-message">
+     <ion-col size="9" offset="3" *ngIf="text.userType == regdata.role" class="message my-message">
 <div *ngIf="text.initialAccept === 'Accepted'">
       <h3>Bid accepted for : {{text.price}}</h3>
     </div>
@@ -65,7 +65,7 @@
 
   <!-- <ion-row *ngFor="let text of finalss"> -->
 
-    <ion-col size="9" *ngIf="text.userType!== currentUserType" class="message other-message">
+    <ion-col size="9" *ngIf="text.userType!== regdata.role" class="message other-message">
 
       <b text-left>{{text.userType}}</b><br>
       <b text-left>{{text.price}}</b><br>
@@ -134,6 +134,26 @@ You Accepted the bid for {{item.tentativefinalPrice}}
   <ion-button fill="outline" shape="round" style="float: left; " id="open-modall">Initial Bid</ion-button>
 
 </ion-card>
+
+<ion-card style="background-color:orange;">
+  <ion-card-header>
+    <ion-card-title style="color: white;">Add New Truck</ion-card-title>
+
+  </ion-card-header>
+
+  <ion-card-content style="color:white;">
+    Bid is accepted, please add your truck
+  </ion-card-content>
+
+
+  <!-- <ion-button fill="clear" style="text-align:center; color: red; float: left;">Reject</ion-button> -->
+  <ion-button fill="clear" style="float:right; color:orange; width:140px;background-color:white; border-radius:9px;" >Add New Truck</ion-button><br>
+  
+  
+
+</ion-card>
+
+
 <ion-button id="open-modal" shape="round" class="next">Negotiate</ion-button>
 </div>
   <ion-modal trigger="open-modall" [initialBreakpoint]="0.25" [breakpoints]="[0, 0.25, 0.5, 0.75]" handleBehavior="cycle">

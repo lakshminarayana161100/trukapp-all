@@ -47,10 +47,11 @@ body={
 
 
   ngOnInit():void{
-    this.get()
+  
+    this.toggle(this.isActive="Active")
   }
   get() {
-    fetch("http://localhost:3000/quotes/allQuotes", {
+    fetch("https://amused-crow-cowboy-hat.cyclic.app/quotes/allQuotes", {
       method: 'GET',
       headers: {
         "access-Control-Allow-Origin": "*",
@@ -84,7 +85,7 @@ body={
    // console.log(data)
 
     console.log(docData)
-    fetch("http://localhost:3000/postLoad/loadDeactivate/" + docData._id, {
+    fetch("https://amused-crow-cowboy-hat.cyclic.app/postLoad/loadDeactivate/" + docData._id, {
       method: 'PUT',
       headers: {
         "access-Control-Allow-Origin": "*",
@@ -127,9 +128,20 @@ body={
         console.log(isActive)
        }
 
+       toggles(isActive:any){
+        this.isactive=isActive
+        this.activeGet()
+        console.log(isActive)
+       }
+       
+       toggless(isActive:any){
+        this.isactive=isActive
+        this.activeGet()
+        console.log(isActive)
+       }
        activeGet(){
         console.log(this.isactive)
-    fetch("http://localhost:3000/quotes/loadsByStatus/" + this.isactive, {
+    fetch("https://amused-crow-cowboy-hat.cyclic.app/quotes/loadsByStatus/" + this.isactive, {
       method: 'GET',
       headers: {
         "access-Control-Allow-Origin": "*",

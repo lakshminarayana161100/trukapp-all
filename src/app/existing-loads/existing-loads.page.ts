@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
 @Component({
-  selector: 'app-attach-load',
-  templateUrl: './attach-load.page.html',
-  styleUrls: ['./attach-load.page.scss'],
+  selector: 'app-existing-loads',
+  templateUrl: './existing-loads.page.html',
+  styleUrls: ['./existing-loads.page.scss'],
 })
-export class AttachLoadPage implements OnInit {
+export class ExistingLoadsPage implements OnInit {
 
   item: any = [];
   OriginLocation: any;
@@ -24,7 +23,7 @@ export class AttachLoadPage implements OnInit {
   
 
   constructor( private router:Router) { }
-  
+  disabled=true
   ngOnInit() {
     this.get()
 
@@ -58,18 +57,19 @@ export class AttachLoadPage implements OnInit {
 
   out(data:any){
     console.log(data)
-    //this.language =data
+    this.language =data
   }
 
   sendData(data:any){
     console.log(data)
-    this.language =data
     localStorage.setItem("attachload", JSON.stringify(data));
     //The localStorage object allows you to save key/value pairs in the browser.
   }
 
    proceed(){
-     this.router.navigate(['attach-existing-loads'])
+     this.router.navigate(['existing-load'])
    }
 
 }
+
+

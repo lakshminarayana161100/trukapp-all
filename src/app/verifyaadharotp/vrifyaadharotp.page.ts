@@ -83,7 +83,7 @@ config = {
       
       }
       console.log(data)
-      fetch("http://localhost:3000/TruckAppUsers/putprofile/" +this.logindata._id, {
+      fetch("https://amused-crow-cowboy-hat.cyclic.app/TruckAppUsers/putprofile/" +this.logindata._id, {
         
       method:'put',
       headers:{

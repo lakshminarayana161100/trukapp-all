@@ -38,6 +38,13 @@ export class AttachNewLoadPage implements OnInit {
 
 
 
+  trukname:any;
+  trukvehiclenumber:any;
+  trukcurrentLocation:any;
+  trukoperatingRoutes:any;
+  trukcapacity:any;
+
+
   OriginLocation: any;
   DestinationLocation: any;
   IsOrigin = false;
@@ -45,7 +52,8 @@ export class AttachNewLoadPage implements OnInit {
   directionsService = new google.maps.DirectionsService();
   directionsRenderer = new google.maps.DirectionsRenderer();
 
-
+  objects: any;
+  post: any;
 
   Items: any;
   data: any;
@@ -61,6 +69,15 @@ export class AttachNewLoadPage implements OnInit {
   }
   ngOnInit(): void {
     this.regdata =JSON.parse(localStorage.getItem('regdata') || '{}')
+
+
+
+
+    this.objects = localStorage.getItem("AttachNewLoad");  //use the localstorage we getdata from savedData
+    //The localStorage object allows you to save key/value pairs in the browser.
+    this.post = JSON.parse(this.objects)  //parse() The JSON. parse() method parses a JSON string, constructing the JavaScript value or object described by the string.
+
+    console.log(this.objects)
   }
 
   ngAfterViewInit(): void {
@@ -197,11 +214,16 @@ export class AttachNewLoadPage implements OnInit {
       length: this.length,
       breadth: this.breadth,
       height: this.height,
-      comments: this.comments
+      comments: this.comments,
+      trukname:this.post.trukname,
+      trukcapacity:this.post.trukcapacity,
+      trukcurrentLocation:this.post.trukcurrentLocation,
+      trukoperatingRoutes:this.post.trukoperatingRoutes,
+      trukvehiclenumber:this.post.trukvehiclenumber
     }
     console.log(body)
-    if(this.regdata.aadharVerify === 'Verified' || this.regdata.gstVerify === 'Verified'){
-    fetch("http://localhost:3000/quotes/generateQuote", {
+   // if(this.regdata.aadharVerify === 'Verified' || this.regdata.gstVerify === 'Verified'){
+    fetch("https://amused-crow-cowboy-hat.cyclic.app/quotes/generateQuote", {
       method: 'post',
       headers: {
         "access-Control-Allow-Origin": "*",
@@ -242,10 +264,10 @@ export class AttachNewLoadPage implements OnInit {
 
       ).catch(err =>
         console.log(err))
-      }else{
-        alert('Verify Aadhar/GST')
-        window.location.href='/profle'
-      }
+     // }else{
+       // alert('Verify Aadhar/GST')
+      //  window.location.href='/profle'
+     // }
 
 
   }

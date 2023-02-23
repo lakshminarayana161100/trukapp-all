@@ -7,24 +7,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MytrucksPage implements OnInit {
 
-  item:any = [];
-  TurkActive:any;
-_id:any;
-  vehiclenumber:any;
-  capacity:any;
-  data:any;
-  currentLocation:any;
-  operatingRoutes:any;
-  isActive:any
+  item: any = [];
+  TurkActive: any;
+  _id: any;
+  trukvehiclenumber: any;
+  trukcapacity: any;
+  trukname: any;
+  trukcurrentLocation: any;
+  trukoperatingRoutes: any;
+   trukisActive: any
   products: any;
 
 
-  constructor() {}
+  constructor() { }
 
 
-  ngOnInit():void{
+  ngOnInit(): void {
     this.get()
-    
   }
   get() {
     fetch("https://amused-crow-cowboy-hat.cyclic.app/addTruk/allVehicles", {
@@ -38,7 +37,7 @@ _id:any;
       .then(result => {
         console.log(result),
           this.item = result.Load
-         console.log(this.item)
+        console.log(this.item)
       }
 
       ).catch(err =>
@@ -47,7 +46,7 @@ _id:any;
 
 
 
-  SendData(data:any){
+  SendData(data: any) {
     console.log(data)
     localStorage.setItem("TrukPosted", JSON.stringify(data));
     //The localStorage object allows you to save key/value pairs in the browser.
@@ -56,14 +55,14 @@ _id:any;
 
 
   // Isactive Functionality
-  isactive(Data:any){
+  isactive(Data: any) {
     console.log(Data._id)
-    var data={
-      isActive:"Deactive"
+    var data = {
+      trukisActive: "Deactive"
     }
-   // console.log(data)
+    // console.log(data)
 
-    
+
     fetch("https://amused-crow-cowboy-hat.cyclic.app/addTruk/TrukDeactive/" + Data._id, {
       method: 'PUT',
       headers: {
@@ -76,10 +75,10 @@ _id:any;
       .then(response => response.json())
       .then(result => {
         console.log(result),
-        
+
           this.products = JSON.parse(result)  //it  runs $parse automatically when it runs the $digest loop, basically $parse is the way angular evaluates expressions
 
-     
+
         //window.location.reload()  // reloading window
 
       }
@@ -107,17 +106,17 @@ _id:any;
 
       ).catch(err =>
         console.log(err))
-        
+
   }
 
 
-  toggle(isActive:any){
-    this.TurkActive=isActive
+  toggle(trukisActive: any) {
+    this.TurkActive = trukisActive
     this.Truk()
-console.log(isActive)
+    console.log(trukisActive)
   }
 
-  Truk(){
+  Truk() {
     console.log(this.TurkActive)
     fetch("https://amused-crow-cowboy-hat.cyclic.app/addTruk/trukByStatus/" + this.TurkActive, {
       method: 'GET',
@@ -130,11 +129,12 @@ console.log(isActive)
       .then(result => {
         console.log(result),
           this.item = result.vehicle
-         console.log(this.item)
+        console.log(this.item)
       }
 
       ).catch(err =>
         console.log(err))
   }
+
 
 }

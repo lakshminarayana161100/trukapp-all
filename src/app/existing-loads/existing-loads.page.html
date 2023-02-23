@@ -46,7 +46,7 @@
               <span style="margin-left: 2rem;">{{card.OriginLocation}} - {{card.DestinationLocation}}</span>
               <h3 style="margin-left: 3rem;">Pickup {{card.date}}</h3>
             </div>
-            .............................................................................
+            ..............................................................................................
             <ion-card-content>
               {{card.product}} <br>
               <ion-icon name="car-outline" style="font-size: 20px;"></ion-icon>{{card.Quantity}}Tonne(s) {{card.data}} <br>
@@ -64,5 +64,6 @@
   </ion-list>
 </ion-content>
 
-<ion-button slot="end" (click)="proceed()" class="button" [disabled]="language == null" shape="round">proceed</ion-button>  
+<ion-button slot="end" (click)="proceed()" class="button" shape="round">proceed</ion-button>  
  <!-- <ion-button slot="end" routerLink="/existing-load">proceed</ion-button>  -->
+

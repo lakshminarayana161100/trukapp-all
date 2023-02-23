@@ -21,13 +21,23 @@ export class ViewBidPage implements OnInit {
     goinsidetenprice: any;
     finalAgentAccept: any;
   regdata: any;
+  openedBid: any;
+  bidactivityofopenbid: any;
+  filteredbid: any;
+  onlybid: any;
+  conditions: any;
+  agentconditions: any;
+  products: any;
+  tenprice: any;
     constructor() { }
   
     ngOnInit() {
       this.regdata =JSON.parse(localStorage.getItem('regdata') || '{}')
       this.bids = JSON.parse(localStorage.getItem("viewBid") || '{}');
       console.log(this.bids)
-  
+      this.openedBid =JSON.parse(localStorage.getItem('openedBid') || '{}')
+      console.log(this.openedBid)
+      this.bidactivityofopenbid =this.openedBid.BidActivity
       for(let i=0;i<this.bids.bids.length;i++){
            this.bidact=this.bids.bids[i]
       }
@@ -37,7 +47,7 @@ export class ViewBidPage implements OnInit {
     console.log(this.bidActivity)
   } */
   
-  fetch("http://localhost:3000/quotes/quoteByid/"+ this.bids._id, {
+  fetch("https://amused-crow-cowboy-hat.cyclic.app/quotes/quoteByid/"+ this.bids._id, {
     method: 'GET',
     headers: {
       "access-Control-Allow-Origin": "*",
@@ -48,20 +58,36 @@ export class ViewBidPage implements OnInit {
     .then(result => {
       console.log(result)
       for(let i=0; i<result.length;i++){
-    var final= result[i]
+    var final= result[i].bids
       }
-      
-        this.item = final.bids
-        console.log(this.item)
+      console.log(final)
+        this.item = final
+
+        this.filteredbid = this.item.filter((data:any)=>{
+          return data._id == this.openedBid._id
+        })
+        console.log(this.filteredbid)
+   for(let i=0;i<this.filteredbid.length;i++){
+    this.conditions = this.filteredbid[i].isShipperAccepted
+    this.agentconditions = this.filteredbid[i].isShipperAccepted
+    this.onlybid =this.filteredbid[i].BidActivity
+    this.tenprice = this.filteredbid[i].tentativefinalPrice
+   }
+console.log(this.onlybid)
         for(let i=0; i<this.item.length;i++){
-          this.goinsidebids =this.item[i].isShipperAccepted
-          this.finalAgentAccept =this.item[i].isAgentAccepted
-          this.goinsidetenprice =this.item[i].tentativefinalPrice
-          console.log(this.goinsidebids)
+          console.log(this.item[i])
+          //this.goinsidebids =this.item[i]
+          //this.finalAgentAccept =this.item[i]
+         
+        
+         
           this.bidActivity= this.item[i].BidActivity
           console.log(this.bidActivity)
           this.bidnumber =this.item[i].mobileNo
             }
+            console.log(this.goinsidetenprice)
+           // console.log(this.finalAgentAccept.isAgentAccepted)
+            //console.log(this.goinsidebids.isShipperAccepted)
       console.log(this.bidnumber)
   
       for(let i=0; i<this.bidActivity.length;i++){
@@ -76,7 +102,7 @@ export class ViewBidPage implements OnInit {
   
     ).catch(err =>
       console.log(err))
-  
+ 
       
   }
   
@@ -88,8 +114,8 @@ export class ViewBidPage implements OnInit {
     
       
         "_id":this.bids._id,
-        "mobileNo":this.bidnumber,
-        "userNo":this.bidActivityprice,
+        "mobileNo":this.openedBid.mobileNo, //evaritho negotiate chesthunnamo vadi mobile number
+        "userNo":this.regdata.mobileNo,
         "userType":this.regdata.role,
         "price":this.NegoPrice
       
@@ -97,7 +123,7 @@ export class ViewBidPage implements OnInit {
        console.log(this.bids._id)
   console.log(this.bidnumber)
     
-      fetch("http://localhost:3000/quotes/updateBids", {
+      fetch("https://amused-crow-cowboy-hat.cyclic.app/quotes/updateBids", {
         method: 'post',
         headers: {
           "access-Control-Allow-Origin": "*",
@@ -126,15 +152,16 @@ export class ViewBidPage implements OnInit {
     
       
         "_id":this.bids._id,
-        "mobileNo":this.bidnumber,
-  "isShipperAccepted":true
+        "mobileNo":this.openedBid.mobileNo,
+        "isShipperAccepted":true,
+        "bidAcceptedTo":this.openedBid.mobileNo
     
       
        }
        console.log(this.bids._id)
   console.log(this.bidnumber)
     
-      fetch("http://localhost:3000/quotes/initialacceptbyshipper", {
+      fetch("https://amused-crow-cowboy-hat.cyclic.app/quotes/initialacceptbyshipper", {
         method: 'post',
         headers: {
           "access-Control-Allow-Origin": "*",
@@ -146,7 +173,9 @@ export class ViewBidPage implements OnInit {
         .then(response => response.json())
         .then(async result => {
           console.log(result)
-          
+          const data = result.message
+          console.log(data)
+          localStorage.setItem('viewBid',JSON.stringify(data))
           
     
     
@@ -154,7 +183,44 @@ export class ViewBidPage implements OnInit {
     
         ).catch(err =>
           console.log(err))
-     
+     this. acceptBidStatus()
     }
+
+    acceptBidStatus(){
+
+      var data={
+        isActive:"Completed"
+      }
+     // console.log(data)
+  
+      console.log(this.bids._id)
+      fetch("https://amused-crow-cowboy-hat.cyclic.app/postLoad/loadDeactivate/" + this.bids._id, {
+        method: 'PUT',
+        headers: {
+          "access-Control-Allow-Origin": "*",
+          "Content-Type": 'application/json'
+        },
+        body: JSON.stringify(data),        // JSON Means An intrinsic object that provides functions to convert JavaScript values to and from the JavaScript Object Notation (JSON) format.
+  
+      })
+        .then(response => response.json())
+        .then(result => {
+          console.log(result),
+  
+            this.products = JSON.parse(result)  //it  runs $parse automatically when it runs the $digest loop, basically $parse is the way angular evaluates expressions
+  
+       
+          window.location.reload()  // reloading window
+  
+        }
+  
+        ).catch(err =>
+          console.log(err))
+  }
+
+  makepayment(){
+    localStorage.setItem('filteredBid',JSON.stringify(this.filteredbid))
+    window.location.href='/makepayment'
+  }
 
 }

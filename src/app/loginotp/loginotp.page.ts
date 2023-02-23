@@ -61,8 +61,8 @@ regData:any
      // console.log(value)
    // })
    //var uuid = new DeviceUUID().get();
-   this.getPermission();
-   this.getUniqueDeviceID();
+   //this.getPermission();
+   //this.getUniqueDeviceID();
    
    /*this.OneSignal.addSubscriptionObserver().subscribe((state: { from: { subscribed: any; }; to: { subscribed: any; userId: string; }; }) => {
     if (!state.from.subscribed && state.to.subscribed) {

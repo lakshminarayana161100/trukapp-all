@@ -53,7 +53,7 @@ option = {
       this.bannerImages = images;
     });*/
 
-    fetch("http://localhost:3000/truckinfo/gethome",{
+    fetch("https://amused-crow-cowboy-hat.cyclic.app/truckinfo/gethome",{
       //fetch("https://api.emptra.com/aadhaarVerification/requestOtp", {
         
         method:'get',

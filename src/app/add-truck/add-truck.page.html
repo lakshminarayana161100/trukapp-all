@@ -25,12 +25,12 @@
           </div> -->
           <ion-item fill="outline">
             <ion-label position="floating">Enter Vechile number</ion-label>
-            <ion-input placeholder="K.A 10 5555" [(ngModel)]="vehiclenumber"></ion-input>
+            <ion-input placeholder="K.A 10 5555" [(ngModel)]="trukvehiclenumber"></ion-input>
           </ion-item>
           <br>
           <ion-item fill="outline">
             <ion-label position="floating">Current Location</ion-label>
-            <ion-input placeholder="Current vechile Location" [(ngModel)]="currentLocation"></ion-input>
+            <ion-input placeholder="Current vechile Location" [(ngModel)]="trukcurrentLocation"></ion-input>
             <ion-icon name="location-outline" slot="end"></ion-icon>
           </ion-item>
 
@@ -44,14 +44,14 @@
 
           <div>
             <ng-multiselect-dropdown [placeholder]="'Add Your Vechile Routes (States)'" [settings]="dropdownSettings"
-              [data]="dropdownList" [(ngModel)]="operatingRoutes" (onSelect)="onItemSelect($event)"
+              [data]="dropdownList" [(ngModel)]="trukoperatingRoutes" (onSelect)="onItemSelect($event)"
               (onSelectAll)="onSelectAll($event)">
             </ng-multiselect-dropdown>
           </div>
           <br>
           <div class="form-group">
             <div class="form-control">
-              <ion-input type="datetime-local" style="border: none; " [(ngModel)]="date"></ion-input>
+              <ion-input type="datetime-local" style="border: none; " [(ngModel)]="trukdate"></ion-input>
             </div>
           </div>
 
@@ -119,7 +119,7 @@
                     style="height: 94px;
               width: 131px;
               margin-top: -50px;;">
-                  <ion-card-title> Hyva</ion-card-title>
+                  <ion-card-title>Hyva</ion-card-title>
                   <ion-card-subtitle>1 to 35 Tonnes</ion-card-subtitle>
                 </ion-card-header>
               </label>
@@ -186,7 +186,7 @@
 
         <div class="form-group">
           <label for="text">Enter the LCV Capacity</label>
-          <input type="text" class="form-control" id="email" [(ngModel)]="capacity">
+          <input type="text" class="form-control" id="email" [(ngModel)]="trukcapacity">
         </div>
       </div>
     </ion-accordion>

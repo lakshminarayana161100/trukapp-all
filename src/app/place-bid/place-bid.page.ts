@@ -29,7 +29,7 @@ id:any
   created!: number;
   date: any
 
-  currentUserType="Agent/Broker";
+  currentUserType="Transporter";
   
 
   
@@ -76,7 +76,7 @@ this.getfullarray()
      "_id": this.objects._id,
       "mobileNo":this.regdata.mobileNo//8762345675 //this.regdata.mobileNo
     }
-    fetch("http://localhost:3000/quotes/showAgentSideBidConversation", {
+    fetch("https://amused-crow-cowboy-hat.cyclic.app/quotes/showAgentSideBidConversation", {
       method: 'POST',
       headers: {
         "access-Control-Allow-Origin": "*",
@@ -150,7 +150,7 @@ acceptBid(){
   var body = {
 
   
-    "_id":this.placebidID.profile,
+    "_id": this.objects._id,
     "mobileNo":this.regdata.mobileNo,
     "userType":this.regdata.role,
     "Bidprice":this.objects.expectedPrice,
@@ -158,7 +158,7 @@ acceptBid(){
 
    }
 
-  fetch("http://localhost:3000/quotes/placeBid", {
+  fetch("https://amused-crow-cowboy-hat.cyclic.app/quotes/placeBid", {
     method: 'post',
     headers: {
       "access-Control-Allow-Origin": "*",
@@ -194,7 +194,7 @@ initialBid(){
   
    }
 
-  fetch("http://localhost:3000/quotes/placeBid", {
+  fetch("https://amused-crow-cowboy-hat.cyclic.app/quotes/placeBid", {
     method: 'post',
     headers: {
       "access-Control-Allow-Origin": "*",
@@ -221,15 +221,15 @@ negotiate(){
   var body = {
 
   
-    "_id":this.placebidID.profile,
-    "mobileNo":this.num,
-    "userNo":this.objects.Number,
+    "_id": this.objects._id,
+    "mobileNo":this.regdata.mobileNo,
+    "userNo":this.regdata.mobileNo,
     "userType":this.regdata.role,
     "price":this.NegoPrice
   
    }
 
-  fetch("http://localhost:3000/quotes/updateBids", {
+  fetch("https://amused-crow-cowboy-hat.cyclic.app/quotes/updateBids", {
     method: 'post',
     headers: {
       "access-Control-Allow-Origin": "*",
@@ -257,7 +257,7 @@ acceptBidForFinal(){
   
     
     "_id":this.objects._id,
-    "mobileNo":this.item.mobileNo,
+    "mobileNo":this.regdata.mobileNo,
 "isAgentAccepted":true
 
   
@@ -265,7 +265,7 @@ acceptBidForFinal(){
    console.log(this.bids._id)
 console.log(this.item.mobileNo)
 
-  fetch("http://localhost:3000/quotes/finalacceptbyagent", {
+  fetch("https://amused-crow-cowboy-hat.cyclic.app/quotes/finalacceptbyagent", {
     method: 'post',
     headers: {
       "access-Control-Allow-Origin": "*",

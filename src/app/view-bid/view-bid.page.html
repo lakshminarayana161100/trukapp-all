@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <div style="display: flex;">
-      <ion-icon name="arrow-back-sharp" routerLink="/tab/tab1" style="font-size: 30px;"></ion-icon>
+      <ion-icon name="arrow-back-sharp" routerLink="/all-bids" style="font-size: 30px;"></ion-icon>
       <ion-title>View Bid</ion-title>
     </div>
   </ion-toolbar>
@@ -51,7 +51,7 @@
   </ion-card> -->
 
   <ion-grid>
-    <ion-row *ngFor="let text of bidActivity">
+    <ion-row *ngFor="let text of onlybid">
 
       <!-- <ion-col size="9" *ngIf="text.userType!== currentUserType" class="message other-message">
 
@@ -66,7 +66,7 @@
 
       </ion-col> -->
 
-       <ion-col size="9" offset="3" *ngIf="text.userType==currentUserType" class="message my-message">
+       <ion-col size="9" offset="3" *ngIf="text.userType==regdata.role" class="message my-message">
 
        
 
@@ -78,7 +78,7 @@
 
     <!-- <ion-row *ngFor="let text of bidActivity"> -->
 
-      <ion-col size="9" *ngIf="text.userType!== currentUserType" class="message other-message">
+      <ion-col size="9" *ngIf="text.userType!== regdata.role" class="message other-message">
 <div *ngIf="text.initialAccept === 'Accepted'">
       <h3>Bid accepted for : {{text.price}}</h3>
     </div>
@@ -128,26 +128,28 @@
 
    
 
-      <ion-card  color="success" *ngIf="finalAgentAccept == true">
+      <ion-card  color="success"  *ngIf="conditions == true">
         <div align="center">
         
-        agent/transporter/fleet accepted bid  for:{{goinsidetenprice}}
+        agent/transporter/fleet accepted bid  for:{{tenprice}}
         </div>
         </ion-card>
-        <ion-card  color="success" *ngIf="goinsidebids == true">
+        <ion-card  color="success" *ngIf="agentconditions == true">
           <div align="center">
           
-          You approved for:{{goinsidetenprice}}
+          You approved for:{{tenprice}}
           </div>
           </ion-card>
 
-      <div *ngIf="goinsidebids == true" align="center" style="margin-top:150px;">
-        <ion-button  shape="round" class="next">PAY NOW</ion-button>
-        </div>
+    
 
 </ion-content>
+<div *ngIf="agentconditions == true" align="center" style="margin-top:5px;">
+  <ion-button  shape="round" class="next" (click)="makepayment()">PAY NOW</ion-button>
+  </div>
 
-<div [hidden]="goinsidebids == true">
+
+<div [hidden]="agentconditions == true">
 <ion-button fill="clear" style="float: right; color: green;" (click)="acceptBid()">Accept</ion-button>
 <ion-button id="open-modal" shape="round" class="next">Negotiate</ion-button>
 </div>

@@ -15,7 +15,41 @@
   <br>
 
   <!--Expansion panel-->
-
+  <ion-accordion-group>
+    <ion-accordion value="four">
+      <ion-item slot="header" color="light" class="vehicle">
+        <ion-label style="font-size: larger;">your preferred Vechile</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">
+        <ion-list>
+          <ion-item>
+            <ion-label position="stacked" style="color: #F58E26; font-size: 25px;">Selected vehicle:</ion-label>
+            <ion-input [(ngModel)]="trukname">{{post.trukname}}</ion-input>
+          </ion-item>
+          <br>
+          <ion-item>
+            <ion-label position="stacked" style="color: #F58E26;font-size: 25px;">VehicleNo:</ion-label>
+            <ion-input [(ngModel)]="trukvehiclenumber"> {{post.trukvehiclenumber}}</ion-input>
+          </ion-item>
+          <br>
+          <ion-item>
+            <ion-label position="stacked" style="color: #F58E26; font-size: 25px;">CurrentLocation:</ion-label>
+            <ion-input [(ngModel)]="trukcurrentLocation">{{post.trukcurrentLocation}}</ion-input>
+          </ion-item>
+          <br>
+          <ion-item>
+            <ion-label position="stacked" style="color: #F58E26; font-size: 25px;">TrukoperatingRoutes:</ion-label>
+            <ion-input [(ngModel)]="trukoperatingRoutes">{{post.trukoperatingRoutes}}</ion-input>
+          </ion-item>
+          <br>
+          <ion-item>
+            <ion-label position="stacked" style="color: #F58E26; font-size: 25px;">Trukcapacity:</ion-label>
+            <ion-input [(ngModel)]="trukcapacity">{{post.trukcapacity}}</ion-input>
+          </ion-item>
+        </ion-list>
+      </div>
+    </ion-accordion>
+  </ion-accordion-group>
 
   <ion-accordion-group>
     <ion-accordion value="first">
@@ -341,7 +375,7 @@
           <div class="form-control">
             <ion-label></ion-label>
             <ion-select placeholder="Type of Payment to Lorry Owner" [multiple]="true" [(ngModel)]="typeOfPay">
-              <ion-select-option value="Advance">Advance</ion-select-option>
+              <ion-select-option value="Offline">Offline</ion-select-option>
               <ion-select-option value="Online">Online</ion-select-option>
 
             </ion-select>

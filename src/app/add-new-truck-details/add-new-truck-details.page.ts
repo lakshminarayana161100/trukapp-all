@@ -82,7 +82,7 @@ export class AddNewTruckDetailsPage implements OnInit {
     console.log(data)
     localStorage.setItem("newpostAdd", JSON.stringify(data));
 
-    fetch("http://localhost:3000/quotes/attachVehicleToLoad", {
+    fetch("https://amused-crow-cowboy-hat.cyclic.app/quotes/attachVehicleToLoad", {
       method: 'post',
       headers: {
         "access-Control-Allow-Origin": "*",

@@ -1,0 +1,61 @@
+.amount{
+    width: 140px;
+    height: 40px;
+    border: 2px solid green;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+}
+.advance{
+    width: 120px;
+    height: 25px;
+    border: 2px solid green;
+    border-radius: 10px;
+}
+
+ion-button{
+    background: #f58e26;
+    height:50px ;
+   border-radius: 10px;
+    margin: 10px;
+    margin-bottom: 40px;
+  }
+
+/////////
+input[type=radio]{
+    -webkit-appearance: none;
+}
+
+label{
+  height: 34px;
+  width: 134px;
+  border: 2px solid #171716;
+  margin: 20px;
+  border-radius: 10px;
+  position: relative;
+  color: #0c0c0c;
+  transition: 0.5s;
+
+  ion-card-header{
+    margin-top: 22px;
+  }
+}
+
+
+
+label>span {
+  font-size: 25px;
+  
+  font-weight: 500;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 80%);
+}
+
+input[type=radio]:checked + label {
+	background-color: #f58e26;
+	color: #0c0c0c;
+	box-shadow: 0 15px 45px rgb(24,249,141,0.2);
+}

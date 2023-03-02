@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators,FormControl,NgControl } from '@angular/forms';
+import { LoadingController } from '@ionic/angular';
 @Component({
   selector: 'app-addaddress',
   templateUrl: './addaddress.page.html',
@@ -9,7 +10,7 @@ import { FormBuilder, FormGroup, Validators,FormControl,NgControl } from '@angul
 export class AddaddressPage implements OnInit {
   signupForm!:FormGroup
   logindata:any 
-  constructor(private router:Router) { }
+  constructor(private router:Router,public loadingController: LoadingController) { }
 
   ngOnInit() {
     this.logindata=  JSON.parse(localStorage.getItem('regdata')|| '{}')
@@ -25,7 +26,12 @@ export class AddaddressPage implements OnInit {
       'pincode': new FormControl('', [Validators.required, ]),
     });
   }
-Addaddress(data:any){
+async Addaddress(data:any){
+  const loading = await this.loadingController.create({
+    message: 'Loading...',
+    spinner: 'crescent'
+  });
+  await loading.present();
   console.log(data)
   console.log(this.logindata)
   fetch("https://amused-crow-cowboy-hat.cyclic.app/TruckAppUsers/putprofile/" +this.logindata.Authentication, {
@@ -41,6 +47,7 @@ Addaddress(data:any){
   .then(
     result =>{
  console.log(result)
+ loading.dismiss()
     this.router.navigate(['profile'])
     
     
@@ -48,6 +55,7 @@ Addaddress(data:any){
     }
     ).catch(
         error =>{
+          loading.dismiss()
           alert('register not  successfull');
          console.log(error)
         });

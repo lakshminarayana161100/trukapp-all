@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { LoadingController } from '@ionic/angular';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 @Component({
   selector: 'app-truk-edit-page',
@@ -25,7 +26,7 @@ export class TrukEditPagePage implements OnInit {
   objects: any;
   products: any;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder,public loadingController: LoadingController) { }
 
   ngOnInit() {
 
@@ -114,7 +115,12 @@ export class TrukEditPagePage implements OnInit {
 
 
   //updateform(PUT API)
-  updateForm(data: any) {
+  async updateForm(data: any) {
+    const loading = await this.loadingController.create({
+      message: 'Verifying...',
+      spinner: 'crescent'
+    });
+    await loading.present();
     console.log(data)
     //console.log(this.description, this.image, this.price, this.description, this.name)
     console.log(this.real._id)
@@ -133,13 +139,16 @@ export class TrukEditPagePage implements OnInit {
 
           this.products = JSON.parse(result)  //it  runs $parse automatically when it runs the $digest loop, basically $parse is the way angular evaluates expressions
 
-        this.updateproductForm.reset();   // form reset
+        this.updateproductForm.reset(); 
+        loading.dismiss()  // form reset
         window.location.reload()  // reloading window
 
       }
 
-      ).catch(err =>
-        console.log(err))
+      ).catch(err =>{
+        loading.dismiss()
+        console.log(err)
+      })
   }
 
 

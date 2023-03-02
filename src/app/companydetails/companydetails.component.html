@@ -53,7 +53,7 @@
     
     expand="block" 
 
-    (click)="RegisterFor()" [disabled]="!FirstName || !LastName || !ReferalCode || !city"
+    (click)="RegisterFor()" [disabled]="!FirstName || !LastName || !city || !companyName"
     >
     <ion-text>Next</ion-text>
   </ion-button>

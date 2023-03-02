@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-mytrucks',
@@ -19,7 +20,7 @@ export class MytrucksPage implements OnInit {
   products: any;
 
 
-  constructor() { }
+  constructor(public loadingController: LoadingController) { }
 
 
   ngOnInit(): void {
@@ -55,7 +56,12 @@ export class MytrucksPage implements OnInit {
 
 
   // Isactive Functionality
-  isactive(Data: any) {
+  async isactive(Data: any) {
+    const loading = await this.loadingController.create({
+      message: 'Loading...',
+      spinner: 'crescent'
+    });
+    await loading.present();
     console.log(Data._id)
     var data = {
       trukisActive: "Deactive"
@@ -78,13 +84,15 @@ export class MytrucksPage implements OnInit {
 
           this.products = JSON.parse(result)  //it  runs $parse automatically when it runs the $digest loop, basically $parse is the way angular evaluates expressions
 
-
+loading.dismiss()
         //window.location.reload()  // reloading window
 
       }
 
-      ).catch(err =>
-        console.log(err))
+      ).catch(err =>{
+        loading.dismiss()
+        console.log(err)
+      })
   }
 
   deleteTruk(id: any) {
@@ -135,6 +143,10 @@ export class MytrucksPage implements OnInit {
       ).catch(err =>
         console.log(err))
   }
+  progress(){
 
-
+  }
+  complete(){
+    
+  }
 }

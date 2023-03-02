@@ -12,7 +12,15 @@ ion-card{
             border: 2px solid #f58e26;
             background-color:#f58e26;
             padding: 5px;
+            animation-name: edit;
+            animation-duration:4s;
+            animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
             border-radius: 9px;
+
+            @keyframes edit {
+                from {background-color:#f58e26;}
+                to {background-color: rgb(42, 26, 26);}
+            }
         }
 
     }

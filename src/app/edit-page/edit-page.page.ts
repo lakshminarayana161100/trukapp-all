@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { FormBuilder, FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { LoadingController } from '@ionic/angular';
 @Component({
   selector: 'app-edit-page',
   templateUrl: './edit-page.page.html',
@@ -24,7 +25,7 @@ export class EditPagePage implements OnInit {
   Id: any
   updateproductForm: any;
 
-  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute) { }
+  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute,public loadingController: LoadingController) { }
   out(data: any) {
     console.log(data)
     this.data = data
@@ -61,8 +62,12 @@ export class EditPagePage implements OnInit {
     })
   }
 
-  updateForm(data: any) {
-
+  async updateForm(data: any) {
+    const loading = await this.loadingController.create({
+      message: 'Loading...',
+      spinner: 'crescent'
+    });
+    await loading.present();
 
 
     console.log(data)
@@ -83,13 +88,16 @@ export class EditPagePage implements OnInit {
 
           this.products = JSON.parse(result)  //it  runs $parse automatically when it runs the $digest loop, basically $parse is the way angular evaluates expressions
 
-        this.updateproductForm.reset();   // form reset
+        this.updateproductForm.reset();
+        loading.dismiss()   // form reset
         window.location.reload()  // reloading window
 
       }
 
-      ).catch(err =>
-        console.log(err))
+      ).catch(err =>{
+        loading.dismiss()
+        console.log(err)
+      })
   }
   
 

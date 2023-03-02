@@ -13,6 +13,7 @@ export class SelectlanguagePage implements OnInit {
   constructor(private router:Router) { }
 disabled=true
   ngOnInit() {
+    this.autorefresh(event)
     console.log(this.language)
 
 

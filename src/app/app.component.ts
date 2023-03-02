@@ -3,7 +3,7 @@ import { Platform } from '@ionic/angular';
 //import { OneSignal } from '@ionic-native/onesignal';
 import OneSignal from 'onesignal-cordova-plugin';
 //import {OneSignal} from '@ionic-native/onesignal'
-
+import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -11,17 +11,30 @@ import OneSignal from 'onesignal-cordova-plugin';
 })
 export class AppComponent {
   notificationToken: any;
-
-  constructor(private platform: Platform,) {
-
+  UniqueDeviceID!:string;
+  constructor(private platform: Platform,private uniqueDeviceID: UniqueDeviceID) {
+this. getUniqueDeviceID()
     platform.ready().then(() => {
       this.OneSignalInit();
     });
 
-
+//this.getUniqueDeviceID()
   }
 
-  
+  getUniqueDeviceID() {
+    this.uniqueDeviceID.get()
+      .then((uuid: any) => {
+        console.log(uuid);
+        this.UniqueDeviceID = uuid;
+
+        //alert(this.UniqueDeviceID)
+      })
+      .catch((error: any) => {
+        console.log(error);
+        this.UniqueDeviceID = "Error! ${error}";
+      });
+  }
+
   // Call this function when your app starts
  OneSignalInit(): void {
   // Uncomment to set OneSignal device logging to VERBOSE  
@@ -39,9 +52,9 @@ export class AppComponent {
       console.log("User accepted notifications: " + accepted);
   });
 
-OneSignal.setExternalUserId("86744b78-55c9-42a7-92ee-5d93e1434d2b",(result)=>{
+OneSignal.setExternalUserId(this.UniqueDeviceID,(result)=>{
   console.log(result)
-  alert(JSON.stringify(result))
+  //alert(JSON.stringify(result))
 })
 
   // TO-DO : get details from configuration

@@ -5,7 +5,7 @@ import 'firebase/compat/auth';
 import  'firebase/auth';
 import 'firebase/compat/firestore';
 import { Router } from '@angular/router';
-import { ModalController } from '@ionic/angular';
+import { LoadingController, ModalController } from '@ionic/angular';
 
 import { AlertController } from '@ionic/angular';
 import Swal from 'sweetalert2'
@@ -16,7 +16,7 @@ import Swal from 'sweetalert2'
 })
 export class Tab3Page {
   rzp1:any
-  constructor(private auth:AuthpaymentService,private modal:ModalController,private alert:AlertController) {}
+  constructor(private auth:AuthpaymentService,private modal:ModalController,private alert:AlertController,public loadingController: LoadingController) {}
 
   async presentAlert() {
     const alert = await this.alert.create({

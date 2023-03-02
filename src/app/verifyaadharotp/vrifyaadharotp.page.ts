@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { LoadingController } from '@ionic/angular';
 @Component({
   selector: 'app-vrifyaadharotp',
   templateUrl: './vrifyaadharotp.page.html',
@@ -20,7 +21,7 @@ config = {
     height: '45px',
   },
 };
-  constructor(private router:Router) { }
+  constructor(private router:Router,public loadingController: LoadingController) { }
 
   ngOnInit() {
     this.logindata=  JSON.parse(localStorage.getItem('regdata')|| '{}')
@@ -31,8 +32,12 @@ config = {
   }
 
   
-  handleClick(){
-
+  async handleClick(){
+    const loading = await this.loadingController.create({
+      message: 'Verifying...',
+      spinner: 'crescent'
+    });
+    await loading.present();
     var clientid = localStorage.getItem("client_id")
     console.log(clientid)
       const final ={
@@ -56,10 +61,13 @@ config = {
         result =>{
      console.log(result)
         if(result.code === 103){
+          loading.dismiss()
           alert('OTP is required')
         }else if(result.result.data === null){
+          loading.dismiss()
               alert('Enter valid OTP')
         }else{
+          loading.dismiss()
           alert('OTP verified')
           this.aadharverifystatus()
           this.router.navigate(['profile'])
@@ -77,7 +85,12 @@ config = {
     }
 
 
-    aadharverifystatus(){
+    async aadharverifystatus(){
+      const loading = await this.loadingController.create({
+        message: 'Verifying...',
+        spinner: 'crescent'
+      });
+      await loading.present();
       var data ={
         aadharVerify:'Verified'
       
@@ -96,13 +109,14 @@ config = {
       .then(
         result =>{
      console.log(result.routes)
-        
+        loading.dismiss()
         
         
       
         }
         ).catch(
             error =>{
+              loading.dismiss()
               alert('unable to add routes');
              console.log(error)
             });

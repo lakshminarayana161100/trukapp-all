@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-view-bid',
@@ -29,7 +30,8 @@ export class ViewBidPage implements OnInit {
   agentconditions: any;
   products: any;
   tenprice: any;
-    constructor() { }
+  
+    constructor(public loadingController: LoadingController) { }
   
     ngOnInit() {
       this.regdata =JSON.parse(localStorage.getItem('regdata') || '{}')
@@ -79,8 +81,7 @@ console.log(this.onlybid)
           //this.goinsidebids =this.item[i]
           //this.finalAgentAccept =this.item[i]
          
-        
-         
+       
           this.bidActivity= this.item[i].BidActivity
           console.log(this.bidActivity)
           this.bidnumber =this.item[i].mobileNo
@@ -91,8 +92,8 @@ console.log(this.onlybid)
       console.log(this.bidnumber)
   
       for(let i=0; i<this.bidActivity.length;i++){
-        this.initialaccepted =this.bidActivity[i]
-        console.log(this.initialaccepted.initialAccept)
+        this.initialaccepted =this.bidActivity[i].initialAccept
+      
         this.bidActivityprice= this.bidActivity[i].userNo
         
           }
@@ -108,7 +109,12 @@ console.log(this.onlybid)
   
     
   
-    negotiate(){
+    async negotiate(){
+      const loading = await this.loadingController.create({
+        message: 'Loading...',
+        spinner: 'crescent'
+      });
+      await loading.present();
     
       var body = {
     
@@ -117,7 +123,11 @@ console.log(this.onlybid)
         "mobileNo":this.openedBid.mobileNo, //evaritho negotiate chesthunnamo vadi mobile number
         "userNo":this.regdata.mobileNo,
         "userType":this.regdata.role,
-        "price":this.NegoPrice
+        "price":this.NegoPrice,
+        "Name":this.regdata.firstName+this.regdata.lastName,//for notifi
+        
+        "Number":this.openedBid.mobileNo, //fornotifca
+        "mess":"Placed a Bid for amount"
       
        }
        console.log(this.bids._id)
@@ -135,31 +145,42 @@ console.log(this.onlybid)
         .then(response => response.json())
         .then(async result => {
           console.log(result)
-          
+          loading.dismiss()
           
     
     
         }
     
-        ).catch(err =>
-          console.log(err))
+        ).catch(err =>{
+          loading.dismiss()
+          console.log(err)
+        })
     
     }
   
-    acceptBid(){
-  
+    async acceptBid(){
+      const loading = await this.loadingController.create({
+        message: 'Loading...',
+        spinner: 'crescent'
+      });
+      await loading.present();
       var body = {
     
       
         "_id":this.bids._id,
         "mobileNo":this.openedBid.mobileNo,
         "isShipperAccepted":true,
-        "bidAcceptedTo":this.openedBid.mobileNo
-    
+        "bidAcceptedTo":this.openedBid.mobileNo,
+         "Name":this.regdata.firstName+this.regdata.lastName,
+         "Bidprice":this.tenprice,
+         
+        
+         "Number":this.bidnumber, //transporte
+         "mess":"Accepted your bid for"
       
        }
        console.log(this.bids._id)
-  console.log(this.bidnumber)
+  console.log(body)
     
       fetch("https://amused-crow-cowboy-hat.cyclic.app/quotes/initialacceptbyshipper", {
         method: 'post',
@@ -176,13 +197,15 @@ console.log(this.onlybid)
           const data = result.message
           console.log(data)
           localStorage.setItem('viewBid',JSON.stringify(data))
-          
+          loading.dismiss()
     
     
         }
     
-        ).catch(err =>
-          console.log(err))
+        ).catch(err =>{
+          loading.dismiss()
+          console.log(err)
+        })
      this. acceptBidStatus()
     }
 
@@ -207,10 +230,10 @@ console.log(this.onlybid)
         .then(result => {
           console.log(result),
   
-            this.products = JSON.parse(result)  //it  runs $parse automatically when it runs the $digest loop, basically $parse is the way angular evaluates expressions
+            this.products = result  //it  runs $parse automatically when it runs the $digest loop, basically $parse is the way angular evaluates expressions
   
        
-          window.location.reload()  // reloading window
+         // window.location.reload()  // reloading window
   
         }
   
@@ -221,6 +244,15 @@ console.log(this.onlybid)
   makepayment(){
     localStorage.setItem('filteredBid',JSON.stringify(this.filteredbid))
     window.location.href='/makepayment'
+  }
+
+  autorefresh(event:any){
+    
+    setTimeout(() => {
+      event.target.complete()
+      //window.location.href="tab/tab1"
+     window.location.reload()
+    }, 2000);
   }
 
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 declare var google: any;
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router'
 @Component({
   selector: 'app-attach-existing-loads',
@@ -30,7 +30,7 @@ export class AttachExistingLoadsPage implements OnInit {
   // product:any;
   // Quantity:any;
   
-  constructor(private alertController: AlertController, router:Router) {  }
+  constructor(private alertController: AlertController, router:Router,public loadingController: LoadingController) {  }
   ngOnInit(): void {
     this.objects = localStorage.getItem("selectedTruk");  //use the localstorage we getdata from savedData
     //The localStorage object allows you to save key/value pairs in the browser.
@@ -46,6 +46,11 @@ export class AttachExistingLoadsPage implements OnInit {
   }
 
   async SendExistingload() {
+    const loading = await this.loadingController.create({
+      message: 'Loading...',
+      spinner: 'crescent'
+    });
+    await loading.present();
     var data = {
 
       trukname:this.real.trukname,
@@ -73,7 +78,7 @@ export class AttachExistingLoadsPage implements OnInit {
       .then(async result => {
         console.log(result),
           this.Items = result
-          
+          loading.dismiss()
           const alert = await this.alertController.create({
             header: 'Successfull',
             // subHeader: 'Important message',
@@ -96,8 +101,10 @@ export class AttachExistingLoadsPage implements OnInit {
 
       }
 
-      ).catch(err =>
-        console.log(err))
+      ).catch(err =>{
+        loading.dismiss()
+        console.log(err)
+      })
   }
 
 }

@@ -64,5 +64,13 @@ export class AllBidsPage implements OnInit {
 localStorage.setItem('openedBid',JSON.stringify(data))
 this.router.navigate(['view-bid'])
   }
+  autorefresh(event:any){
+    
+    setTimeout(() => {
+      event.target.complete()
+      //window.location.href="tab/tab1"
+     window.location.reload()
+    }, 2000);
+  }
 
 }

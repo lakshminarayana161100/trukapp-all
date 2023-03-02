@@ -15,7 +15,7 @@ export class ShipperguardGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
       if(this.logindata.role === 'Shipper'){
-        this.router.navigate(['tab/tab1'])
+      
         
         return true
         

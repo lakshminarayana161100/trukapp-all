@@ -1,13 +1,12 @@
 import { AfterViewInit, Component, NgZone, OnInit, ViewChild } from '@angular/core';
 import { AlertController, LoadingController } from '@ionic/angular';
 declare var google :any;
-
 @Component({
-  selector: 'app-attach-new-load',
-  templateUrl: './attach-new-load.page.html',
-  styleUrls: ['./attach-new-load.page.scss'],
+  selector: 'app-attach-prefferd-newload',
+  templateUrl: './attach-prefferd-newload.page.html',
+  styleUrls: ['./attach-prefferd-newload.page.scss'],
 })
-export class AttachNewLoadPage implements OnInit {
+export class AttachPrefferdNewloadPage implements OnInit {
 
   @ViewChild('map', { static: false }) mapElement: any;
   tonnes: any;
@@ -23,7 +22,7 @@ export class AttachNewLoadPage implements OnInit {
   length: any;
   breadth: any;
   height: any;
-  
+  state:any;
   dropupState:any
 
   map: any;
@@ -58,7 +57,6 @@ export class AttachNewLoadPage implements OnInit {
   Items: any;
   data: any;
   regdata: any;
-  pickupState: any;
 
 
   constructor(
@@ -207,7 +205,7 @@ export class AttachNewLoadPage implements OnInit {
       DestinationLocation: this.DestinationLocation,
       OriginLocation: this.OriginLocation,
       dropupState:this.dropupState,
-      pickupState: this.pickupState,
+      state: this.state,
       Number: this.Number,
       date: this.date,
       product: this.product,
@@ -225,9 +223,7 @@ export class AttachNewLoadPage implements OnInit {
       trukcapacity:this.post.trukcapacity,
       trukcurrentLocation:this.post.trukcurrentLocation,
       trukoperatingRoutes:this.post.trukoperatingRoutes,
-      trukvehiclenumber:this.post.trukvehiclenumber,
-      LoadPosterName:this.regdata.firstName + this.regdata.lastName,
-      mess:"Posted a Load"
+      trukvehiclenumber:this.post.trukvehiclenumber
     }
     console.log(body)
    // if(this.regdata.aadharVerify === 'Verified' || this.regdata.gstVerify === 'Verified'){
@@ -247,7 +243,7 @@ export class AttachNewLoadPage implements OnInit {
         loading.dismiss()
         if(result.status === 'failed'){
           loading.dismiss()
-       alert('No provides Available')
+       alert('No providers available')
 
       }else{
         loading.dismiss()
@@ -284,4 +280,5 @@ export class AttachNewLoadPage implements OnInit {
 
 
   }
+
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
+
 @Component({
   selector: 'app-add-new-truck',
   templateUrl: './add-new-truck.page.html',

@@ -7,61 +7,58 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TabsPage implements OnInit {
 role:any
-boss!:boolean
-trasporter!:boolean
+boss:any
+trasporter:any
 lookingfor:any
 trucks:any
 loads:any
 fleet:any
+  agents: any;
   constructor() {}
   ngOnInit(): void {
   this.role=  JSON.parse( localStorage.getItem('loginrole') || "{}")
   this.lookingfor =  JSON.parse( localStorage.getItem('lookingfor') || "{}")
   console.log(this.lookingfor)
-  console.log(this.role)
+  
   this.hide()
   this.transporter()
   this.looking()
   this.lookings()
+  this.agent()
+  this.fleetowner()
   }
 
   hide(){
     if(this.role === 'Shipper'){
-      this.boss = true
-    }else{
-      this.boss =false
+      this.boss = 'Shipper'
     }
   }
 
   transporter(){
     if(this.role === 'Transporter'){
-      this.trasporter = true
-    }else if(this.role === 'Agent/Broker'){
-      this.trasporter =true
-    }else{
-      this.trasporter=false
+      this.trasporter = 'Transporter'
+    }
+  }
+
+  agent(){
+    if(this.role === 'Agent/Broker'){
+      this.agents = 'Agent/Broker'
     }
   }
   looking(){
     if(this.lookingfor === 'trucks'){
-      this.trucks = true
-    }else{
-      this.trucks =false
+      this.trucks = 'trucksop'
     }
   }
 
   lookings(){
     if(this.lookingfor === 'loads'){
-      this.loads = true
-    }else{
-      this.loads =false
+      this.loads = 'loadsop'
     }
   }
   fleetowner(){
     if(this.role === 'Fleet Owner'){
-      this.fleet = true
-    }else{
-      this.fleet =false
+      this.fleet = 'Fleet Owner'
     }
   }
 

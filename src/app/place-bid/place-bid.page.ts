@@ -1,6 +1,6 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
 import {  Router } from '@angular/router';
-import { IonContent } from '@ionic/angular';
+import { IonContent, LoadingController } from '@ionic/angular';
 import { Location } from '@angular/common';
 @Component({
   selector: 'app-place-bid',
@@ -48,7 +48,7 @@ id:any
   finalAcceptforBid: any;
   regdata: any;
 
-  constructor(private route:Router,
+  constructor(private route:Router,public loadingController: LoadingController,
     private location:Location) { }
 
   @ViewChild(IonContent)
@@ -117,7 +117,7 @@ this.getfullarray()
         }
 
         for(let i=0; i<this.finalss.length;i++){
-          this.insidebidarray= this.finalss[i]
+          this.insidebidarray= this.finalss[i].initialAccept
           console.log(this.insidebidarray)
             }
        
@@ -145,19 +145,25 @@ this.getfullarray()
   })
 } */
 
-acceptBid(){
-  
+  async acceptBid(){
+  const loading = await this.loadingController.create({
+    message: 'Loading...',
+    spinner: 'crescent'
+  });
+  await loading.present();
   var body = {
 
   
     "_id": this.objects._id,
-    "mobileNo":this.regdata.mobileNo,
+    "mobileNo":this.regdata.mobileNo, //trucker
     "userType":this.regdata.role,
     "Bidprice":this.objects.expectedPrice,
-    "initialAccept" :"Accepted"
-
+    "initialAccept" :"Accepted",
+    "Number":parseInt(this.objects.Number),//for notification who posted the load(Shipper)
+    "Name":this.regdata.firstName+this.regdata.lastName,//for notification
+    "mess":"Accepted your Bid for amount"
    }
-
+console.log(body)
   fetch("https://amused-crow-cowboy-hat.cyclic.app/quotes/placeBid", {
     method: 'post',
     headers: {
@@ -171,17 +177,23 @@ acceptBid(){
     .then(async result => {
       console.log(result)
       
-      
+      loading.dismiss()
 
 
     }
 
-    ).catch(err =>
-      console.log(err))
+    ).catch(err =>{
+      loading.dismiss()
+      console.log(err)})
 
 }
 
-initialBid(){
+  async initialBid(){
+  const loading = await this.loadingController.create({
+    message: 'Loading...',
+    spinner: 'crescent'
+  });
+  await loading.present();
   console.log("working")
   console.log(this.newMsg)
   var body = {
@@ -190,7 +202,10 @@ initialBid(){
     "_id":this.objects._id,
     "mobileNo": this.regdata.mobileNo,
     "userType":this.regdata.role,
-    "Bidprice":this.newMsg
+    "Bidprice":this.newMsg,
+    "Number":parseInt(this.objects.Number), //for notification
+    "Name":this.regdata.firstName+this.regdata.lastName, //for notification
+    "mess":"placed a Bid To Your Load ,Price:" 
   
    }
 
@@ -207,17 +222,23 @@ initialBid(){
     .then(async result => {
       console.log(result)
       
-      
+      loading.dismiss()
 
 
     }
 
-    ).catch(err =>
-      console.log(err))
+    ).catch(err =>{
+      loading.dismiss()
+      console.log(err)})
 
 }
 
-negotiate(){
+  async negotiate(){
+  const loading = await this.loadingController.create({
+    message: 'Loading...',
+    spinner: 'crescent'
+  });
+  await loading.present();
   var body = {
 
   
@@ -225,7 +246,10 @@ negotiate(){
     "mobileNo":this.regdata.mobileNo,
     "userNo":this.regdata.mobileNo,
     "userType":this.regdata.role,
-    "price":this.NegoPrice
+    "price":this.NegoPrice,
+    "Number":parseInt(this.objects.Number),//for notification
+    "Name":this.regdata.firstName+this.regdata.lastName, //for notification
+    "mess":"placed a Bid To Your Load ,Price:" //for notification
   
    }
 
@@ -242,27 +266,37 @@ negotiate(){
     .then(async result => {
       console.log(result)
       
-      
+      loading.dismiss()
 
 
     }
 
-    ).catch(err =>
-      console.log(err))
+    ).catch(err =>{
+      loading.dismiss()
+      console.log(err)})
 
 }
-acceptBidForFinal(){
+  async acceptBidForFinal(){
+  const loading = await this.loadingController.create({
+    message: 'Loading...',
+    spinner: 'crescent'
+  });
+  await loading.present();
   //this.getfullarray()
+  console.log("woejd")
   var body = {
   
     
     "_id":this.objects._id,
     "mobileNo":this.regdata.mobileNo,
-"isAgentAccepted":true
-
+"isAgentAccepted":true,
+"Number":parseInt(this.objects.Number), // for send notifi
+    "Name":this.regdata.firstName + this.regdata.lastName, // for send notifi
+    "Bidprice":this.item.tentativefinalPrice, // for send notifi
+    "mess":"Accepted a bid for"
   
    }
-   console.log(this.bids._id)
+   console.log(body)
 console.log(this.item.mobileNo)
 
   fetch("https://amused-crow-cowboy-hat.cyclic.app/quotes/finalacceptbyagent", {
@@ -277,15 +311,23 @@ console.log(this.item.mobileNo)
     .then(response => response.json())
     .then(async result => {
       console.log(result)
-      
+      loading.dismiss()
       
 
 
     }
 
-    ).catch(err =>
-      console.log(err))
+    ).catch(err =>{
+      loading.dismiss()
+      console.log(err)})
   }
-
+  autorefresh(event:any){
+    
+    setTimeout(() => {
+      event.target.complete()
+      //window.location.href="tab/tab1"
+     window.location.reload()
+    }, 2000);
+  }
 
 }

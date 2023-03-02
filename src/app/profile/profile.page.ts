@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
-import{ActionSheetController, ModalController,PopoverController}from '@ionic/angular'
+import{ActionSheetController, LoadingController, ModalController,PopoverController}from '@ionic/angular'
 import { Router, NavigationExtras } from '@angular/router';
 import { Camera, CameraOptions } from '@awesome-cordova-plugins/camera/ngx';
 
@@ -30,9 +30,10 @@ otp:any
  
  securepath: any = window;
  url: any;
+  spin: boolean | undefined;
   
   constructor(private modal:ModalController,private router: Router,private actionsheet:ActionSheetController,
-   private camera:Camera,private file:File,private crop:Crop,private domsanitize: DomSanitizer
+   private camera:Camera,private file:File,private crop:Crop,private domsanitize: DomSanitizer,public loadingController: LoadingController
     ) { }
   config = {
     allowNumbersOnly: true,
@@ -46,7 +47,7 @@ otp:any
     },
   };
   ngOnInit() {
-
+    this.spin=false
   this.logindata=  JSON.parse(localStorage.getItem('regdata')|| '{}')
   console.log(this.logindata)
   console.log(this.logindata.Authentication)
@@ -119,7 +120,12 @@ otp:any
   passData() {
   
     localStorage.setItem('detailsforEdit',JSON.stringify(this.passdata))
-    this.router.navigate(['editalldetails'])
+
+    setTimeout(() => {
+      this.spin=true
+      this.router.navigate(['editalldetails'])
+     }, 2500);
+    
   }
  
 
@@ -135,7 +141,11 @@ otp:any
   }
 
   async verifyAadhar(){
- 
+    const loading = await this.loadingController.create({
+      message: 'Verifying...',
+      spinner: 'crescent'
+    });
+    await loading.present();
     
   console.log(this.AadharNumber)
 
@@ -163,7 +173,7 @@ otp:any
       
             console.log(result.result.data.client_id)
            localStorage.setItem("client_id",JSON.stringify(result.result.data.client_id))
-
+loading.dismiss()
               
            
            
@@ -177,6 +187,7 @@ otp:any
             }
             ).catch(
                 error =>{
+                  loading.dismiss()
                   alert('Enter valid AadharNumber');
                  console.log(error)
                 });
@@ -189,6 +200,11 @@ otp:any
 
 
       async verifygstin(){
+        const loading = await this.loadingController.create({
+          message: 'Verifying...',
+          spinner: 'crescent'
+        });
+        await loading.present();
         /*const ele =await this.modal.getTop()
         if(ele){
           ele.dismiss();
@@ -223,10 +239,12 @@ otp:any
                 console.log(result.result.data.client_id)
                localStorage.setItem("gst",JSON.stringify(this.gstinNumber))
                localStorage.setItem("gstusername",JSON.stringify(this.userName))
+               loading.dismiss()
               this.router.navigate(['verifygstotp'])
                 }
                 ).catch(
                     error =>{
+                      loading.dismiss()
                       alert('Enter valid AadharNumber');
                      console.log(error)
                     });
@@ -240,7 +258,12 @@ otp:any
        
 
 
-  getaddressdetails(){
+  async getaddressdetails(){
+    const loading = await this.loadingController.create({
+      message: 'Verifying...',
+      spinner: 'crescent'
+    });
+    await loading.present();
     fetch("https://amused-crow-cowboy-hat.cyclic.app/TruckAppUsers/getprofiledetails/" + this.logindata.Authentication, {
       
       method:'get',
@@ -264,11 +287,13 @@ otp:any
          this.passdata =this.routes//store pbject into localstorage
 
          console.log(this.passdata.routes)
+         loading.dismiss()
          }
      
         }
         ).catch(
             error =>{
+              loading.dismiss()
               alert('unable to get address details');
              console.log(error)
             });
@@ -278,7 +303,12 @@ otp:any
 
 
   //addroutes
-  addroutes(){
+  async addroutes(){
+    const loading = await this.loadingController.create({
+      message: 'Verifying...',
+      spinner: 'crescent'
+    });
+    await loading.present();
     console.log(this.selectedItems)
     var data ={
       routes:this.selectedItems
@@ -298,18 +328,28 @@ otp:any
     .then(
       result =>{
    console.log(result.routes)
-      
+      loading.dismiss()
       
       
     
       }
       ).catch(
           error =>{
+            loading.dismiss()
             alert('unable to add routes');
            console.log(error)
           });
      
   
+  }
+
+  autorefresh(event:any){
+    
+    setTimeout(() => {
+      event.target.complete()
+      //window.location.href="tab/tab1"
+     window.location.reload()
+    }, 2000);
   }
     
 }

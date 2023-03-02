@@ -37,13 +37,13 @@ regData:any
   spin!: boolean;
   
   deviceInfo!:DeviceInfo;
-
+  pattern="^((\\+91-?)|0)?[0-9]{10}$"
   UniqueDeviceID!:string;
   constructor(private router: Router,
     private uniqueDeviceID: UniqueDeviceID,
   //private OneSignal:OneSignal,
     private androidPermissions: AndroidPermissions,
-
+    
      private ngZone: NgZone,public loadingCtrl:LoadingController,public toastCtrl:ToastController,private alert:AlertController,private deviceDetectorService: DeviceDetectorService ) {
 
       
@@ -229,7 +229,9 @@ if(result.mobileNo === this.phoneNumber){
          console.log(error)
         });
 }
-
+gototype(){
+  window.location.href="/selecttype"
+}
 
 }
 

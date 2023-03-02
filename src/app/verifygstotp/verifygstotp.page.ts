@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { LoadingController } from '@ionic/angular';
 @Component({
   selector: 'app-verifygstotp',
   templateUrl: './verifygstotp.page.html',
@@ -7,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class VerifygstotpPage implements OnInit {
 otp:any
-  constructor(private router:Router) { }
+  constructor(private router:Router,public loadingController: LoadingController) { }
 
   ngOnInit() {
   }
@@ -28,8 +29,12 @@ otp:any
     this.otp = otp;
   }
 
-  otpfromgst(){
-
+  async otpfromgst(){
+    const loading = await this.loadingController.create({
+      message: 'Verifying...',
+      spinner: 'crescent'
+    });
+    await loading.present();
     var gstinNumber = localStorage.getItem("gst")
     var userName = localStorage.getItem("gstusername")
     console.log(gstinNumber)
@@ -56,10 +61,13 @@ otp:any
         result =>{
      console.log(result)
         if(result.code === 103){
+          loading.dismiss()
           alert('OTP is required')
         }else if(result.result.data === null){
+          loading.dismiss()
               alert('Enter valid OTP')
         }else{
+          loading.dismiss()
           alert('OTP verified')
           this.router.navigate(['profile'])
         }
@@ -68,6 +76,7 @@ otp:any
         }
         ).catch(
             error =>{
+              loading.dismiss()
               alert('Enter valid OTP');
              console.log(error)
             });

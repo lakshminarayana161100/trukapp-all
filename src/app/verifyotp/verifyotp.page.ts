@@ -7,6 +7,7 @@ import  'firebase/auth';
 import 'firebase/compat/firestore';
 import  firebase from 'firebase/compat/app';
 import { Router } from '@angular/router';
+import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
 
 @Component({
   selector: 'app-verifyotp',
@@ -17,11 +18,12 @@ export class VerifyotpPage implements OnInit {
 
  otp!:string
   verify:any
-  one:any
+  
   mobileNo:any
   spin!:boolean
   verified:any
-    constructor(public loadingCtrl:LoadingController ,public toastCtrl:ToastController,private router: Router, private ngZone: NgZone) {}
+  UniqueDeviceID!:string;
+    constructor(public loadingCtrl:LoadingController ,public toastCtrl:ToastController,private router: Router, private ngZone: NgZone,private uniqueDeviceID: UniqueDeviceID,) {}
     config = {
       allowNumbersOnly: true,
       length: 6,
@@ -35,15 +37,30 @@ export class VerifyotpPage implements OnInit {
     };
   
     ngOnInit(){
-      console.log(this.one)
+      this.getUniqueDeviceID()
+      
       this.verify = JSON.parse(localStorage.getItem('verificationId') || '{}');
       this.mobileNo = JSON.parse(localStorage.getItem('mobileNo') || '{}');
       console.log(this.verify);
   //this.setfocus()
  this.verified=JSON.parse(localStorage.getItem('regdata') || '{}')
- console.log(this.verified.role)
+ console.log(this.verified)
     }
   
+
+    getUniqueDeviceID() {
+      this.uniqueDeviceID.get()
+        .then((uuid: any) => {
+          console.log(uuid);
+          this.UniqueDeviceID = uuid;
+  
+          alert(this.UniqueDeviceID)
+        })
+        .catch((error: any) => {
+          console.log(error);
+          this.UniqueDeviceID = "Error! ${error}";
+        });
+    }
     /*setfocus(){
       for(let i=1; i<=6; i++){
         if((this.otp.length + 1) == i){
@@ -140,7 +157,12 @@ export class VerifyotpPage implements OnInit {
       this.otp = otp;
     }
   
-    handleClick() {
+    async handleClick() {
+      const loading = await this.loadingCtrl.create({
+        message: 'Verifying...',
+        spinner: 'crescent'
+      });
+      await loading.present();
       console.log(this.otp);
       var credential = firebase.auth.PhoneAuthProvider.credential(
         this.verify,
@@ -155,7 +177,7 @@ export class VerifyotpPage implements OnInit {
           console.log(response);
           localStorage.setItem('user_data', JSON.stringify(response));
 if(this.verified.role === "Shipper"){
-
+loading.dismiss()
   this.ngZone.run(() => {
     alert('Login as Shipper')
     this.router.navigate(['/tab/tab1'])
@@ -163,31 +185,57 @@ if(this.verified.role === "Shipper"){
   });
 
 }else if(this.verified.role === "Agent/Broker"){
+  loading.dismiss()
 alert('Login as agent/broker')
 this.router.navigate(['/tab/shipperhome'])
 localStorage.setItem('loginrole',JSON.stringify(this.verified.role))
 }else if(this.verified.role === "Transporter"){
+  loading.dismiss()
   alert('Login as transporter')
   this.router.navigate(['/tab/shipperhome'])
   localStorage.setItem('loginrole',JSON.stringify(this.verified.role))
 }else if(this.verified.role === 'Fleet Owner'){
+  loading.dismiss()
   alert('Login as Fleet Owner')
   this.router.navigate(['/tab/shipperhome'])
   localStorage.setItem('loginrole',JSON.stringify(this.verified.role))
 }
      
-
+this.updatedeviceid()
         })
         .catch((error) => {
+          loading.dismiss()
           console.log(error);
     localStorage.removeItem('regdata')
             alert(error.message);
-  
+          });
+    }
+
+
+    updatedeviceid(){
+      var body ={
+        uniqueDeviceId:this.UniqueDeviceID
+      }
+      fetch("https://amused-crow-cowboy-hat.cyclic.app/TruckAppUsers/updatedeviceid/" + this.verified.Authentication, {
+        method: 'post',
+        headers: {
+          "access-Control-Allow-Origin": "*",
+          "Content-Type": 'application/json'
+        },
+        body: JSON.stringify(body),
+    
+      })
+        .then(response => response.json())
+        .then(async result => {
+          console.log(result)
           
           
-           
-          
-        });
+    
+    
+        }
+    
+        ).catch(err =>
+          console.log(err))
     }
 
 }

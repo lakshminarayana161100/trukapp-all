@@ -10,6 +10,11 @@
 <ion-card-subtitle style="font-size:larger; font-weight: bold; margin-right: 10px;">My Bids :</ion-card-subtitle>
 
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="autorefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" refreshingSpinner="circles" refreshingText="Refreshing..">
+
+    </ion-refresher-content>
+  </ion-refresher>
   <ion-card>
     <ion-card-header>
       <ion-card-subtitle>Expected Price:</ion-card-subtitle>
@@ -144,12 +149,12 @@
     
 
 </ion-content>
-<div *ngIf="agentconditions == true" align="center" style="margin-top:5px;">
+<div *ngIf="agentconditions == true || initialaccepted === 'Accepted'" align="center" style="margin-top:5px;">
   <ion-button  shape="round" class="next" (click)="makepayment()">PAY NOW</ion-button>
   </div>
 
 
-<div [hidden]="agentconditions == true">
+<div [hidden]="agentconditions == true || initialaccepted === 'Accepted'">
 <ion-button fill="clear" style="float: right; color: green;" (click)="acceptBid()">Accept</ion-button>
 <ion-button id="open-modal" shape="round" class="next">Negotiate</ion-button>
 </div>

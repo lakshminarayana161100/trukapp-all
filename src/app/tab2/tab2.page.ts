@@ -6,6 +6,7 @@ import  'firebase/auth';
 import 'firebase/compat/firestore';
 import  firebase from 'firebase/compat/app';
 import { Router } from '@angular/router';
+import { LoadingController } from '@ionic/angular';
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
@@ -26,6 +27,8 @@ export class Tab2Page {
   AttendenceArray: any;
   tabkey: any;
   tabValue: any;
+  logindata: any;
+  isactive: any;
   
 
 
@@ -37,10 +40,81 @@ export class Tab2Page {
     console.log(this.getData)
   }
 
-  constructor(private router:Router) { }
+  constructor(private router:Router,public loadingController: LoadingController) { }
   ngOnInit(): void {
-    this.get()
+    this.logindata =JSON.parse(localStorage.getItem('regdata') || '{}')
+    this.post()
   }
+  toggle(isActive:any){
+    this.isactive=isActive
+    this.post()
+    console.log(isActive)
+   }
+   
+   toggless(isActive:any){
+    this.isactive=isActive
+    this.completedGet()
+    console.log(isActive)
+   }
+
+   post() {
+    var body={
+      mobileNo:this.logindata.mobileNo, //regter ayena vadi number
+      isActive:"Active"
+    }
+    fetch("https://amused-crow-cowboy-hat.cyclic.app/quotes/LoadMarket", {
+      method: 'POST',
+      headers: {
+        "access-Control-Allow-Origin": "*",
+        "Content-Type": 'application/json'
+      },
+      body: JSON.stringify(body),
+    })
+      .then(response => response.json())
+      .then(result => {
+        console.log(result),
+          this.item = result.item
+        console.log(this.item)
+      }
+
+      ).catch(err =>
+        console.log(err))
+  }
+
+
+   async completedGet(){
+    const loading = await this.loadingController.create({
+      message: 'Verifying...',
+      spinner: 'crescent'
+    });
+    await loading.present();
+    var body={
+      mobileNo:this.logindata.mobileNo,//regter ayena vadi number
+      isActive:"Completed"
+    }
+    fetch("https://amused-crow-cowboy-hat.cyclic.app/quotes/LoadMarket", {
+      method: 'POST',
+      headers: {
+        "access-Control-Allow-Origin": "*",
+        "Content-Type": 'application/json'
+      },
+      body: JSON.stringify(body),
+    })
+      .then(response => response.json())
+      .then(result => {
+        console.log(result),
+          this.item = result.item
+        console.log(this.item)
+        loading.dismiss()
+      }
+
+      ).catch(err =>{
+        loading.dismiss()
+        console.log(err)
+      })
+  }
+  
+  
   get() {
     fetch("https://amused-crow-cowboy-hat.cyclic.app/quotes/allQuotes", {
       method: 'GET',
@@ -76,6 +150,9 @@ export class Tab2Page {
     }, 2000);
   }
 
-
+  signout(){
+    localStorage.removeItem('regdata')
+    window.location.href='/loginotp'
+  }
  
 }

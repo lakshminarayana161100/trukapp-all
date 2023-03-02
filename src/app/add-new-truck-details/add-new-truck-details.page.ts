@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 @Component({
   selector: 'app-add-new-truck-details',
@@ -23,7 +23,7 @@ export class AddNewTruckDetailsPage implements OnInit {
   vehicleType:any;
  _id: any;
 
-  constructor() { }
+  constructor(public loadingController: LoadingController) { }
 
   ngOnInit() {
 
@@ -65,9 +65,13 @@ export class AddNewTruckDetailsPage implements OnInit {
     // console.log(this.data)
 
   }
-  NewPostAdd() {
+  async NewPostAdd() {
 
-
+    const loading = await this.loadingController.create({
+      message: 'Loading...',
+      spinner: 'crescent'
+    });
+    await loading.present();
     var data = {
       operatingRoutes: this.operatingRoutes,
       vehicleType: this.vehicleType,
@@ -95,12 +99,15 @@ export class AddNewTruckDetailsPage implements OnInit {
       .then(result => {
         console.log(result),
           this.Items = result     
-       
+        loading.dismiss()
 
       }
 
-      ).catch(err =>
-        console.log(err))
+      ).catch(err =>{
+        
+        console.log(err)
+        loading.dismiss()
+      })
   }
 
 }

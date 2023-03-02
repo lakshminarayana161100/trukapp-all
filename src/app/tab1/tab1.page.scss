@@ -69,7 +69,6 @@ float: right;
 }
 
 .dropdown {
-position: relative;
 display: inline-block;
 }
 
@@ -104,6 +103,8 @@ display: block;
 
 .place{
 --background: #F58E26;
+width: 80px;
+border-radius: 9px;
 }
 
 ion-segment-button{

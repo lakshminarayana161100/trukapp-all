@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-attach-load',
@@ -23,7 +24,7 @@ export class AttachLoadPage implements OnInit {
   
   
 
-  constructor( private router:Router) { }
+  constructor( private router:Router,public loadingController: LoadingController) { }
   
   ngOnInit() {
     this.get()

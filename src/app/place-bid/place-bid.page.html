@@ -1,14 +1,18 @@
 <ion-header>
   <ion-toolbar>
     <div style="display: flex;">
-      <ion-icon name="arrow-back-sharp" routerLink="/tab/tab2" style="font-size: 30px;"></ion-icon>
+      <ion-icon name="arrow-back-sharp" routerLink="/all-bids" style="font-size: 30px;"></ion-icon>
       <ion-title>Place Bid</ion-title>
     </div>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="autorefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" refreshingSpinner="circles" refreshingText="Refreshing..">
 
+    </ion-refresher-content>
+  </ion-refresher>
   <ion-card>
     <ion-card-header>
       <ion-card-subtitle>Expected Price:</ion-card-subtitle>
@@ -116,8 +120,8 @@ You Accepted the bid for {{item.tentativefinalPrice}}
 
 </ion-content>
 
-<div [hidden]="item.isShipperAccepted == true ||item.isAgentAccepted == true ">
-<ion-card >
+<div [hidden]="item.isShipperAccepted == true ||item.isAgentAccepted == true || insidebidarray === 'Accepted' ">
+<ion-card  >
   <ion-card-header>
     <ion-card-title>Bidding actions</ion-card-title>
 
@@ -135,7 +139,7 @@ You Accepted the bid for {{item.tentativefinalPrice}}
 
 </ion-card>
 
-<ion-card style="background-color:orange;">
+<!--<ion-card style="background-color:orange;">
   <ion-card-header>
     <ion-card-title style="color: white;">Add New Truck</ion-card-title>
 
@@ -144,14 +148,11 @@ You Accepted the bid for {{item.tentativefinalPrice}}
   <ion-card-content style="color:white;">
     Bid is accepted, please add your truck
   </ion-card-content>
-
-
-  <!-- <ion-button fill="clear" style="text-align:center; color: red; float: left;">Reject</ion-button> -->
   <ion-button fill="clear" style="float:right; color:orange; width:140px;background-color:white; border-radius:9px;" >Add New Truck</ion-button><br>
   
   
 
-</ion-card>
+</ion-card>-->
 
 
 <ion-button id="open-modal" shape="round" class="next">Negotiate</ion-button>

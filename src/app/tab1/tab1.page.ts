@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { LoadingController } from '@ionic/angular';
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
@@ -35,8 +36,9 @@ body={
   load:any
   isActive:any;
   Id:any
+  logindata: any;
 
-  constructor(private router:Router) {}
+  constructor(private router:Router,public loadingController: LoadingController) {}
 
   
 
@@ -47,10 +49,17 @@ body={
 
 
   ngOnInit():void{
-  
-    this.toggle(this.isActive="Active")
+    
+   this.toggle(this.isActive="Active")
+   this.logindata =JSON.parse(localStorage.getItem('regdata')||'{}')
+   console.log(this.logindata)
   }
-  get() {
+  async get() {
+    const loading = await this.loadingController.create({
+      message: 'Verifying...',
+      spinner: 'crescent'
+    });
+    await loading.present();
     fetch("https://amused-crow-cowboy-hat.cyclic.app/quotes/allQuotes", {
       method: 'GET',
       headers: {
@@ -63,10 +72,12 @@ body={
         console.log(result),
           this.item = result.Loads
          console.log(this.item)
+         loading.dismiss()
       }
 
-      ).catch(err =>
-        console.log(err))
+      ).catch(err =>{
+        loading.dismiss()
+        console.log(err)})
   }
 
 
@@ -78,7 +89,12 @@ body={
 
 
 // Isactive Functionality
-  Isactive(docData:any){
+  async Isactive(docData:any){
+    const loading = await this.loadingController.create({
+      message: 'Loading...',
+      spinner: 'crescent'
+    });
+    await loading.present();
     var data={
       isActive:"Deactive"
     }
@@ -98,15 +114,16 @@ body={
       .then(result => {
         console.log(result),
 
-          this.products = JSON.parse(result)  //it  runs $parse automatically when it runs the $digest loop, basically $parse is the way angular evaluates expressions
-
+          this.products = result //it  runs $parse automatically when it runs the $digest loop, basically $parse is the way angular evaluates expressions
+loading.dismiss()
      
         window.location.reload()  // reloading window
 
       }
 
-      ).catch(err =>
-        console.log(err))
+      ).catch(err =>{
+        loading.dismiss()
+        console.log(err)})
   }
 
   loadDetails(load: any) {
@@ -127,35 +144,114 @@ body={
         this.activeGet()
         console.log(isActive)
        }
-
        toggles(isActive:any){
         this.isactive=isActive
-        this.activeGet()
+        this.deActiveGet()
         console.log(isActive)
        }
-       
        toggless(isActive:any){
         this.isactive=isActive
-        this.activeGet()
+        this.completedGet()
         console.log(isActive)
        }
-       activeGet(){
+
+       async activeGet(){
+        const loading = await this.loadingController.create({
+          message: 'Loading...',
+          spinner: 'crescent'
+        });
+        await loading.present();
         console.log(this.isactive)
-    fetch("https://amused-crow-cowboy-hat.cyclic.app/quotes/loadsByStatus/" + this.isactive, {
-      method: 'GET',
+        var body={
+          Number: "7981869868", isActive:"Active" 
+        }
+    fetch("https://amused-crow-cowboy-hat.cyclic.app/quotes/loadsByStatusAndNumber" , {
+      method: 'POST',
       headers: {
         "access-Control-Allow-Origin": "*",
-
+        "Content-Type": 'application/json'
       },
+      body: JSON.stringify(body),
     })
       .then(response => response.json())
       .then(result => {
         console.log(result),
           this.item = result.load
          console.log(this.item)
+         loading.dismiss()
       }
 
-      ).catch(err =>
-        console.log(err))
+      ).catch(err =>{
+        loading.dismiss()
+        console.log(err)})
   }
+
+
+
+  
+  async deActiveGet(){
+    const loading = await this.loadingController.create({
+      message: 'Loading...',
+      spinner: 'crescent'
+    });
+    await loading.present();
+    console.log(this.isactive)
+    var body={
+      Number: "7981869868", isActive:"Deactive" 
+    }
+fetch("https://amused-crow-cowboy-hat.cyclic.app/quotes/loadsByStatusAndNumber" , {
+  method: 'POST',
+  headers: {
+    "access-Control-Allow-Origin": "*",
+    "Content-Type": 'application/json'
+  },
+  body: JSON.stringify(body),
+})
+  .then(response => response.json())
+  .then(result => {
+    console.log(result),
+      this.item = result.load
+     console.log(this.item)
+     loading.dismiss()
+  }
+
+  ).catch(err =>{
+    loading.dismiss()
+    console.log(err)
+  })
+}
+
+
+
+  async completedGet(){
+  const loading = await this.loadingController.create({
+    message: 'Loading...',
+    spinner: 'crescent'
+  });
+  await loading.present();
+  console.log(this.isactive)
+  var body={
+    Number: "7981869868", isActive:"Completed" 
+  }
+fetch("https://amused-crow-cowboy-hat.cyclic.app/quotes/loadsByStatusAndNumber" , {
+method: 'POST',
+headers: {
+  "access-Control-Allow-Origin": "*",
+  "Content-Type": 'application/json'
+},
+body: JSON.stringify(body),
+})
+.then(response => response.json())
+.then(result => {
+  console.log(result),
+    this.item = result.load
+   console.log(this.item)
+   loading.dismiss()
+}
+
+).catch(err =>{
+  loading.dismiss()
+  console.log(err)
+})
+}
 }

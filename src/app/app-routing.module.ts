@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
+import { LoggeduserGuard } from './guards/loggeduser.guard';
+import { ShipperguardGuard } from './guards/shipperguard.guard';
 
 const routes: Routes = [
   {
@@ -36,11 +38,13 @@ const routes: Routes = [
   },
   {
     path: 'personorcompanydetails',
-    loadChildren: () => import('./personorcompanydetails/personorcompanydetails.module').then( m => m.PersonorcompanydetailsPageModule)
+    loadChildren: () => import('./personorcompanydetails/personorcompanydetails.module').then( m => m.PersonorcompanydetailsPageModule),
+    
   },
   {
     path: 'loadingscreen',
-    loadChildren: () => import('./loadingscreen/loadingscreen.module').then( m => m.LoadingscreenPageModule)
+    loadChildren: () => import('./loadingscreen/loadingscreen.module').then( m => m.LoadingscreenPageModule),
+   // canActivate:[LoggeduserGuard]
   },
 
   {
@@ -77,7 +81,8 @@ const routes: Routes = [
   },
   {
     path: 'shipperhome',
-    loadChildren: () => import('./shipperhome/shipperhome.module').then( m => m.ShipperhomePageModule)
+    loadChildren: () => import('./shipperhome/shipperhome.module').then( m => m.ShipperhomePageModule),
+    canActivate:[ShipperguardGuard]
   },
   {
     path: 'view-bid',
@@ -146,6 +151,10 @@ const routes: Routes = [
   {
     path: 'help-and-guide',
     loadChildren: () => import('./help-and-guide/help-and-guide.module').then( m => m.HelpAndGuidePageModule)
+  },
+  {
+    path: 'attach-prefferd-newload',
+    loadChildren: () => import('./attach-prefferd-newload/attach-prefferd-newload.module').then( m => m.AttachPrefferdNewloadPageModule)
   },
   
 

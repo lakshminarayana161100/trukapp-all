@@ -3,7 +3,7 @@
     <ion-title>shipperhomes</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-card style="height:60px;">
+<ion-card style="height:60px;" [hidden]="logindata.role === 'Shipper'">
   <div style="display: flex; margin-top:22px;">
 
     <div class="form-check  form-check-inline " (click)="looking('trucks')" style="margin-right: 100px;">
@@ -19,12 +19,42 @@
       </label>
     </div>
   </div>
+
+  
+    <!--<ion-card-content style="display:flex; justify-content:center;">
+      <div class="box">
+        <input type="radio" name="payment" id="advance" (change)="out('Advance Payment')">
+        <label for="advance"  placeholder="Advance Payment" 
+        style="text-align:center; padding-top:7px;
+        font-weight: bolder;padding-left:4px;padding-right:4px;"
+        
+        >    
+          Advance Payment
+        </label>
+        </div>
+
+        <div class="box">
+          <input type="radio" name="payment" id="full" (change)="out('Full payment')" >
+          <label for="full" placeholder="Full Payment" style="text-align:center; padding-top:7px;font-weight: bolder; ">
+            Full Payment
+          </label>
+          </div>
+
+    </ion-card-content>-->
   </ion-card>
 <ion-content>
+
+  
+  
+  <ion-refresher slot="fixed" (ionRefresh)="autorefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" refreshingSpinner="circles" refreshingText="Refreshing...">
+
+    </ion-refresher-content>
+  </ion-refresher>
   <ion-card style=" height:80px; background:rgb(239, 202, 132); ">
   
   
-   <span *ngIf="logindata.aadharVerify === 'notVerified'">KYC Pending</span>
+   <span *ngIf="logindata.aadharVerify === 'notVerified'" routerLink="/profile">KYC Pending</span>
    <span *ngIf="logindata.aadharVerify === 'Verified'" style="border: 2px solid green; color:green; padding:7px; border-radius:8px;">KYC Verified</span>
   </ion-card>
 

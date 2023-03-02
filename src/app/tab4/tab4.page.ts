@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
-import { ToastController } from '@ionic/angular';
+import { LoadingController, ToastController } from '@ionic/angular';
 @Component({
   selector: 'app-tab4',
   templateUrl: './tab4.page.html',
@@ -32,7 +32,7 @@ export class Tab4Page implements OnInit {
   trukoperatingRoutes: any = [];
   dropdownSettings!: IDropdownSettings;
 
-  constructor(private toastController: ToastController) { }
+  constructor(private toastController: ToastController,public loadingController: LoadingController) { }
 
   ngOnInit() {
 
@@ -199,7 +199,12 @@ export class Tab4Page implements OnInit {
         console.log(err))
   }
   //vehileSearch based on routes
-  vehicleSearch() {
+  async vehicleSearch() {
+    const loading = await this.loadingController.create({
+      message: 'Verifying...',
+      spinner: 'crescent'
+    });
+    await loading.present();
     var data = {
       trukdropLocation: this.trukdropLocation,
       trukpickupLocation: this.trukpickupLocation
@@ -218,11 +223,14 @@ export class Tab4Page implements OnInit {
       .then(result => {
         console.log(result),
           this.item = result.doc
+          loading.dismiss()
         // this.testForms.reset();
       }
 
-      ).catch(err =>
-        console.log(err))
+      ).catch(err =>{
+        loading.dismiss()
+        console.log(err)
+      })
 
   }
 

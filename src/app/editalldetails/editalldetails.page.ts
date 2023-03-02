@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute,Router } from '@angular/router';
+import { LoadingController } from '@ionic/angular';
 import { threadId } from 'worker_threads';
 @Component({
   selector: 'app-editalldetails',
@@ -10,7 +11,7 @@ import { threadId } from 'worker_threads';
 export class EditalldetailsPage implements OnInit {
   detailsforEdit:any
   routeDetails:any
-  constructor(private route: ActivatedRoute, private fb : FormBuilder,private router:Router) { }
+  constructor(private route: ActivatedRoute, private fb : FormBuilder,private router:Router,public loadingController: LoadingController) { }
   mobileNo:any
   
   firstName :any
@@ -28,7 +29,7 @@ export class EditalldetailsPage implements OnInit {
   
   pincode: any
 
-  routes:any
+ // routes:any=[]
 
   ngOnInit() {
    this.detailsforEdit=JSON.parse( localStorage.getItem('detailsforEdit') || "{}")
@@ -50,15 +51,20 @@ export class EditalldetailsPage implements OnInit {
      doorNo:[''],
      areaName:[''],
      landMark:[''],
-     pincode:['']
+     pincode:[''],
+     //routes:['']
 
    })
    console.log(this.updatedFormed)
    console.log(this.updatedFormed.value)
   }
 
-  saveDetails(data:any){
-   
+  async saveDetails(data:any){
+    const loading = await this.loadingController.create({
+      message: 'Loading...',
+      spinner: 'crescent'
+    });
+    await loading.present();
     console.log(data)
     fetch("https://amused-crow-cowboy-hat.cyclic.app/TruckAppUsers/updateprofile/" +this.detailsforEdit._id, {
       
@@ -84,16 +90,19 @@ export class EditalldetailsPage implements OnInit {
          this.detailsforEdit['doorNo']=result.doorNo
          this.detailsforEdit['areaName']=result.areaName
          this.detailsforEdit['landMark']=result.landMark
-         this.detailsforEdit['pincode']=result.pincode
+         this.detailsforEdit['aadharVerify']=result.aadharVerify
+         this.detailsforEdit['gstVerify']=result.gstVerify
+         //this.detailsforEdit['routes']=result.routes
 
          localStorage.setItem('regdata',JSON.stringify(this.detailsforEdit))
-      
+      loading.dismiss()
       this.router.navigate(['profile'])
       
     
       }
       ).catch(
           error =>{
+            loading.dismiss()
             alert('unable update Data');
            console.log(error)
           });

@@ -3,7 +3,7 @@
     <div style="display: flex;">
 
       <div class="form-check  form-check-inline ">
-        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" >
         <label class="form-check-label" for="exampleRadios1">
           Looking for Truks
         </label>
@@ -18,14 +18,13 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+
   <div style="align-items: center; text-align: center;">
-    <img src="https://5.imimg.com/data5/SF/YX/MY-2496828/carton-corrugated-box-500x500.jpg" width="50%" height="50%">
+    <img src="https://media.gettyimages.com/photos/empty-dump-truck-picture-id505895442" width="50%" height="50%">
   </div>
-  <ion-card>
+  <!--<ion-card>
     <ion-card-header>
-       <!-- <ion-card-subtitle style="float: right;  font-size: 25px;"><ion-icon
-        name="filter" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" ></ion-icon></ion-card-subtitle>  -->
+    
         <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" style="float: right; background: none; border: none;">
           <mat-icon>filter_alt</mat-icon>
         </button>
@@ -41,14 +40,45 @@
         </mat-menu>
       <ion-card-subtitle>My Trucks</ion-card-subtitle>  
     </ion-card-header>
-  </ion-card>
+  </ion-card>-->
 
   <!-- <mat-card>
     <mat-card-content>My Trucks</mat-card-content>
     <mat-card-content style="float: right;"><ion-icon name="filter"></ion-icon></mat-card-content>
   </mat-card> -->
-
+  <div class="container">
+    <ion-row>
+      <ion-segment [scrollable]="true" value="home">
   
+        <ion-col>
+          <ion-segment-button value="home" (click)="get()">
+            <ion-label>All Truks</ion-label>
+          </ion-segment-button>
+        </ion-col>
+        <ion-col>
+          <ion-segment-button value="heart" (click)="toggle('Active')">
+            <ion-label>Active</ion-label>
+          </ion-segment-button>
+        </ion-col>
+        <ion-col>
+          <ion-segment-button value="star" (click)="toggle('Deactive')">
+            <ion-label>Deactive</ion-label>
+          </ion-segment-button>
+        </ion-col>
+        <ion-col>
+          <ion-segment-button value="pin" (click)="progress()">
+            <ion-label>In-progress</ion-label>
+          </ion-segment-button>
+        </ion-col>
+        <ion-col>
+          <ion-segment-button value="call" (click)="complete()">
+            <ion-label>Completed</ion-label>
+          </ion-segment-button>
+        </ion-col>
+      </ion-segment>
+    </ion-row>
+  </div>
+  <ion-content *ngIf="item.length !=0">
     <ion-card *ngFor="let text of item">
 
 
@@ -76,7 +106,7 @@
 
       <div style="text-align: center; margin-top: 10px;">
         <h1 style="margin-left: -236px;">{{text.trukisActive}}</h1>
-        <img src="https://5.imimg.com/data5/SF/YX/MY-2496828/carton-corrugated-box-500x500.jpg" width="25%" height="25%"
+        <img src="https://media.gettyimages.com/photos/empty-dump-truck-picture-id505895442" width="25%" height="25%"
           style="float: left;">
           
         <h1 style="margin-top: 28px;">{{text.trukvehiclenumber}}</h1>
@@ -99,6 +129,18 @@
 
 </ion-content>
 
+<ion-content *ngIf="item.length ==0" class="noitem">
+  <div>
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROYIDHG7JivZlXLJC27oeHti76eHrkkNdq_A&usqp=CAU" />
+    <h1>No truk vehicle!</h1>
+  </div>
+</ion-content>
+
 <div class="center">
-  <ion-button routerLink="/add-trucks" class="bb" expand="full" shape="round">Add Trucks</ion-button>
+  <ion-button routerLink="/add-truck" class="bb" expand="full" shape="round">Add Trucks</ion-button>
+
+
 </div> 
+
+
+

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 @Component({
   selector: 'app-add-truck',
@@ -21,7 +21,7 @@ export class AddTruckPage implements OnInit {
 
 
 
-  constructor(private alertController: AlertController) { }
+  constructor(private alertController: AlertController,public loadingController: LoadingController) { }
 
   ngOnInit() {
 
@@ -88,13 +88,19 @@ export class AddTruckPage implements OnInit {
   }
 
   async postVehile() {
+    const loading = await this.loadingController.create({
+      message: 'Loading...',
+      spinner: 'crescent'
+    });
+    await loading.present();
     var body = {
       trukvehiclenumber: this.trukvehiclenumber,
       trukcapacity: this.trukcapacity,
       trukcurrentLocation: this.trukcurrentLocation,
       trukoperatingRoutes: this.trukoperatingRoutes,
       trukname: this.trukname,
-      trukdate: this.trukdate
+      trukdate: this.trukdate,
+      
     }
     console.log()
     fetch("https://amused-crow-cowboy-hat.cyclic.app/addTruk/vehiclepost", {
@@ -110,6 +116,7 @@ export class AddTruckPage implements OnInit {
       .then(async result => {
         console.log(result)
         this.Items = result
+        loading.dismiss()
         const alert = await this.alertController.create({
           header: 'Successfull',
           // subHeader: 'Important message',
@@ -135,5 +142,6 @@ export class AddTruckPage implements OnInit {
 
       ).catch(err =>
         console.log(err))
+        loading.dismiss()
   }
 }

@@ -55,7 +55,7 @@ this.array.push(this.payingToNmae)
 
   options = {
     "key": "rzp_live_W93qXq63hhLhjQ",
-    "amount": 100,
+    "amount":  100,
     "currency": "INR",
     "name": "Acme Corp",
     "description": "Test Transaction",

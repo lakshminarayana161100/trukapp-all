@@ -1,13 +1,11 @@
+
+
 <ion-header>
   <ion-toolbar>
-  
-    <ion-title align="center" >
-      
-      <!--<ion-icon name="arrow-back-outline" routerLink="/verifyotp"></ion-icon>-->
-  
-      SignUp/Login
-  
-      </ion-title>
+    <div style="display: flex;">
+      <ion-icon name="arrow-back-sharp" routerLink="/personorcompanydetails" style="font-size: 30px;"></ion-icon>
+      <ion-title align="center"> SignUp/Login</ion-title>
+    </div>
   </ion-toolbar>
 </ion-header>
 
@@ -32,9 +30,52 @@
     <ion-item class="ion-margin">
       <ion-input placeholder="Enter MobileNumber" type="number" clearInput="true" formControlName="mobileNo"></ion-input>
     </ion-item>
+
+    <ion-item [hidden]="role === 'Shipper'">
+      <ion-select placeholder="Select Your Routes" [multiple]="true"  formControlName="routes">
+        <ion-select-option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</ion-select-option>
+        <ion-select-option value="Andhra Pradesh">Andhra Pradesh</ion-select-option>
+        <ion-select-option value="Arunachal Pradesh">Arunachal Pradesh</ion-select-option>
+        <ion-select-option value="Assam">Assam</ion-select-option>
+        <ion-select-option value="Bihar">Bihar</ion-select-option>
+        <ion-select-option value="Chandigarh">Chandigarh</ion-select-option>
+        <ion-select-option value="Chhattisgarh">Chhattisgarh</ion-select-option>
+        <ion-select-option value="Dadra Nagar Haveli and Daman Diu">Dadra Nagar Haveli and Daman Diu</ion-select-option>
+        <ion-select-option value="Goa">Goa</ion-select-option>
+        <ion-select-option value="Gujarat">Gujarat</ion-select-option>
+        <ion-select-option value="Himachal Pradesh">Himachal Pradesh</ion-select-option>
+        <ion-select-option value="Jammu and Kashmir">Jammu and Kashmir</ion-select-option>
+        <ion-select-option value="Jharkhand">Jharkhand</ion-select-option>
+        <ion-select-option value="Karnataka">Karnataka</ion-select-option>
+        <ion-select-option value="Kerala">Kerala</ion-select-option>
+        <ion-select-option value="Lakshadweep">Lakshadweep</ion-select-option>
+        <ion-select-option value="Ladakh">Ladakh</ion-select-option>
+        <ion-select-option value="Madhya Pradesh">Madhya Pradesh</ion-select-option>
+        <ion-select-option value="Maharashtra">Maharashtra</ion-select-option>
+        <ion-select-option value="Manipur">Manipur</ion-select-option>
+        <ion-select-option value="Meghalaya">Meghalaya</ion-select-option>
+        <ion-select-option value="Mizoram">Mizoram</ion-select-option>
+        <ion-select-option value="Nagaland">Nagaland</ion-select-option>
+        <ion-select-option value="National Capital Territory (Delhi)">National Capital Territory (Delhi)</ion-select-option>
+        <ion-select-option value="Odisha">Odisha</ion-select-option>
+        <ion-select-option value="Puducherry">Puducherry</ion-select-option>
+        <ion-select-option value="Punjab">Punjab</ion-select-option>
+        <ion-select-option value="Rajasthan">Rajasthan</ion-select-option>
+        <ion-select-option value="Tamil Nadu">Tamil Nadu</ion-select-option>
+        <ion-select-option value="Telangana">Telangana</ion-select-option>
+        <ion-select-option value="Tripura">Tripura</ion-select-option>
+        <ion-select-option value="Uttar Pradesh">Uttar Pradesh</ion-select-option>
+        <ion-select-option value="Uttarakhand">Uttarakhand</ion-select-option>
+        <ion-select-option value="West Bengal">West Bengal</ion-select-option>
+     
+      </ion-select>
+    </ion-item>
+  
+
+    
     
   
-      <ion-button shape="round" expand="full" strong="true" type="submit" [disabled]="userPost.invalid" (click)="onSubmit(userPost.value)" >
+      <ion-button shape="round" expand="full" strong="true" type="submit"  (click)="onSubmit(userPost.value)" >
         SIGN UP
         <!--<ion-icon name="log-in" slot="end"></ion-icon>-->
       </ion-button>

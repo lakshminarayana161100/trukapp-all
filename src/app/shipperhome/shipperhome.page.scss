@@ -2,7 +2,7 @@
     span{
         float:right;
 
-        margin-top: 22px;
+        margin-top: 13px;
         border: 2px solid red;
         color: red;
         padding: 6px;
@@ -13,6 +13,7 @@
 
 .lower-box{
     margin-bottom: 13px;
+    font-family: sans-serif;
     .wrapper{
         max-width: 731px;
         border: none;
@@ -21,31 +22,34 @@
         margin-left: 10px;
     }
     .item{
-        min-width: 100px;
+        min-width: 90px;
         height: 90px;
     
         margin-right: 10px;
         
-        
+        box-shadow:0  2.8px 2.2px rgba(0,0,0,0.034),
+        0 6.7px 5.3px rgba(0,0,0,0.034),
+        0 12.5px 10px rgba(0,0,0,0.06) ,
+        0 22.3px 17.9px rgba(0,0,0,0.072),
+        0 41.8px 33.4px rgba(0,0,0,0.086),
+        0 100px 80px rgba(0,0,0,0.12);
 
 
-        border: 1px solid orange;
-        border-radius: 20px;
-        -webkit-box-shadow: 0 6px 4px -4px var(--ion-color-medium);
-        -moz-box-shadow: 0 6px 4px -4px var(--ion-color-medium);
-        box-shadow: 0 6px 4px -4px var(--ion-color-medium);
+        border: 1px solid rgb(251, 251, 250);
+        border-radius: 17px;
+       
     }
 }
 .count{
     position: relative;
-    margin-top: 23px;
-    margin-left: 30px;
+    margin-top: 20px;
+    margin-left: 26px;
 }
-h6{
-    padding-top:3px ;
-    padding-left: 7px;
-    margin-top: -3px;
-    font-size: 13px;
+.loadss{
+    
+    padding-left: 8px;
+    margin-top: -8px;
+    font-size: 12px;
 }
 
 ion-title {
@@ -97,4 +101,9 @@ ion-slides{
     height: 50px;
     //border: 2px solid red;
     margin-right: 14px;
+}
+ion-button{
+    
+    --background: orange;
+    --border-radius: 12px;
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { NavController, Platform } from '@ionic/angular';
 @Component({
   selector: 'app-selecttype',
   templateUrl: './selecttype.page.html',
@@ -8,9 +8,16 @@ import { Router } from '@angular/router';
 })
 export class SelecttypePage implements OnInit {
 type:any
-  constructor(private router:Router) { }
+  constructor(private router:Router, private navCtrl: NavController,
+    private platform: Platform) { }
 
   ngOnInit() {
+  }
+  ionViewDidEnter() {
+    this.platform.backButton.subscribeWithPriority(10, () => {
+      console.log('Handler was called!');
+      location.reload();
+    });
   }
 
   out(data:any){
@@ -21,7 +28,7 @@ type:any
 
   selectType(){
     localStorage.setItem('selectType',JSON.stringify(this.type))
-    this.router.navigate(['personorcompanydetails'])
+    this.router.navigate(['signup'])
 
   }
   autorefresh(event:any){

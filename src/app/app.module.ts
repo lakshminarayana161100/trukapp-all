@@ -31,7 +31,6 @@ import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
   File,
   Camera,
   UniqueDeviceID,
-  
   AndroidPermissions,
   Crop,
   

@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <div style="display: flex;">
+    <!--<div style="display: flex;">
 
       <div class="form-check  form-check-inline ">
         <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" >
@@ -14,14 +14,20 @@
           Looking for loads
         </label>
       </div>
-    </div>
+    </div>-->
+    
+      <div style="display: flex; ">
+        <ion-icon name="arrow-back-sharp" routerLink="/shipperhome" style="font-size: 30px;"></ion-icon>
+        <ion-title align="center"> My Trucks</ion-title>
+      </div>
+    
   </ion-toolbar>
 </ion-header>
 
 
-  <div style="align-items: center; text-align: center;">
+  <!--<div style="align-items: center; text-align: center;">
     <img src="https://media.gettyimages.com/photos/empty-dump-truck-picture-id505895442" width="50%" height="50%">
-  </div>
+  </div>-->
   <!--<ion-card>
     <ion-card-header>
     
@@ -46,6 +52,7 @@
     <mat-card-content>My Trucks</mat-card-content>
     <mat-card-content style="float: right;"><ion-icon name="filter"></ion-icon></mat-card-content>
   </mat-card> -->
+  <br>
   <div class="container">
     <ion-row>
       <ion-segment [scrollable]="true" value="home">
@@ -56,22 +63,22 @@
           </ion-segment-button>
         </ion-col>
         <ion-col>
-          <ion-segment-button value="heart" (click)="toggle('Active')">
+          <ion-segment-button value="heart" (click)="active('Active')">
             <ion-label>Active</ion-label>
           </ion-segment-button>
         </ion-col>
         <ion-col>
-          <ion-segment-button value="star" (click)="toggle('Deactive')">
+          <ion-segment-button value="star" (click)="deactive()">
             <ion-label>Deactive</ion-label>
           </ion-segment-button>
         </ion-col>
         <ion-col>
-          <ion-segment-button value="pin" (click)="progress()">
+          <ion-segment-button value="pin" (click)="inprogress()">
             <ion-label>In-progress</ion-label>
           </ion-segment-button>
         </ion-col>
         <ion-col>
-          <ion-segment-button value="call" (click)="complete()">
+          <ion-segment-button value="call" (click)="completedtog()">
             <ion-label>Completed</ion-label>
           </ion-segment-button>
         </ion-col>
@@ -79,7 +86,7 @@
     </ion-row>
   </div>
   <ion-content *ngIf="item.length !=0">
-    <ion-card *ngFor="let text of item">
+    <!--<ion-card *ngFor="let text of item">
 
 
       <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" style="float: right; background: none; border: none;">
@@ -124,7 +131,54 @@
       </ion-card-content>
 
 
-    </ion-card>
+    </ion-card>-->
+    
+    <div class="card" *ngFor="let text of item" >
+      <div class="card-body" >
+      
+          <!--<div class="dropdown float-end" style="float:right;">
+              <a class="text-muted dropdown-toggle font-size-16" role="button" data-bs-toggle="dropdown" aria-haspopup="true"><i class="bx bx-dots-horizontal-rounded"></i></a>
+              <div class="dropdown-menu dropdown-menu-end"><a class="dropdown-item" routerLink="/truk-edit-page" (click)="SendData(text)" >Edit</a><a class="dropdown-item" (click)="isactive(text)">Deactive</a><a class="dropdown-item" (click)="deleteTruk(text._id)">Delete</a></div>
+          </div>-->
+
+
+          <div class="dropdown" style="float: right;" >
+            <!--<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              D
+            </button>-->
+            <i class="bx bx-dots-horizontal-rounded" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 20px;"></i>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" routerLink="/truk-edit-page" (click)="SendData(text)" >Edit</a><a class="dropdown-item" (click)="isactive(text)">Deactive</a><a class="dropdown-item" (click)="deleteTruk(text._id)">Delete</a>
+              <a class="dropdown-item"  >More Details</a>
+            </div>
+          </div>
+     
+
+          <div class="d-flex align-items-center">
+              <div><img src="https://media.gettyimages.com/photos/empty-dump-truck-picture-id505895442" alt="" class="avatar-md rounded-circle img-thumbnail" />
+                <br>
+              &nbsp;&nbsp;<span style="color: black; font-weight:bolder;">{{text.trukisActive}}</span>
+              </div>
+              <div class="flex-1 ms-3">
+                  <h5 class="font-size-16 mb-1" style="color:black; font-weight:bolder;"><a  class="text-dark">{{text.trukvehiclenumber}}</a></h5>
+                  <span class="badge badge-soft-success mb-0"> Posted On {{text.trukdate}}</span>
+              </div>
+          </div>
+          <div class="mt-1 pt-0">
+             &nbsp;&nbsp;&nbsp; <p  class="text-muted mb-0 mt-0"  ><i class="fa fa-location-arrow font-size-15 align-middle pe-2 " ></i> {{text.trukoperatingRoutes.length}} Routes</p>
+              <p  class="text-muted mb-0 mt-2">&nbsp;<i class=" fa fa-truck font-size-15 align-middle pe-2 "></i>{{text.trukcapacity}} Tons --{{text.trukname}}</p>
+              <p class="text-muted mb-0 mt-2">&nbsp;<i class="fa fa-map-marker font-size-15 align-middle pe-2 "></i>  Avaliable in <span style="color:black; font-weight:bolder;"> {{text.trukcurrentLocation}}</span></p>
+          </div>
+          <div align="center">
+          
+              <button type="button" class="viewbidbtn">
+                <span> View Bids</span>
+                
+                </button>
+               
+          </div>
+      </div>
+      </div>
   
 
 </ion-content>

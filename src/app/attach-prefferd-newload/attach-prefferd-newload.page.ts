@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, NgZone, OnInit, ViewChild } from '@angular/core';
 import { AlertController, LoadingController } from '@ionic/angular';
+
 declare var google :any;
 @Component({
   selector: 'app-attach-prefferd-newload',
@@ -57,6 +58,7 @@ export class AttachPrefferdNewloadPage implements OnInit {
   Items: any;
   data: any;
   regdata: any;
+  veh: any;
 
 
   constructor(
@@ -75,8 +77,10 @@ export class AttachPrefferdNewloadPage implements OnInit {
     this.objects = localStorage.getItem("AttachNewLoad");  //use the localstorage we getdata from savedData
     //The localStorage object allows you to save key/value pairs in the browser.
     this.post = JSON.parse(this.objects)  //parse() The JSON. parse() method parses a JSON string, constructing the JavaScript value or object described by the string.
-
-    console.log(this.objects)
+   for(let i=0;i<this.post.selectedItems.length;i++){
+    this.veh = this.post.selectedItems[i]
+   }
+    console.log(this.post)
   }
 
   ngAfterViewInit(): void {

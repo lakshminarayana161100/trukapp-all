@@ -1,6 +1,6 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
 import {  Router } from '@angular/router';
-import { IonContent, LoadingController } from '@ionic/angular';
+import { IonContent, LoadingController,NavController } from '@ionic/angular';
 import { Location } from '@angular/common';
 @Component({
   selector: 'app-place-bid',
@@ -48,7 +48,7 @@ id:any
   finalAcceptforBid: any;
   regdata: any;
 
-  constructor(private route:Router,public loadingController: LoadingController,
+  constructor(private route:Router,public loadingController: LoadingController,public navController:NavController,
     private location:Location) { }
 
   @ViewChild(IonContent)

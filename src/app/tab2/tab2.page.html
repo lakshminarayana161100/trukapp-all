@@ -72,7 +72,9 @@
         <ion-segment-button value="home" (click)="toggle('Active')">
           <ion-label>Active Loads</ion-label>
         </ion-segment-button>
-      
+        <ion-segment-button value="hom" (click)="togglesss('In-Progress')">
+          <ion-label>In-Progress</ion-label>
+        </ion-segment-button>
         <ion-segment-button value="pin" (click)="toggless('Completed')">
           <ion-label>Accepted by shipper</ion-label>
         </ion-segment-button>
@@ -91,28 +93,51 @@
       
       
           <div *ngIf="item.length !=0">
-            <ion-card *ngFor='let text of item | filter:searchtext' style="border: 2px solid #F58E26; ">
-              <ion-card-header>
-                <p style="font-size: 17px;">{{text.isActive}}</p>
-                <ion-img
-                  src="https://media.istockphoto.com/id/1150981488/vector/brown-paper-box.jpg?b=1&s=170667a&w=0&k=20&c=ExZoHBgVStsXWmQiQw4hVlN-EvhEec-QrqhpXiym2og="
-                  style="height: 70px; width: 70px;" float="left"></ion-img>
-      
-                <ion-card-title>{{text.OriginLocation}} -- {{text.DestinationLocation}}</ion-card-title>
-                <ion-card-subtitle>Posted On {{text.date}} |Expires in 24hrs</ion-card-subtitle>
-                <p>-----------------------------------------------------------------------</p>
-              </ion-card-header>
-      
-              <ion-card-content>
-                {{text.product}}
-              </ion-card-content>
-      
-              <ion-card-content>
-                {{text.data}} -- {{text.Quantity}}
-              </ion-card-content>
-              <ion-card-title style="float: right; margin-top: -53px;">₹ {{text.expectedPrice}}</ion-card-title>
-              <ion-button fill="solid" shape="round" class="place" (click)="loadById(text)">Place Bid</ion-button>
-            </ion-card>
+          
+
+
+
+            <div class="card" *ngFor='let text of item | filter:searchtext' >
+              <div class="card-body" >
+                <div type="button" class="securepayment" ><br>
+                  &nbsp;&nbsp; <i class="fa fa-shield" style="font-size: 25px; color:green;" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;
+                  <div>
+                  <span style="color: green;">Online Payment</span>,&nbsp;
+                  <span style="color: green;">Truk App Assured</span>
+                  </div>
+                </div>
+                <br>
+                  <!--<div class="dropdown float-end" style="float:right;">
+                      <a class="text-muted dropdown-toggle font-size-16" role="button" data-bs-toggle="dropdown" aria-haspopup="true"><i class="bx bx-dots-horizontal-rounded"></i></a>
+                      <div class="dropdown-menu dropdown-menu-end"><a class="dropdown-item" >Edit</a><a class="dropdown-item" >Action</a><a class="dropdown-item" >Remove</a></div>
+                  </div>-->
+             
+
+                  <div class="d-flex align-items-center">
+                      <div><img src="https://media.istockphoto.com/id/1150981488/vector/brown-paper-box.jpg?b=1&s=170667a&w=0&k=20&c=ExZoHBgVStsXWmQiQw4hVlN-EvhEec-QrqhpXiym2og=" alt="" class="avatar-md rounded-circle img-thumbnail" />
+                        <br>
+                      &nbsp;&nbsp;<span style="color: black; font-weight:bolder;">{{text.isActive}}</span>
+                      </div>
+                      <div class="flex-1 ms-3">
+                          <h5 class="font-size-16 mb-1" style="color:black; font-weight:bolder;"><a  class="text-dark">{{text.pickupState}}--{{text.dropupState}}</a></h5>
+                          <span class="badge badge-soft-success mb-0"> Posted On {{text.date}}</span>
+                      </div>
+                  </div>
+                  <div class="mt-1 pt-0">
+                     &nbsp;&nbsp;&nbsp; <p  class="text-muted mb-0 mt-0"  ><i class="fa fa-cubes font-size-15 align-middle pe-2 " ></i> {{text.product}}</p>
+                      <p  class="text-muted mb-0 mt-2">&nbsp;<i class="fa fa-truck font-size-15 align-middle pe-2 "></i>{{text.Quantity}}tons--{{text.data}}</p>
+                      <p class="text-muted mb-0 mt-2">&nbsp;<i class="fa fa-money font-size-15 align-middle pe-2 "></i>  Expected Price ₹ <span style="color:black; font-weight:bolder;">{{text.expectedPrice}}</span></p>
+                  </div>
+                  <div align="center">
+                  
+                      <button type="button" class="viewbidbtn" (click)="loadById(text)">
+                        <span> place Bid</span>
+                        
+                        </button>
+                       
+                  </div>
+              </div>
+              </div>
           </div>
       
           <!-- <div *ngIf="item.length !=0">

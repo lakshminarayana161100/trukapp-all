@@ -8,7 +8,7 @@ import { SignupPageRoutingModule } from './signup-routing.module';
 
 import { SignupPage } from './signup.page';
 
-import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+
 import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   imports: [
@@ -17,7 +17,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     IonicModule,
     SignupPageRoutingModule,
     ReactiveFormsModule,
-    NgMultiSelectDropDownModule
+    
   ],
   declarations: [SignupPage]
 })

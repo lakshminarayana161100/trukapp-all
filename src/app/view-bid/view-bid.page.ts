@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController,NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-view-bid',
@@ -31,7 +31,7 @@ export class ViewBidPage implements OnInit {
   products: any;
   tenprice: any;
   
-    constructor(public loadingController: LoadingController) { }
+    constructor(public loadingController: LoadingController,public navControl:NavController) { }
   
     ngOnInit() {
       this.regdata =JSON.parse(localStorage.getItem('regdata') || '{}')
@@ -197,6 +197,8 @@ console.log(this.onlybid)
           const data = result.message
           console.log(data)
           localStorage.setItem('viewBid',JSON.stringify(data))
+          this. acceptBidStatus()
+          this.navControl.navigateForward('/view-bid')
           loading.dismiss()
     
     
@@ -206,7 +208,7 @@ console.log(this.onlybid)
           loading.dismiss()
           console.log(err)
         })
-     this. acceptBidStatus()
+     
     }
 
     acceptBidStatus(){

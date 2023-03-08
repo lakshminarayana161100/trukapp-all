@@ -13,7 +13,7 @@ export class SelectlanguagePage implements OnInit {
   constructor(private router:Router) { }
 disabled=true
   ngOnInit() {
-    this.autorefresh(event)
+    
     console.log(this.language)
 
 
@@ -48,8 +48,8 @@ disabled=true
  
       
     localStorage.setItem('language',JSON.stringify(this.language))
-    this.router.navigate(['loginotp'])
-
+    //this.router.navigate(['loginotp'])
+this.router.navigateByUrl('/get-started')
     
 
   }

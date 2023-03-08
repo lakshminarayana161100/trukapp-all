@@ -9,12 +9,14 @@ import { PersonorcompanydetailsPageRoutingModule } from './personorcompanydetail
 import { PersonorcompanydetailsPage } from './personorcompanydetails.page';
 import { PersonaldetailsComponent } from '../personaldetails/personaldetails.component';
 import { CompanydetailsComponent } from '../companydetails/companydetails.component';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
     PersonorcompanydetailsPageRoutingModule,
+    
 
   ],
   declarations: [PersonorcompanydetailsPage,PersonaldetailsComponent,CompanydetailsComponent]

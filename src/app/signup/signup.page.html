@@ -3,30 +3,44 @@
 <ion-header>
   <ion-toolbar>
     <div style="display: flex;">
-      <ion-icon name="arrow-back-sharp" routerLink="/personorcompanydetails" style="font-size: 30px;"></ion-icon>
+      <ion-icon name="arrow-back-sharp" routerLink="/selecttype" style="font-size: 30px;"></ion-icon>
       <ion-title align="center"> SignUp/Login</ion-title>
     </div>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div id="bg">
-    <!--<ion-fab vertical="bottom" edge horizontal="center" slot="fixed">
-      <ion-fab-button color="white" routerLink="/login" color="dark">
-        <ion-icon name="close-outline" color="light"></ion-icon>
-      </ion-fab-button>
-    </ion-fab>-->
+  <div class="circle-container">
+    <div class="circle circle-1"></div>
+    <div class="circle circle-2"></div>
   </div>
+
+  <div align="center" style="margin-top: 4rem;">
+    <h2>Registering As:</h2>
+  </div>
+  <ion-segment>
+
+    <ion-button class="company">Company</ion-button>
+
+  </ion-segment>
   <ion-list lines="none" class="ion-margin">
     <!--<ion-list-header>WELCOME !</ion-list-header>
     <h3>Sign Up Page</h3>-->
     <form #userPost="ngForm" [formGroup]="signupForm" >
     <ion-item class="ion-margin">
-      <ion-input placeholder="Enter userName" type="text" clearInput="true" formControlName="userName"></ion-input>
+      <ion-input placeholder="Enter FirstName" type="text" clearInput="true" formControlName="firstName"></ion-input>
     </ion-item>
-    <!--<ion-item class="ion-margin">
+    <ion-item class="ion-margin">
       <ion-input placeholder="Enter LastName" type="text" clearInput="true" formControlName="lastName"></ion-input>
-    </ion-item>-->
+    </ion-item>
+    <ion-item class="ion-margin">
+      <ion-input placeholder="Enter City" type="text" clearInput="true" formControlName="city"></ion-input>
+    </ion-item>
+    <ion-item class="ion-margin">
+      <ion-input placeholder="Enter companyName" type="text" clearInput="true" formControlName="companyName"></ion-input>
+    </ion-item>
+  
+   
     <ion-item class="ion-margin">
       <ion-input placeholder="Enter MobileNumber" type="number" clearInput="true" formControlName="mobileNo"></ion-input>
     </ion-item>
@@ -70,16 +84,25 @@
      
       </ion-select>
     </ion-item>
-  
-
+  <br>
+    <ion-item >
+      <ion-textarea
+        placeholder="Tell us About Your Company" [(ngModel)]="aboutCompany"
+        [clearOnEdit]="true" formControlName="aboutCompany"></ion-textarea>
+        </ion-item>
     
     
   
-      <ion-button shape="round" expand="full" strong="true" type="submit"  (click)="onSubmit(userPost.value)" >
+      <ion-button style="height: 50px;   border-radius: 10px; margin-top:20px;" expand="full" strong="true" type="submit"   [hidden]="role === 'Shipper'" [disabled]="signupForm.value.mobileNo === ''"  [disabled]="signupForm.value.firstName === ''" [disabled]="signupForm.value.lastName === ''" [disabled]="signupForm.value.city === ''" [disabled]="signupForm.value.companyName === ''" [disabled]="signupForm.value.routes === ''" [disabled]="signupForm.value.aboutCompany === ''" (click)="onSubmit(userPost.value)" >
         SIGN UP
         <!--<ion-icon name="log-in" slot="end"></ion-icon>-->
       </ion-button>
-    
+
+      <ion-button style="height: 50px;   border-radius: 10px;margin-top:20px;" expand="full"  type="submit" [disabled]="signupForm.value.mobileNo === ''" *ngIf="role === 'Shipper'" [disabled]="signupForm.value.firstName === ''" [disabled]="signupForm.value.lastName === ''" [disabled]="signupForm.value.city === ''" [disabled]="signupForm.value.companyName === ''" [disabled]="signupForm.value.aboutCompany === ''" (click)="onSubmit(userPost.value)" >
+        SIGN UP
+        <!--<ion-icon name="log-in" slot="end"></ion-icon>-->
+      </ion-button>
+  
     </form>
   </ion-list>
 </ion-content>

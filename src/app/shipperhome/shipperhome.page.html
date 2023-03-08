@@ -51,7 +51,7 @@
 
     </ion-refresher-content>
   </ion-refresher>
-  <ion-card style=" height:80px; background:rgb(239, 202, 132); ">
+  <ion-card style=" height:60px; background:rgb(239, 202, 132); ">
   
   
    <span *ngIf="logindata.aadharVerify === 'notVerified'" routerLink="/profile">KYC Pending</span>
@@ -60,42 +60,114 @@
 
 <div class="lower-box">
   <div class="wrapper">
-    <div class="item">
+    <div class="item" *ngIf="logindata.role != 'Transporter' || 'Agent/Broker'|| 'Fleet Owner'">
       <div style="display:flex;">
         <div >
-          <ion-icon name="logo-dropbox" style="font-size:35px;padding-left:10px;margin-top:16px; color:orange;"></ion-icon>
+          <ion-icon name="logo-dropbox" style="font-size:30px;padding-left:10px;margin-top:16px; color:orange;"></ion-icon>
         </div>
-         <p class="count">0</p>
+         <p class="count">{{activeloads1}}</p>
        
       </div>
-      <h6>Active loads</h6>
+      <strong class="loadss">Active loads</strong>
     
     </div>
 
 
-    <div class="item">
+    <div class="item" *ngIf="logindata.role != 'Transporter' || 'Agent/Broker'|| 'Fleet Owner'">
       <div style="display:flex;">
         <div >
-          <ion-icon name="logo-dropbox" style="font-size:35px;padding-left:10px;margin-top:16px; color:orange;"></ion-icon>
+          <ion-icon name="logo-dropbox" style="font-size:30px;padding-left:10px;margin-top:16px; color:orange;"></ion-icon>
+        </div>
+         <p class="count">{{pendingbids1}}</p>
+       
+      </div>
+      <strong class="loadss">Pending Bids</strong>
+    
+    </div>
+
+    <div class="item" *ngIf="logindata.role != 'Transporter' || 'Agent/Broker'|| 'Fleet Owner'">
+      <div style="display:flex;">
+        <div >
+          <ion-icon name="logo-dropbox" style="font-size:30px;padding-left:10px;margin-top:16px; color:orange;"></ion-icon>
+        </div>
+         <p class="count">{{closedbids1}}</p>
+       
+      </div>
+      <strong class="loadss">closed Bids</strong>
+    
+    </div>
+
+    <!--truckwr-->
+    <div class="item" *ngIf="logindata.role != 'Shipper'">
+      <div style="display:flex;">
+        <div >
+          <ion-icon name="logo-dropbox" style="font-size:30px;padding-left:10px;margin-top:16px; color:orange;"></ion-icon>
         </div>
          <p class="count">0</p>
        
       </div>
-      <h6>Active Trucks</h6>
+      <strong class="loadss">closed Loads</strong>
     
     </div>
- 
+    <div class="item"  *ngIf="logindata.role != 'Shipper'">
+  
+      <div style="display:flex;">
+        <div >
+          <ion-icon name="logo-dropbox" style="font-size:30px;padding-left:10px;margin-top:16px; color:orange;"></ion-icon>
+        </div>
+         <p class="count">{{activetrucks}}</p>
+       
+      </div>
+      <strong class="loadss">Active Trucks</strong>
+    
+    </div>
+    <div class="item"  *ngIf="logindata.role != 'Shipper'">
+      <div style="display:flex;">
+        <div >
+          <ion-icon name="logo-dropbox" style="font-size:30px;padding-left:10px;margin-top:16px; color:orange;"></ion-icon>
+        </div>
+         <p class="count">0</p>
+       
+      </div>
+      <strong class="loadss">Pending Bids</strong>
+    
+    </div>
+    <div class="item"  *ngIf="logindata.role != 'Shipper'">
+      <div style="display:flex;">
+        <div >
+          <ion-icon name="logo-dropbox" style="font-size:30px;padding-left:10px;margin-top:16px; color:orange;"></ion-icon>
+        </div>
+         <p class="count">0</p>
+       
+      </div>
+      <strong class="loadss">closed Bids</strong>
+    
+    </div>
     
   </div>
 </div>
 
-<ion-slides pager="true" [options]="slideOpts" style="border-radius: 13px;" >
+<ion-card  *ngIf="logindata.role != 'Shipper'" style="background-color: rgb(66, 53, 143); color:white; height:auto;">
+  
+
+  <ion-card-content>
+    <p style="font-size: 12px; font-family:Verdana, Geneva, Tahoma, sans-serif; text-align:center">As a transperter agent,Your job duties include  arranging the transfer of cargo from a warehouse to an truck and 
+    providing necessary documentation for both clients and relevents authorities </p>
+  </ion-card-content>
+<div style="margin-top:-17px;" align="center">
+  <ion-button routerLink="/add-truck" >Add Trucks</ion-button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <ion-button routerLink="/attach-new-load" >Post Load</ion-button>
+  </div>
+</ion-card>
+
+<ion-slides pager="true" [options]="slideOpts" style="border-radius: 15px;" >
   <ion-slide *ngFor="let image of adsarray.AdsArray index as i">  
     <img class="banner-image" [src]="image"/>
-    <button style="position:absolute; margin-top:100px; padding:7px;border-radius:10px; background-color:orange;">Post Load</button>
+    <button style="position:absolute; margin-top:100px; padding:7px;border-radius:10px; background-color:orange;" routerLink="/attach-new-load">Post Load</button>
   </ion-slide>
 </ion-slides>
 
+<div *ngIf="logindata.role != 'Transporter' || 'Agent/Broker'|| 'Fleet Owner'">
 <h5 style="margin-left: 13px;">Top recomdations</h5>
 &nbsp;&nbsp;&nbsp;<button style="border:2px; padding:10px;border-radius:8px;background-color:orange;">Top Trucks</button>
 
@@ -162,6 +234,7 @@
     </ion-card>
   </ion-slide>
 </ion-slides>
+</div>
 <h4>Learn about</h4>
 <div class="about">
   <div class="aboutimage">

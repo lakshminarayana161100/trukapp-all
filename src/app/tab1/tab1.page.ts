@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
@@ -37,8 +38,9 @@ body={
   isActive:any;
   Id:any
   logindata: any;
-
-  constructor(private router:Router,public loadingController: LoadingController) {}
+  bids: any;
+  searchtext:any
+  constructor(private router:Router,public loadingController: LoadingController,public nav:NavController) {}
 
   
 
@@ -56,8 +58,8 @@ body={
   }
   async get() {
     const loading = await this.loadingController.create({
-      message: 'Verifying...',
-      spinner: 'crescent'
+      //message: '...',
+      spinner: 'lines'
     });
     await loading.present();
     fetch("https://amused-crow-cowboy-hat.cyclic.app/quotes/allQuotes", {
@@ -91,8 +93,8 @@ body={
 // Isactive Functionality
   async Isactive(docData:any){
     const loading = await this.loadingController.create({
-      message: 'Loading...',
-      spinner: 'crescent'
+      //message: 'Loading...',
+      spinner: 'lines'
     });
     await loading.present();
     var data={
@@ -101,7 +103,7 @@ body={
    // console.log(data)
 
     console.log(docData)
-    fetch("https://amused-crow-cowboy-hat.cyclic.app/postLoad/loadDeactivate/" + docData._id, {
+    fetch("https://amused-crow-cowboy-hat.cyclic.app/quotes/quoteDeactivate/" + docData._id, {
       method: 'PUT',
       headers: {
         "access-Control-Allow-Origin": "*",
@@ -117,7 +119,7 @@ body={
           this.products = result //it  runs $parse automatically when it runs the $digest loop, basically $parse is the way angular evaluates expressions
 loading.dismiss()
      
-        window.location.reload()  // reloading window
+       window.location.reload()  // reloading window
 
       }
 
@@ -135,7 +137,9 @@ loading.dismiss()
      bidById(bid: any) {
       //   console.log(load)
         localStorage.setItem("viewBid", JSON.stringify(bid));
-        this.router.navigate(["all-bids"])
+       // this.router.navigate(["all-bids"])
+        this.nav.navigateForward('/all-bids')
+        
        }
 
  
@@ -149,6 +153,11 @@ loading.dismiss()
         this.deActiveGet()
         console.log(isActive)
        }
+       togglesss(isActive:any){
+        this.isactive=isActive
+        this.inTransitGet()
+        console.log(isActive)
+       }
        toggless(isActive:any){
         this.isactive=isActive
         this.completedGet()
@@ -157,13 +166,13 @@ loading.dismiss()
 
        async activeGet(){
         const loading = await this.loadingController.create({
-          message: 'Loading...',
-          spinner: 'crescent'
+         // message: 'Loading...',
+          spinner: 'lines'
         });
         await loading.present();
         console.log(this.isactive)
         var body={
-          Number: "7981869868", isActive:"Active" 
+          Number:this.logindata.mobileNo , isActive:"Active" 
         }
     fetch("https://amused-crow-cowboy-hat.cyclic.app/quotes/loadsByStatusAndNumber" , {
       method: 'POST',
@@ -178,6 +187,7 @@ loading.dismiss()
         console.log(result),
           this.item = result.load
          console.log(this.item)
+       
          loading.dismiss()
       }
 
@@ -197,7 +207,7 @@ loading.dismiss()
     await loading.present();
     console.log(this.isactive)
     var body={
-      Number: "7981869868", isActive:"Deactive" 
+      Number: this.logindata.mobileNo, isActive:"Deactive" 
     }
 fetch("https://amused-crow-cowboy-hat.cyclic.app/quotes/loadsByStatusAndNumber" , {
   method: 'POST',
@@ -221,7 +231,36 @@ fetch("https://amused-crow-cowboy-hat.cyclic.app/quotes/loadsByStatusAndNumber" 
   })
 }
 
+  async inTransitGet(){
+  const loading = await this.loadingController.create({
+    message: 'Loading...',
+    spinner: 'crescent'
+  });
+  await loading.present();
+  console.log(this.isactive)
+  var body={
+    Number: this.logindata.mobileNo, isActive:"In-Progress" 
+  }
+fetch("http://localhost:3000/quotes/loadsByStatusAndNumber" , {
+method: 'POST',
+headers: {
+  "access-Control-Allow-Origin": "*",
+  "Content-Type": 'application/json'
+},
+body: JSON.stringify(body),
+})
+.then(response => response.json())
+.then(result => {
+  console.log(result),
+    this.item = result.load
+   console.log(this.item)
+   loading.dismiss()
+}
 
+).catch(err =>{
+  loading.dismiss()
+  console.log(err)})
+}
 
   async completedGet(){
   const loading = await this.loadingController.create({
@@ -231,7 +270,7 @@ fetch("https://amused-crow-cowboy-hat.cyclic.app/quotes/loadsByStatusAndNumber" 
   await loading.present();
   console.log(this.isactive)
   var body={
-    Number: "7981869868", isActive:"Completed" 
+    Number: this.logindata.mobileNo, isActive:"Completed" 
   }
 fetch("https://amused-crow-cowboy-hat.cyclic.app/quotes/loadsByStatusAndNumber" , {
 method: 'POST',

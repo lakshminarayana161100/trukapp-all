@@ -1,6 +1,10 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title align="center">Sign Up</ion-title>
+   
+    <div style="display: flex; ">
+      <ion-icon name="arrow-back-sharp" routerLink="/loginotp" style="font-size: 30px;"></ion-icon>
+      <ion-title align="center">Sign Up</ion-title>
+    </div>
   </ion-toolbar>
 </ion-header>
 
@@ -10,7 +14,11 @@
 
     </ion-refresher-content>
   </ion-refresher>
-  <ion-card-title>We just want few informtion to get yourself Registered  </ion-card-title>
+  <div class="circle-container">
+    <div class="circle circle-1"></div>
+    <div class="circle circle-2"></div>
+  </div>
+  <!--<ion-card-title style="text-align: center;">We just want few informtion to get yourself Registered  </ion-card-title>-->
 
   <h1 style="margin-left: 20px;">Sign Up As:</h1>
 
@@ -73,7 +81,7 @@
     </label>
     </div>
     
-    <div>
+    
     <input type="radio" name="payment" id="cash" (change)="out('Fleet Owner')">
     <label for="cash">
       <div class="imgdiv">
@@ -84,11 +92,11 @@
       FLEET OWNER
       </div>
     </label>
-    </div>
+    
     
 
     
-        <div>
+        
           <input type="radio" name="payment" id="csh" (change)="out('Transporter')">
           <label for="csh">
             <div class="imgdiv">
@@ -99,7 +107,7 @@
               TRANSPORTER
             </div>
           </label>
-          </div>
+          
     
           <div>
             <input type="radio" name="payment" id="ash" (change)="out('Agent/Broker')">
@@ -114,10 +122,13 @@
             </label>
             </div>
     
+            <p *ngIf="type === 'Shipper'" style="font-size: 13px; text-align:center;padding:9px;">A shipper is the person or company who owns or oversees 
+              goods or products for transport from one location to another.</p>
+              <p *ngIf="type === 'Fleet Owner'" style="font-size: 13px; text-align:center;padding:9px;">Fleet managers are responsible for vehicle maintenance. They make sure their vehicles are in excellent shape for performing their various functions.</p>
+              <p *ngIf="type === 'Transporter'" style="font-size: 13px; text-align:center;padding:9px;">A transporter is responsible for sending patients to assigned healthcare facilities, ensuring their safety while on the road.</p>
+              <p *ngIf="type === 'Agent/Broker'" style="font-size: 13px; text-align:center;padding:9px;"> Agent is appointed to facilitate or negotiate a transaction on behalf of the principal, the agent owes a duty to the principal to act in the principal's best interests within the authority of the agent.</p>
 
 </ion-content>
-<!--<p style="font-size: 12px;">A shipper is the person or company who owns or oversees 
-  goods or products for transport from one location to another.</p>-->
-  <ion-button color="#a13cd7;"  [disabled]="type == null" (click)="selectType()" >Continue</ion-button>
 
+<ion-button color="#a13cd7;"  [disabled]="type == null" (click)="selectType()" >Continue</ion-button>
 

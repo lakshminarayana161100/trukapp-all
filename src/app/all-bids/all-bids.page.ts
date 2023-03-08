@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NavController } from '@ionic/angular';
 @Component({
   selector: 'app-all-bids',
   templateUrl: './all-bids.page.html',
@@ -11,8 +12,9 @@ export class AllBidsPage implements OnInit {
   onlybids: any;
   filterShipperAccpt: any;
   sai: any;
+  allbidslen: any;
 
-  constructor(private router:Router) { }
+  constructor(private router:Router,public navController : NavController,) { }
 
   ngOnInit() {
     this.singlearray =JSON.parse(localStorage.getItem("viewBid") || '{}')
@@ -40,7 +42,8 @@ export class AllBidsPage implements OnInit {
  
         for(let i=0; i<result.message.length;i++){
           this.allbids =result.message[i].bids
-          console.log(this.allbids)
+          this.allbidslen =result.message[i].bids.length
+          console.log(this.allbidslen)
         }
           
         this.filterShipperAccpt = this.allbids.filter((data:any)=>{
@@ -62,7 +65,8 @@ export class AllBidsPage implements OnInit {
   openbid(data:any){
 
 localStorage.setItem('openedBid',JSON.stringify(data))
-this.router.navigate(['view-bid'])
+//this.router.navigate(['view-bid'])
+this.navController.navigateForward('/view-bid')
   }
   autorefresh(event:any){
     
@@ -72,5 +76,7 @@ this.router.navigate(['view-bid'])
      window.location.reload()
     }, 2000);
   }
-
+route(){
+  this.navController.navigateForward('/tab/tab1');
+}
 }

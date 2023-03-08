@@ -8,7 +8,7 @@ import 'firebase/compat/firestore';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { DeviceDetectorService, DeviceInfo } from 'ngx-device-detector';
-
+import { NavController, NavParams } from '@ionic/angular';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
 //import {OneSignal }from 'onesignal-cordova-plugin';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
@@ -35,11 +35,14 @@ regData:any
   regNumber:any
   num!:Number
   spin!: boolean;
-  
+  checkbox:any
   deviceInfo!:DeviceInfo;
   pattern="^((\\+91-?)|0)?[0-9]{10}$"
   UniqueDeviceID!:string;
-  constructor(private router: Router,
+
+
+  
+  constructor(private router: Router, public navController : NavController,
     private uniqueDeviceID: UniqueDeviceID,
   //private OneSignal:OneSignal,
     private androidPermissions: AndroidPermissions,
@@ -88,7 +91,9 @@ regData:any
       });
   }
 
-
+route(){
+  this.navController.navigateForward('/selecttype');
+}
 
 
   getPermission(){
@@ -122,7 +127,12 @@ regData:any
   }
 
 //get all register data send otp with verification of old user
-getOTP(){
+  async getOTP(){
+  const loading = await this.loadingCtrl.create({
+    message: 'Loading...',
+    spinner: 'crescent'
+  });
+  await loading.present();
   var data ={
     mobileNo:this.phoneNumber
   }
@@ -170,7 +180,7 @@ if(result.mobileNo === this.phoneNumber){
         'mobileNo',
         JSON.stringify(this.phoneNumber)
       );
-  
+      loading.dismiss();
         this.ngZone.run(() => {
           this.router.navigate(['/verifyotp']);
         });
@@ -230,7 +240,8 @@ if(result.mobileNo === this.phoneNumber){
         });
 }
 gototype(){
-  window.location.href="/selecttype"
+ // window.location.href="/selecttype"
+  this.router.navigateByUrl('/get-started')
 }
 
 }

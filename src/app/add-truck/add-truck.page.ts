@@ -19,7 +19,7 @@ export class AddTruckPage implements OnInit {
   Items: any;
   trukdate: any;
 
-
+  trukOwnerNumber:any
 
   constructor(private alertController: AlertController,public loadingController: LoadingController) { }
 
@@ -100,7 +100,7 @@ export class AddTruckPage implements OnInit {
       trukoperatingRoutes: this.trukoperatingRoutes,
       trukname: this.trukname,
       trukdate: this.trukdate,
-      
+      trukOwnerNumber:this.trukOwnerNumber
     }
     console.log()
     fetch("https://amused-crow-cowboy-hat.cyclic.app/addTruk/vehiclepost", {

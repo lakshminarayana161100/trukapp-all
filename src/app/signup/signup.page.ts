@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { IDropdownSettings } from 'ng-multiselect-dropdown';
-import { FormBuilder, FormGroup, Validators,FormControl,NgControl } from '@angular/forms';
+import {  FormGroup, Validators,FormControl } from '@angular/forms';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController ,NavController} from '@ionic/angular';
 
 @Component({
   selector: 'app-signup',
@@ -15,12 +14,11 @@ export class SignupPage implements OnInit {
   allDetails:any
   role:any
   UniqueDeviceID!:string;
+  final: any;
+  aboutCompany:any
 
 
-  dropdownList:any[]= [];
-  selectedItems:any= [];
-  dropdownSettings!: IDropdownSettings;
-  constructor(private router:Router,private uniqueDeviceID: UniqueDeviceID,public loadingController: LoadingController) { }
+  constructor(private router:Router,private uniqueDeviceID: UniqueDeviceID,public loadingController: LoadingController,public navController:NavController) { }
 
   ngOnInit() {
     
@@ -32,73 +30,20 @@ export class SignupPage implements OnInit {
 console.log(this.allDetails)
 
    this.signupForm= new FormGroup ({
-    
-    'userName': new FormControl('', [Validators.required]),
-  'routes': new FormControl('', [Validators.required]),
- 
-    mobileNo: new FormControl( Number, [Validators.required, ]),
+    'firstName': new FormControl('', [Validators.required]),
+    'lastName': new FormControl('', [Validators.required]),
+    'city': new FormControl('', [Validators.required]),
+    'companyName': new FormControl('', [Validators.required]),
+    'routes': new FormControl('', [Validators.required]),
+    'mobileNo': new FormControl( Number, [Validators.required, ]),
+    'aboutCompany': new FormControl('', [Validators.required]),
   });
 
-  this.dropdownList = [
-    'Andaman and Nicobar Islands' ,
-    'Andhra Pradesh' ,
-     'Arunachal Pradesh' ,
-   'Assam' ,
-  'Bihar' ,
-     'Chandigarh' ,
-     'Chhattisgarh' ,
-   'Dadra Nagar Haveli and Daman Diu' ,
-     'Goa' ,
-   'Gujarat' ,
-     'Haryana' ,
-      'Himachal Pradesh' ,
-      'Jammu and Kashmir' ,
-   'Jharkhand' ,
-      'Karnataka' ,
-      'Kerala' ,
-      'Lakshadweep' ,
-      'Ladakh' ,
-      'Madhya Pradesh' ,
-      'Maharashtra' ,
-      'Manipur' ,
-      'Meghalaya' ,
-      'Mizoram' ,
-      'Nagaland' ,
-      'National Capital Territory (Delhi)' ,
-      'Odisha' ,
-      'Puducherry' ,
-      'Punjab' ,
-      'Rajasthan' ,
-      'Tamil Nadu' ,
-     'Telangana' ,
-      'Tripura' ,
-      'Uttar Pradesh' ,
-      'Uttarakhand' ,
-      'West Bengal' ,
-  
-  ];
-  this.selectedItems = [
-   
-  ];
-  
-  this.dropdownSettings = {
-    singleSelection: false,
-    idField: 'item_id',
-    textField: '',
-    selectAllText: 'Select All',
-    unSelectAllText: 'UnSelect All',
-    itemsShowLimit: 3,
-    allowSearchFilter: true
-  };
+  console.log(this.signupForm.value.mobileNo)
   }
 
   
-  onItemSelect(item: any) {
-    console.log(item);
-  }
-  onSelectAll(items: any) {
-    console.log(items);
-  }
+
   getUniqueDeviceID() {
     this.uniqueDeviceID.get()
       .then((uuid: any) => {
@@ -122,18 +67,20 @@ console.log(this.allDetails)
     
 console.log(data)
 
-const final ={
-  userName:data.userName,
-  firstName:this.allDetails.FirstName,
-  lastName:this.allDetails.LastName,
-  mobileNo:data.mobileNo,
-  city:this.allDetails.city,
-  companyName:this.allDetails.companyName,
+ this.final ={
+  
+  firstName:data.firstName,
+   lastName:data.lastName,
+   mobileNo:data.mobileNo,
+   city:data.city,
+   companyName:data.companyName,
   role:this.role,
-  uniqueDeviceId:this.UniqueDeviceID,
-  routes:data.routes
+   uniqueDeviceId:this.UniqueDeviceID,
+   routes:data.routes,
+   aboutCompany:this.aboutCompany
 }
-console.log(final)
+ console.log(this.final)
+if(data.firstName != '' && data.firstName != '' && data.lastName != '' && data.mobileNo != '' && data.city != '' && data.companyName != '' && data.routes != '' && this.aboutCompany != undefined){
 
     fetch("https://amused-crow-cowboy-hat.cyclic.app/TruckAppUsers/signup", {
       
@@ -142,7 +89,7 @@ console.log(final)
                 "Access-Control-Allow-Origin": "*",
                   "Content-Type":'application/json'
               },
-      body:JSON.stringify(final),
+      body:JSON.stringify(this.final),
       }).then(res => res.json())
       
       .then(
@@ -151,7 +98,8 @@ console.log(final)
           if(result.status === "failed" ){
             loading.dismiss();
             alert("Already registered please login")
-            this.router.navigate(['/loginotp'])
+            //this.router.navigate(['/loginotp'])
+            this.navController.navigateForward('/loginotp');
             }else if(result.status === "faileds"){
               loading.dismiss();
               alert('something went wrong')
@@ -159,8 +107,8 @@ console.log(final)
             else{
               loading.dismiss();
               alert('Your account is registered')
-              
-              this.router.navigate(['/loginotp'])
+              this.navController.navigateForward('/loginotp');
+              //this.router.navigate(['/loginotp'])
 
             }
         
@@ -174,10 +122,10 @@ console.log(final)
              console.log(error)
              
             });
-            // localStorage.removeItem('selectType');
-             //localStorage.removeItem('language');
-            // localStorage.removeItem('allDetails');
-             //localStorage.removeItem('mobileNo');
+}else{
+  loading.dismiss()
+  alert('Enter all details')
+}
   
   }
 

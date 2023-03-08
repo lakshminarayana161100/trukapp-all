@@ -38,7 +38,12 @@ export class AttachLoadPage implements OnInit {
   //   this.data = data
 
   // }
-  get() {
+  async get() {
+    const loading = await this.loadingController.create({
+      message: 'Loading...',
+      spinner: 'crescent'
+    });
+    await loading.present();
     fetch("https://amused-crow-cowboy-hat.cyclic.app/quotes/allQuotes", {
       method: 'GET',
       headers: {
@@ -51,10 +56,12 @@ export class AttachLoadPage implements OnInit {
         console.log(result),
           this.item = result.Loads
         console.log(this.item)
+        loading.dismiss()
       }
 
-      ).catch(err =>
-        console.log(err))
+      ).catch(err =>{
+        loading.dismiss()
+        console.log(err)})
   }
 
   out(data:any){

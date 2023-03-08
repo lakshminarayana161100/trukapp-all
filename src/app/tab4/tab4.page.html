@@ -5,11 +5,12 @@
 </ion-header>
 
 <ion-content>
+  
   <ion-card>
-    <ion-card-header>
+    
       <ion-list>
         <ion-item>
-          <ion-label position="floating">Enter Pick up Location</ion-label>
+          <ion-label position="floating">Select Pick up Location</ion-label>
           <ion-icon name="location-outline" slot="start" color="primary"></ion-icon>
           <ion-input>
             <ion-select interface="popover" [(ngModel)]="trukpickupLocation">
@@ -46,10 +47,10 @@
               <ion-select-option>Pune</ion-select-option>
             </ion-select>
           </ion-input>
-          <ion-icon name="search-outline" slot="end"></ion-icon>
+          <ion-icon name="chevron-down-outline" slot="end"></ion-icon>
         </ion-item>
         <ion-item>
-          <ion-label position="floating">Enter Drop Loaction</ion-label>
+          <ion-label position="floating">Select Drop Loaction</ion-label>
           <ion-icon name="location-outline" slot="start" color="danger"></ion-icon>
           <ion-input>
             <ion-select interface="popover" [(ngModel)]="trukdropLocation">
@@ -85,55 +86,55 @@
               <ion-select-option>Pune</ion-select-option>
             </ion-select>
           </ion-input>
-          <ion-icon name="search-outline" slot="end"></ion-icon>
+          <ion-icon name="chevron-down-outline" slot="end"></ion-icon>
         </ion-item>
-        <ion-button fill="solid" shape="round" class="search" style="float: inline-end;" 
+        <ion-button fill="solid" shape="round" class="search"  
         (click)="vehicleSearch()" >Search</ion-button>
       </ion-list>
-    </ion-card-header>
+
   </ion-card>
 
-  <h3 class="container">Select Vechile Type For Your load</h3>
+  <h3 >Select Vechile Type For Your load</h3>
 
-  <div class="container">
+  
     <ion-segment [scrollable]="true" value="heart">
-      <ion-segment-button  value="heart" (click)="vehicleSearch()" (click)="all('middle')">
+      <ion-segment-button  value="heart" (click)="vehicleSearch()" (click)="all('middle')" >
 
-        <ion-label>Filter</ion-label>
-        <p><ion-icon name="filter"></ion-icon>Allvehicles</p>
+        
+        <ion-label>All vehicles</ion-label>
       </ion-segment-button>
 
       <ion-segment-button (click)="toggle('LCV')" (click)="presentToast('middle')">
         <ion-label>LCV</ion-label>
-        <p>1-8 Tonne</p>
+      
       </ion-segment-button>
 
       <ion-segment-button (click)="toggle('Open Truck')" (click)="opentruk('middle')">
         <ion-label>Truk</ion-label>
-        <p>1-42Tonne</p>
+      
       </ion-segment-button>
       <ion-segment-button (click)="toggle('Hyva')" (click)="hyva('middle')">
         <ion-label>Hyva</ion-label>
-        <p>1-35 Tonne</p>
+        
       </ion-segment-button>
       <ion-segment-button (click)="toggle('Container')" (click)="container('middle')">
         <ion-label>container</ion-label>
-        <p>1-18 Tonne</p>
+        
       </ion-segment-button>
       <ion-segment-button (click)="toggle('Trailer')" (click)="trailer('middle')">
         <ion-label>Trailer</ion-label>
-        <p>1-100 Tonne</p>
+    
       </ion-segment-button>
       <ion-segment-button (click)="toggle('Tanker')" (click)="tanker('middle')">
         <ion-label>Tanker</ion-label>
-        <p>1-35 Tonne</p>
+        <!--<p>1-35 Tonne</p>-->
       </ion-segment-button>
     </ion-segment>
-  </div>
-</ion-content>
-<!-- filter by vehicles form page -->
-<ion-content *ngIf="item.length !=0" >
-  <ion-card *ngFor="let text of item">
+  
+<!--</ion-content>
+ filter by vehicles form page -->
+<div  *ngIf="item.length !=0">
+  <!--<ion-card  *ngFor="let text of item">
     <div style="float: left; margin-left: 1rem;">
       <img src="https://vamosys.com/wp-content/uploads/2021/05/top-6-lcv-vehicles-tata-ace-gold-petrol.png" width="25%"
         height="25%">
@@ -161,7 +162,86 @@
     <ion-button style="float: left;" shape="round" class="attach" id="open-modal" routerLink="/attach-load"
       (click)="SendData(text)">ExistingLoad</ion-button>
 
-  </ion-card>
+  </ion-card>-->
+  <div class="card  text-center"  *ngFor="let text of item"  >
+    
+
+    <!--Card body-->
+    <div class="card-body p-0" >
+      <!--avatar-->
+      <div style="display: flex;">
+      <a  class="avatar xl bg-gray bg-opacity-10  position-relative  d-block mx-auto">
+        <img src="https://vamosys.com/wp-content/uploads/2021/05/top-6-lcv-vehicles-tata-ace-gold-petrol.png" class="avatar-img img-fluid rounded-circle" alt="">
+      </a>
+      <div style="margin-right: 30px;">
+      <h5 class="mb-0 ">
+        <a  class="text-reset"><strong>{{text.capacity}}Tons--{{text.data}}</strong></a>
+      </h5>
+   
+    
+      <span class="text-muted small d-block mb-2">
+        <ion-chip>
+          <ion-avatar>
+            <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+          </ion-avatar>
+          <ion-label>Transpoter</ion-label>
+        </ion-chip>
+      </span>
+      </div>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item px-3 d-flex align-items-center justify-content-between">
+          <span class="text-muted small">Current Location</span>
+          <strong>{{text.currentLocation}}</strong>
+        </li>
+        <li class="list-group-item px-3 d-flex align-items-center justify-content-between">
+          <span class="text-muted small">Vehicle Number</span>
+          <strong>{{text.vehiclenumber}}</strong>
+        </li>
+        <li class="list-group-item px-3 d-flex align-items-center justify-content-between">
+          <span class="text-muted small">Routes</span>
+          <strong id="open-custom-dialog" style="color: blue;">{{text.selectedItems.length}} locations
+
+
+
+                  
+<ion-modal id="example-modal" #modal trigger="open-custom-dialog" >
+  <ng-template>
+    <div class="wrapper">
+      <ion-icon style="float: right; font-size:13px; color:black;" name="close-outline" (click)="modal.dismiss()"></ion-icon><br>
+      <h1 style="white-space: nowrap;">Operating Routes</h1>
+
+      <ion-list lines="none"  *ngFor="let route of text.selectedItems index as i">
+        <ion-item button="true" detail="false" style="margin-left: 60px;">
+          <ion-label >{{i+1}}.{{route.item_text}}</ion-label>
+        </ion-item>
+       
+      </ion-list>
+    </div>
+  </ng-template>
+</ion-modal>
+          </strong>
+
+        </li>
+
+        
+      
+      </ul>
+      <ion-button style="float: right;" shape="round" class="attach" 
+      routerLink="/attach-prefferd-newload" (click)="AttachNewLoad(text)">Attach Load</ion-button>
+    <ion-button style="float: left;" shape="round" class="attach"  routerLink="/attach-load"
+      (click)="SendData(text)">Existing Load</ion-button>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="item.length ==0" class="noitem">
+  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROYIDHG7JivZlXLJC27oeHti76eHrkkNdq_A&usqp=CAU" />
+  <h1>No truk vehicle!</h1>
+</div>
+
+
 
 </ion-content>
 <!-- all vehicles form page -->
@@ -198,12 +278,9 @@
 
 </div>  -->
 
- <ion-content *ngIf="item.length ==0" class="noitem">
-  <div>
-    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROYIDHG7JivZlXLJC27oeHti76eHrkkNdq_A&usqp=CAU" />
-    <h1>No truk vehicle!</h1>
-  </div>
-</ion-content> 
+ 
+  
+
 <!--  -->
 <!-- <ion-content *ngIf="OpenTruck.length ==0">
   <div>

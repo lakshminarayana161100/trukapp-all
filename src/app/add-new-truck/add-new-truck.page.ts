@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 
 @Component({
@@ -19,9 +20,11 @@ export class AddNewTruckPage implements OnInit {
   Items: any;
   date: any;
 
-  constructor() { }
+  constructor(public navController:NavController) { }
 
   ngOnInit() {
   }
-
+route(){
+  this.navController.navigateForward('/add-new-truck-details');
+}
 }

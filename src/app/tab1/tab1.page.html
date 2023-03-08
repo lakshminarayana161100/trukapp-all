@@ -36,17 +36,18 @@
   <!-- </ion-toolbar> -->
 
   <div class="container">
+    <!--<br>
     <img src="https://img.freepik.com/free-vector/hand-drawn-transport-truck_23-2149145940.jpg"
       style="align-items: center; text-align: center;">
 
-    <br>
+    <br>-->
 
 
   <!-- <ion-card-subtitle style="font-size:larger; font-weight: bold; float: left;">Loads:</ion-card-subtitle> -->
-    <ion-card-header>
-        <div class="dropdown">
+    
+        
           
-          <ion-segment [scrollable]="true" value="home">
+          <!--<ion-segment [scrollable]="true" value="home">
             <ion-segment-button value="home" (click)="toggle('Active')">
               <ion-label>Active</ion-label>
             </ion-segment-button>
@@ -57,18 +58,98 @@
               <ion-label>Completed</ion-label>
             </ion-segment-button>
       
+          </ion-segment>-->
+      <br>
+          <ion-segment value="Active" [scrollable]="true">
+            <ion-segment-button value="Active" (click)="toggle('Active')">
+              <ion-label>Active</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="Deactive" (click)="toggles('Deactive')">
+              <ion-label>Deactive</ion-label>
+            </ion-segment-button>
+            <!--<ion-segment-button value="heat" (click)="togglesss('In-Progress')">
+              <ion-label>In-Progress</ion-label>
+            </ion-segment-button>-->
+            <ion-segment-button value="Completed" (click)="toggless('Completed')">
+              <ion-label>Completed</ion-label>
+            </ion-segment-button>
           </ion-segment>
-        </div>
-      
 
-    </ion-card-header>
-  
+    
+          <ion-searchbar animated="true" placeholder="Search" style="width: 101%; --border-radius: 20px; margin-left: -1px;"
+          align="centre" [(ngModel)]="searchtext"></ion-searchbar>
 
 
 
 
     <div *ngIf="item.length !=0">
-      <ion-card style="  box-shadow:0 2.8px 2.2px rgba(0,0,0,0.034),
+
+  
+
+
+ 
+    
+        
+            <div class="card" *ngFor="let text of item | filter:searchtext" >
+                <div class="card-body" >
+                  <div type="button" class="securepayment" ><br>
+                    &nbsp;&nbsp; <i class="fa fa-shield" style="font-size: 25px; color:green;" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;
+                    <div>
+                    <span style="color: green;">Online Payment</span><br>
+                    <span style="color: green;">Truk App Assured</span>
+                    </div>
+                  </div>
+                  <br>
+                    <!--<div class="dropdown float-end" style="float:right;">
+                        <a class="text-muted dropdown-toggle font-size-16" role="button" data-bs-toggle="dropdown" aria-haspopup="true"><i class="bx bx-dots-horizontal-rounded"></i></a>
+                        <div class="dropdown-menu dropdown-menu-end"><a class="dropdown-item" >Edit</a><a class="dropdown-item" >Action</a><a class="dropdown-item" >Remove</a></div>
+                    </div>-->
+                    <div class="dropdown" style="float: right;top:-58px;" *ngIf="text.isActive === 'Active'" >
+                      <!--<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        D
+                      </button>-->
+                      <i class="bx bx-dots-horizontal-rounded" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 20px;"></i>
+                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" routerLink="/edit-page" (click)="sendData(text)">Edit</a>
+                        <a class="dropdown-item" (click)="Isactive(text)" >Deactive</a>
+                        <a class="dropdown-item" (click)="loadDetails(text)" >More Details</a>
+                      </div>
+                    </div>
+
+                    <div class="d-flex align-items-center">
+                        <div><img src="https://media.istockphoto.com/id/1150981488/vector/brown-paper-box.jpg?b=1&s=170667a&w=0&k=20&c=ExZoHBgVStsXWmQiQw4hVlN-EvhEec-QrqhpXiym2og=" alt="" class="avatar-md rounded-circle img-thumbnail" />
+                          
+                          &nbsp;&nbsp;<span *ngIf="text.isActive === 'Active'" style="color: black; font-weight:bolder;">{{text.isActive}}</span><span *ngIf="text.isActive === 'Deactive'"  style="color: rgb(245, 26, 26); font-weight:bolder;">{{text.isActive}}</span>
+                          <span *ngIf="text.isActive === 'Completed'"  style="color: rgb(14, 232, 101); font-weight:bolder;">{{text.isActive}}</span>
+                        </div>
+                        <div class="flex-1 ms-3">
+                            <h5 class="font-size-16 mb-1" style="color:black; font-weight:bolder;"><a  class="text-dark">{{text.pickupState}}--{{text.dropupState}}</a></h5>
+                            <span class="badge badge-soft-success mb-0"> Posted On {{text.date}}</span>
+                        </div>
+                    </div>
+                    <div class="mt-3 pt-1">
+                        <p  class="text-muted mb-0 mt-2"  ><i class="fa fa-cubes font-size-15 align-middle pe-2 " ></i> {{text.product}}</p>
+                        <p  class="text-muted mb-0 mt-2">&nbsp;<i class="fa fa-truck font-size-15 align-middle pe-2 "></i>{{text.Quantity}}tons--{{text.data}}</p>
+                        <p class="text-muted mb-0 mt-2">&nbsp;<i class="fa fa-money font-size-15 align-middle pe-2 "></i>  Expected Price ₹ <span style="color:black; font-weight:bolder;">{{text.expectedPrice}}</span></p>
+                    </div>
+                    <div style="display:inline-flex;" *ngIf="text.isActive === 'Active'" >
+                    
+                        <button type="button" class="viewbidbtn" (click)="bidById(text)">
+                          <span> view Bids</span>
+                          <span class="badge">{{text.bids.length}}</span>
+                          </button>
+                         
+                    </div>
+                </div>
+            </div>
+        
+       
+   
+    
+    
+  
+
+      <!--<ion-card style="  box-shadow:0 2.8px 2.2px rgba(0,0,0,0.034),
                                      0 6.7px 5.3px rgba(0,0,0,0.034),
                                      0 12.5px 10px rgba(0,0,0,0.06) ,
                                      0 22.3px 17.9px rgba(0,0,0,0.072),
@@ -82,9 +163,9 @@
           style="width:60px; height:60px;" ></ion-img>
         </div>
         <div style="  width:210px; margin-left:5px;">
-          <span style="font-size:15px; color:black;">{{text.OriginLocation}}</span><br>
-          <span style="margin-left: 70px;">TO</span><br>
-          <span style="font-size:15px; color:black;">{{text.DestinationLocation}}</span><br>
+          <span style="font-size:15px; color:black;">{{text.pickupState}}</span>---
+          
+          <span style="font-size:15px; color:black;">{{text.dropupState}}</span><br>
          <span style="font-size:14px;"> Posted On {{text.date}}</span>
         </div>
         <div>
@@ -118,7 +199,7 @@
      </div>
       </div>
 
-      </ion-card>
+      </ion-card>-->
       <!--<ion-card *ngFor="let text of item" style="border: 2px solid #F58E26; ">
         <ion-card-header>
           <div class="dropdown">
@@ -170,4 +251,6 @@
 
 
 </ion-content>
-<ion-button class="postLoad" routerLink="/attach-new-load" expand="full" shape="round">Post Load</ion-button>
+<div class="postLoad" align="center">
+<ion-button   routerLink="/attach-new-load" color=""  >Post Load</ion-button>
+</div>

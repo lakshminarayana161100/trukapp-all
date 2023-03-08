@@ -50,7 +50,11 @@ export class Tab2Page {
     this.post()
     console.log(isActive)
    }
-   
+   togglesss(isActive:any){
+    this.isactive=isActive
+    this.inTransitget()
+    console.log(isActive)
+   }
    toggless(isActive:any){
     this.isactive=isActive
     this.completedGet()
@@ -81,7 +85,30 @@ export class Tab2Page {
         console.log(err))
   }
 
-
+  inTransitget(){
+    var body={
+          mobileNo:9876543234,
+          isActive:"In-Progress"
+        }
+        fetch("http://localhost:3000/quotes/LoadMarket", {
+          method: 'POST',
+          headers: {
+            "access-Control-Allow-Origin": "*",
+            "Content-Type": 'application/json'
+          },
+          body: JSON.stringify(body),
+        })
+          .then(response => response.json())
+          .then(result => {
+            console.log(result),
+              this.item = result.item
+            console.log(this.item)
+          }
+    
+          ).catch(err =>
+            console.log(err))
+    
+      }
    async completedGet(){
     const loading = await this.loadingController.create({
       message: 'Verifying...',
@@ -115,7 +142,12 @@ export class Tab2Page {
   }
   
   
-  get() {
+  async get() {
+    const loading = await this.loadingController.create({
+      message: 'Loading...',
+      spinner: 'crescent'
+    });
+    await loading.present();
     fetch("https://amused-crow-cowboy-hat.cyclic.app/quotes/allQuotes", {
       method: 'GET',
       headers: {
@@ -128,10 +160,12 @@ export class Tab2Page {
         console.log(result),
           this.item = result.Loads
         console.log(this.item)
+        loading.dismiss()
       }
 
-      ).catch(err =>
-        console.log(err))
+      ).catch(err =>{
+         loading.dismiss()
+        console.log(err)})
   }
 
 
@@ -143,13 +177,13 @@ export class Tab2Page {
         { state: { profile: load._id }});
     //this.router.navigate(["place-bid"])
    }
+
    autorefresh(event:any){
     this.get()
     setTimeout(() => {
       event.target.complete()
     }, 2000);
   }
-
   signout(){
     localStorage.removeItem('regdata')
     window.location.href='/loginotp'

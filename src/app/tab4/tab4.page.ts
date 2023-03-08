@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { LoadingController, ToastController } from '@ionic/angular';
+import {  ViewChild } from '@angular/core';
 @Component({
   selector: 'app-tab4',
   templateUrl: './tab4.page.html',
   styleUrls: ['./tab4.page.scss'],
 })
 export class Tab4Page implements OnInit {
+  
   item: any = [];
 
   filter: any
@@ -31,6 +33,8 @@ export class Tab4Page implements OnInit {
   dropdownList: any[] = [];
   trukoperatingRoutes: any = [];
   dropdownSettings!: IDropdownSettings;
+  length: any;
+  routes: any;
 
   constructor(private toastController: ToastController,public loadingController: LoadingController) { }
 
@@ -38,7 +42,7 @@ export class Tab4Page implements OnInit {
 
     //this.getAllvehicle()
    // this.vehicleSearch()
-  
+   this.vehicleSearch()
     this.dropdownList = [
       'Mumbai',
       'Bangaluru',
@@ -223,6 +227,14 @@ export class Tab4Page implements OnInit {
       .then(result => {
         console.log(result),
           this.item = result.doc
+            console.log(this.item)
+          for(let i=0;i<this.item.length;i++){
+            this.routes =this.item[i].selectedItems
+            console.log(this.routes)
+            this.length =this.item[i].selectedItems.length
+          }
+
+           
           loading.dismiss()
         // this.testForms.reset();
       }

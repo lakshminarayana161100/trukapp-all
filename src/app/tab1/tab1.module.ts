@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Tab1Page } from './tab1.page';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
-
+import {Ng2SearchPipeModule} from 'ng2-search-filter';
 import { Tab1PageRoutingModule } from './tab1-routing.module';
 @NgModule({
   imports: [
@@ -13,6 +13,7 @@ import { Tab1PageRoutingModule } from './tab1-routing.module';
     FormsModule,
     ExploreContainerComponentModule,
     Tab1PageRoutingModule,
+    Ng2SearchPipeModule
   ],
   declarations: [Tab1Page]
 })

@@ -15,7 +15,7 @@
 
     </ion-refresher-content>
   </ion-refresher>
-  <ion-card>
+  <ion-card class="expecPrice">
     <ion-card-header>
       <ion-card-subtitle>Expected Price:</ion-card-subtitle>
       <ion-card-title>₹ {{bids.expectedPrice}} -/</ion-card-title>
@@ -71,26 +71,30 @@
 
       </ion-col> -->
 
-       <ion-col size="9" offset="3" *ngIf="text.userType==regdata.role" class="message my-message">
+       <ion-col size="8" offset="3" *ngIf="text.userType==regdata.role" class=" my-message">
 
        
 
         <b text-left>{{text.userType}}</b><br>
-        <b text-left>{{text.price}}</b><br>
+        <b text-left>{{text.price}}</b>
+        <div class="time" style="color: black;" text-right><br>
+          {{text.time | date:'short'}}
+        </div>
+
       </ion-col> 
    
 
 
     <!-- <ion-row *ngFor="let text of bidActivity"> -->
 
-      <ion-col size="9" *ngIf="text.userType!== regdata.role" class="message other-message">
+      <ion-col size="7" *ngIf="text.userType!== regdata.role" class="message other-message">
 <div *ngIf="text.initialAccept === 'Accepted'">
       <h3>Bid accepted for : {{text.price}}</h3>
     </div>
     <div [hidden]="text.initialAccept === 'Accepted'" >
-      <b>{{text.userType}}::</b><br>
-      <span>{{text.price}}</span><br>
-      <b>PHno -{{text.userNo}}</b>
+      <b>{{text.userType}}:</b><br>
+      <span>{{text.price}}</span>
+     <!-- <b>PHno -{{text.userNo}}</b>-->
       <div class="time" text-right><br>
         {{text.time | date:'short'}}
       </div>
@@ -133,13 +137,13 @@
 
    
 
-      <ion-card  color="success"  *ngIf="conditions == true">
+      <ion-card  class="agentAccept"  *ngIf="conditions == true">
         <div align="center">
         
-        agent/transporter/fleet accepted bid  for:{{tenprice}}
+        Agent/Transporter/Fleet accepted bid  for:{{tenprice}}
         </div>
         </ion-card>
-        <ion-card  color="success" *ngIf="agentconditions == true">
+        <ion-card  class="shipperAccept" *ngIf="agentconditions == true">
           <div align="center">
           
           You approved for:{{tenprice}}

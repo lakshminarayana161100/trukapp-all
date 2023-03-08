@@ -13,7 +13,7 @@ export class AppComponent {
   notificationToken: any;
   UniqueDeviceID!:string;
   constructor(private platform: Platform,private uniqueDeviceID: UniqueDeviceID) {
-this. getUniqueDeviceID()
+//this. getUniqueDeviceID()
     platform.ready().then(() => {
       this.OneSignalInit();
     });

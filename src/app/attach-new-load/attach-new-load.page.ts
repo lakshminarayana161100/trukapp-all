@@ -1,14 +1,15 @@
 import { AfterViewInit, Component, NgZone, OnInit, ViewChild } from '@angular/core';
 import { AlertController, LoadingController } from '@ionic/angular';
 declare var google :any;
-
+import { IonSlides } from '@ionic/angular';
 @Component({
   selector: 'app-attach-new-load',
   templateUrl: './attach-new-load.page.html',
   styleUrls: ['./attach-new-load.page.scss'],
 })
 export class AttachNewLoadPage implements OnInit {
-
+  @ViewChild(IonSlides)
+  slides!: IonSlides;
   @ViewChild('map', { static: false }) mapElement: any;
   tonnes: any;
   product: any;
@@ -25,7 +26,7 @@ export class AttachNewLoadPage implements OnInit {
   height: any;
   
   dropupState:any
-
+  QuantityType:any
   map: any;
   address: any;
   lat: any;
@@ -54,13 +55,21 @@ export class AttachNewLoadPage implements OnInit {
 
   objects: any;
   post: any;
-
+  slideOpts = {
+    
+  };
   Items: any;
   data: any;
   regdata: any;
   pickupState: any;
-
-
+  
+  pickupPincode: any;
+  dropupPincode: any;
+  pickup: any;
+  dropup: any;
+  isTrukOpenOrClose:any
+  paymentTypeForOffline: any;
+  advance: any;
   constructor(
     public zone: NgZone, private alertController: AlertController,public loadingController: LoadingController
   ) {
@@ -72,7 +81,13 @@ export class AttachNewLoadPage implements OnInit {
     this.regdata =JSON.parse(localStorage.getItem('regdata') || '{}')
 
 
-
+    function randomNumberBetween(min: number, max: number): number {
+      //return Math.random() * (max + min) ;
+      return Math.floor(Math.random() * (max - min + 1) + min);
+    }
+    
+    let randomNumber = randomNumberBetween(1, 10);
+    console.log(randomNumber);
 
     this.objects = localStorage.getItem("AttachNewLoad");  //use the localstorage we getdata from savedData
     //The localStorage object allows you to save key/value pairs in the browser.
@@ -128,6 +143,10 @@ export class AttachNewLoadPage implements OnInit {
 
 
   UpdateSearchResults(data: any) {
+    var options = {
+      types: ['(cities)'],
+      //componentRestrictions: {country: "ind"}
+     };
     console.log(data)
     this.autocomplete.input = data;
     console.log("UpdateSearchResults")
@@ -136,7 +155,7 @@ export class AttachNewLoadPage implements OnInit {
       this.autocompleteItems = [];
       return;
     }
-    this.GoogleAutocomplete.getPlacePredictions({ input: this.autocomplete.input },
+    this.GoogleAutocomplete.getPlacePredictions({ input: this.autocomplete.input,options },
       (predictions: any[], status: any) => {
         this.autocompleteItems = [];
         this.zone.run(() => {
@@ -195,7 +214,31 @@ export class AttachNewLoadPage implements OnInit {
     this.autocompleteItems = []
     this.autocomplete.input = ''
   }
+  async getPickupState() {
+    const url = `https://api.postalpincode.in/pincode/${this.pickupPincode}`;
+    const response = await fetch(url);
+    const data = await response.json();
+  
+    if (data[0].Status === 'Success') {
+      const postOffice = data[0].PostOffice[0];
+      this.pickup = `${postOffice.State}`;
+    } else {
+      this.pickup = 'Invalid Pincode';
+    }
+  }
 
+  async getDropupState() {
+    const url = `https://api.postalpincode.in/pincode/${this.dropupPincode}`;
+    const response = await fetch(url);
+    const data = await response.json();
+  
+    if (data[0].Status === 'Success') {
+      const postOffice = data[0].PostOffice[0];
+      this.dropup = `${postOffice.State}`;
+    } else {
+      this.dropup = 'Invalid Pincode';
+    }
+  }
 
   async sendData() {
     const loading = await this.loadingController.create({
@@ -206,27 +249,25 @@ export class AttachNewLoadPage implements OnInit {
     var body = {
       DestinationLocation: this.DestinationLocation,
       OriginLocation: this.OriginLocation,
-      dropupState:this.dropupState,
-      pickupState: this.pickupState,
-      Number: this.Number,
+      dropupState:this.dropup,
+      pickupState: this.pickup,
+      Number: String(this.regdata.mobileNo),
       date: this.date,
       product: this.product,
-      Quantity: this.Quantity,
+      paymentTypeForOffline:this.paymentTypeForOffline,
+      advance:this.advance,
+      Quantity: this.Quantity + this.QuantityType,
       vehicle: this.vehicle,
       loadCapacity: this.loadCapacity,
       expectedPrice: this.expectedPrice,
       data: this.data,
+      isTrukOpenOrClose:this.isTrukOpenOrClose,
       typeOfPay: this.typeOfPay,
-      length: this.length,
+   /*    length: this.length,
       breadth: this.breadth,
-      height: this.height,
+      height: this.height, */
       comments: this.comments,
-      trukname:this.post.trukname,
-      trukcapacity:this.post.trukcapacity,
-      trukcurrentLocation:this.post.trukcurrentLocation,
-      trukoperatingRoutes:this.post.trukoperatingRoutes,
-      trukvehiclenumber:this.post.trukvehiclenumber,
-      LoadPosterName:this.regdata.firstName + this.regdata.lastName,
+   
       mess:"Posted a Load"
     }
     console.log(body)
@@ -275,6 +316,7 @@ export class AttachNewLoadPage implements OnInit {
 
       ).catch(err =>{
         loading.dismiss()
+        alert('Load Not Posted')
         console.log(err)
       })
      // }else{
@@ -283,5 +325,13 @@ export class AttachNewLoadPage implements OnInit {
      // }
 
 
+  }
+
+  slidePrev() {
+    this.slides.slidePrev();
+  }
+
+  slideNext() {
+    this.slides.slideNext();
   }
 }

@@ -101,7 +101,7 @@
   <img src="https://th.bing.com/th/id/OIP.sEv9ZNvx2tN1Kdy8ZKprGQHaEw?w=266&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7">
       </div>
 
-      <div class="verifybutton" *ngIf="routes.aadharVerify === 'notVerified'">
+      <div class="verifybutton" *ngIf="routes.aadharVerify == 'notVerified'">
       <h3 style=" margin-left:20px; padding-top:20px;" >Verify Aadhar</h3>
       <button style="border: 2px solid rgb(20, 19, 19); color:rgb(15, 15, 15); padding:8px; border-radius:8px; width:100px; margin-left:35px; margin-bottom:15px;"  id="open-aadhar" >Verify </button>
 
@@ -132,7 +132,7 @@
       </ion-modal>
       </div>
 
-      <div class="verifybutton" *ngIf="routes.aadharVerify === 'Verified'">
+      <div class="verifybutton" *ngIf="routes.aadharVerify == 'Verified'">
         <h3 style=" margin-left:20px; padding-top:20px; color:green;"  > Aaadhar Verified</h3>
         
         </div>
@@ -146,7 +146,7 @@
   <img src="https://th.bing.com/th?id=OIP.X4oVrLFlzrIGElXusF8p1wHaEV&w=326&h=191&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2">
       </div>
 
-      <div class="verifybutton" *ngIf="routes.gstVerify === 'notVerified'">
+      <div class="verifybutton" *ngIf="routes.gstVerify == 'notVerified'">
       <h3 style=" margin-left:20px; padding-top:20px;" >Verify GSTIN</h3>
       <button style="border: 2px solid rgb(20, 19, 19); color:rgb(15, 15, 15); padding:8px; border-radius:8px; width:100px; margin-left:35px; margin-bottom:15px;" id="open-gst">Verify </button>
       <ion-modal #modal trigger="open-gst" [initialBreakpoint]="0.55" [breakpoints]="[0, 0.25, 0.5, 0.75]" >
@@ -182,7 +182,7 @@
       </div>
 
 
-      <div class="verifybutton" *ngIf="routes.gstVerify === 'Verified'">
+      <div class="verifybutton" *ngIf="routes.gstVerify == 'Verified'">
         <h3 style=" margin-left:20px; padding-top:20px;" > GSTIN Verified</h3>
         
         </div>
@@ -239,55 +239,14 @@
 </ion-card>
 
 
-<ion-card style="height: 130px;" [hidden]="logindata.role === 'Shipper'" *ngIf="!routes.routes">
+<ion-card style="height: 130px;" [hidden]="logindata.role == 'Shipper'" *ngIf="!routes.routes">
 
   <div class="addaddress">
     <button style="border: 2px solid rgb(20, 19, 19); color:rgb(15, 15, 15); padding:8px; border-radius:8px; width:130px; " id="open-addroutes"  >Add Routes </button>
-    <ion-modal #modal trigger="open-addroutes" [initialBreakpoint]="0.55" [breakpoints]="[0, 0.25, 0.5, 0.75]" >
-      <ng-template>
-        <ion-content>
-        
-          
-            <div class="sa1i">
-           
-            </div>
-          
-            <ion-card-content>
-              <div>
-                <ng-multiselect-dropdown [placeholder]="'Add Your Vechile Routes (States)'" [settings]="dropdownSettings"
-                  [data]="dropdownList" [(ngModel)]="selectedItems" (onSelect)="onItemSelect($event)"
-                  (onSelectAll)="onSelectAll($event)" style="padding: 11px; border-radius:10px;">
-                </ng-multiselect-dropdown>
-              </div>
-            </ion-card-content>
-          
-    
-          <ion-button shape="round" expand="full" strong="true" (click)="addroutes()" >
-            Add Routes
-            
-          </ion-button>
-          
-        </ion-content>
-      </ng-template>
-    </ion-modal>
+ 
   </div>
 
-
-
-</ion-card>
-
-<ion-card  [hidden]="logindata.role === 'Shipper' " *ngIf="routes.routes">
-  <div style=" align-content:center;
-  margin-left: auto;
-  margin-right: auto;
-  width: 55%; font-size:22px; font-weight: 600px; color:black; padding:5px;">
-    Available Routes
-  </div>
-
-  <div>
-  <!--<span id="open-routes" style="float:right; border:2px solid orange; padding:6px;border-radius:9px;">Add Routes</span>-->
-  <button  style=" float:right; border: 2px solid rgb(20, 19, 19); color:rgb(15, 15, 15); padding:8px; border-radius:8px; width:130px;"  id="open-modal">Add Routes </button>
-  <ion-modal #modal trigger="open-modal" [initialBreakpoint]="0.55" [breakpoints]="[0, 0.25, 0.5, 0.75]" >
+  <ion-modal #modal trigger="open-addroutes" [initialBreakpoint]="0.55" [breakpoints]="[0, 0.25, 0.5, 0.75]" >
     <ng-template>
       <ion-content>
       
@@ -314,7 +273,49 @@
       </ion-content>
     </ng-template>
   </ion-modal>
+
+</ion-card>
+
+<ion-card  [hidden]="logindata.role == 'Shipper' " *ngIf="routes.routes">
+  <div style=" align-content:center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 55%; font-size:22px; font-weight: 600px; color:black; padding:5px;">
+    Available Routes
   </div>
+
+  <div>
+  <!--<span id="open-routes" style="float:right; border:2px solid orange; padding:6px;border-radius:9px;">Add Routes</span>-->
+  <!--<button  style=" float:right; border: 2px solid rgb(20, 19, 19); color:rgb(15, 15, 15); padding:8px; border-radius:8px; width:130px;"  id="open-route">Add Routes </button>-->
+  </div>
+  <ion-modal #modal trigger="open-route" [initialBreakpoint]="0.55" [breakpoints]="[0, 0.25, 0.5, 0.75]" >
+    <ng-template>
+      <ion-content>
+      
+        
+          <div class="sa1i">
+         
+          </div>
+        
+          <ion-card-content>
+            <div>
+              <ng-multiselect-dropdown [placeholder]="'Add Your Vechile Routes (States)'" [settings]="dropdownSettings"
+                [data]="dropdownList" [(ngModel)]="selectedItems" (onSelect)="onItemSelect($event)"
+                (onSelectAll)="onSelectAll($event)" style="padding: 11px; border-radius:10px;">
+              </ng-multiselect-dropdown>
+            </div>
+          </ion-card-content>
+        
+  
+        <ion-button shape="round" expand="full" strong="true" (click)="addroutes()" >
+          Add Routes
+          
+        </ion-button>
+        
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+  
 <ion-card-content  >
   <span style="color:black;" *ngFor="let rou of passdata.routes; index as i">
     

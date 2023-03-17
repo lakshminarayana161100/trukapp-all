@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 
 import { FormBuilder, FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { LoadingController } from '@ionic/angular';
+import { IonSlides, LoadingController } from '@ionic/angular';
 @Component({
   selector: 'app-edit-page',
   templateUrl: './edit-page.page.html',
@@ -11,6 +11,9 @@ import { LoadingController } from '@ionic/angular';
 })
 export class EditPagePage implements OnInit {
 
+ 
+  @ViewChild(IonSlides)
+  slides!: IonSlides;
   data: any;
   item: any = [];
 
@@ -22,8 +25,11 @@ export class EditPagePage implements OnInit {
   products: any;
   result: any;
 
-  Id: any
+  Id: any;
   updateproductForm: any;
+  slideOpts = {
+    
+  };
 
   constructor(private formBuilder: FormBuilder, private route: ActivatedRoute) { }
   out(data: any) {
@@ -55,6 +61,8 @@ export class EditPagePage implements OnInit {
       //loadCapacity:[''],
 
       typeOfPay: [''],
+      paymentTypeForOffline: [''],
+      advance: [''],
       comments: [''],
       length: [''],
       breadth: [''],
@@ -112,6 +120,26 @@ export class EditPagePage implements OnInit {
   updateForm(data: any) {
 
 
+    var body = {
+      DestinationLocation: this.updateproductForm.value.DestinationLocation,
+      OriginLocation: this.updateproductForm.value.OriginLocation,
+      pickupState: this.updateproductForm.value.pickup,
+      dropupState: this.updateproductForm.value.dropup,
+      Number: '12345678',
+      date: this.updateproductForm.value.date,
+      product: this.updateproductForm.value.product,
+      Quantity: this.updateproductForm.value.Quantity,
+      vehicle: this.updateproductForm.value.vehicle,
+      
+      expectedPrice: this.updateproductForm.value.expectedPrice,
+      data: this.data,
+      typeOfPay: this.updateproductForm.value.typeOfPay,
+     
+      
+      comments: this.updateproductForm.value.comments
+    }
+
+
 
     console.log(data)
     //console.log(this.description, this.image, this.price, this.description, this.name)
@@ -122,17 +150,17 @@ export class EditPagePage implements OnInit {
         "access-Control-Allow-Origin": "*",
         "Content-Type": 'application/json'
       },
-      body: JSON.stringify(data),        // JSON Means An intrinsic object that provides functions to convert JavaScript values to and from the JavaScript Object Notation (JSON) format.
+      body: JSON.stringify(body),        // JSON Means An intrinsic object that provides functions to convert JavaScript values to and from the JavaScript Object Notation (JSON) format.
 
     })
       .then(response => response.json())
       .then(result => {
         console.log(result),
 
-          this.products = JSON.parse(result)  //it  runs $parse automatically when it runs the $digest loop, basically $parse is the way angular evaluates expressions
+        
 
-        this.updateproductForm.reset();   // form reset
-        window.location.reload()  // reloading window
+        //this.updateproductForm.reset();   // form reset
+        window.location.href='/tab/tab1'  // reloading window
 
       }
 
@@ -141,7 +169,13 @@ export class EditPagePage implements OnInit {
   }
   
 
- 
+  slidePrev() {
+    this.slides.slidePrev();
+  }
+
+  slideNext() {
+    this.slides.slideNext();
+  }
 
 
  

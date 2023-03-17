@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import {  FormGroup, Validators,FormControl } from '@angular/forms';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
 import { LoadingController ,NavController} from '@ionic/angular';
-
+import { CommonServiceService } from '../common-service.service';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.page.html',
@@ -16,9 +16,10 @@ export class SignupPage implements OnInit {
   UniqueDeviceID!:string;
   final: any;
   aboutCompany:any
+  location: any;
 
 
-  constructor(private router:Router,private uniqueDeviceID: UniqueDeviceID,public loadingController: LoadingController,public navController:NavController) { }
+  constructor(private router:Router,private uniqueDeviceID: UniqueDeviceID,public loadingController: LoadingController,public navController:NavController,private commonService:CommonServiceService) { }
 
   ngOnInit() {
     
@@ -35,7 +36,7 @@ console.log(this.allDetails)
     'city': new FormControl('', [Validators.required]),
     'companyName': new FormControl('', [Validators.required]),
     'routes': new FormControl('', [Validators.required]),
-    'mobileNo': new FormControl( Number, [Validators.required, ]),
+    mobileNo: new FormControl( '' ,[Validators.required ]),
     'aboutCompany': new FormControl('', [Validators.required]),
   });
 
@@ -80,7 +81,6 @@ console.log(data)
    aboutCompany:this.aboutCompany
 }
  console.log(this.final)
-if(data.firstName != '' && data.firstName != '' && data.lastName != '' && data.mobileNo != '' && data.city != '' && data.companyName != '' && data.routes != '' && this.aboutCompany != undefined){
 
     fetch("https://amused-crow-cowboy-hat.cyclic.app/TruckAppUsers/signup", {
       
@@ -94,23 +94,24 @@ if(data.firstName != '' && data.firstName != '' && data.lastName != '' && data.m
       
       .then(
         result =>{
+
+          if(result.status == "success"){
+            loading.dismiss();
+            localStorage.setItem('Number',this.final.mobileNo)
+            alert('Your account is registered')
+            this.navController.navigateForward('/loginotp');
+          }
      
-          if(result.status === "failed" ){
+          else if(result.status == "failed" ){
             loading.dismiss();
             alert("Already registered please login")
             //this.router.navigate(['/loginotp'])
             this.navController.navigateForward('/loginotp');
-            }else if(result.status === "faileds"){
+            }else if(result.status == "faileds"){
               loading.dismiss();
-              alert('something went wrong')
+              alert('Unable to Signup')
             }
-            else{
-              loading.dismiss();
-              alert('Your account is registered')
-              this.navController.navigateForward('/loginotp');
-              //this.router.navigate(['/loginotp'])
-
-            }
+       
         
         
       
@@ -122,11 +123,15 @@ if(data.firstName != '' && data.firstName != '' && data.lastName != '' && data.m
              console.log(error)
              
             });
-}else{
-  loading.dismiss()
-  alert('Enter all details')
-}
+
   
+  }
+
+  loac(){
+    this.commonService.getLocation().subscribe((response)=>{
+      console.log(response);
+      this.location = response;
+    })
   }
 
 }

@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <div style="display: flex;">
-      <ion-icon name="arrow-back-sharp" routerLink="/tab/tab2" style="font-size: 30px;"></ion-icon>
+      <ion-icon name="arrow-back-sharp" (click)="routeto()" style="font-size: 30px;"></ion-icon>
       <ion-title>Place Bid</ion-title>
     </div>
   </ion-toolbar>
@@ -47,17 +47,17 @@
       </div> 
 
     </ion-col> -->
+   
+     <ion-col size="8" offset="3" *ngIf="text.userType == regdata.role">
 
-     <ion-col size="8" offset="3" *ngIf="text.userType == regdata.role" class="my-message">
-<div *ngIf="text.initialAccept === 'Accepted'">
-      <h3>Bid accepted for : {{text.price}}</h3>
-    </div>
+      <div align="center"  class="shipperAccept" *ngIf="text.initialAccept === 'Accepted'">
+        Bid accepted for :₹ {{text.price}}/-
+      </div>
 
 
-
-    <div [hidden]="text.initialAccept === 'Accepted'" >
+    <div [hidden]="text.initialAccept === 'Accepted'"  class="my-message" >
       <b>{{text.userType}}::</b><br>
-      <span>{{text.price}}</span>
+      <span>₹ {{text.price}}/-</span>
       <!--<b>PHno -{{text.userNo}}</b>-->
       <div class="time" text-right><br>
         {{text.time | date:'short'}}
@@ -72,10 +72,10 @@
     <ion-col size="7" *ngIf="text.userType!== regdata.role" class="message other-message">
 
       <b text-left>{{text.userType}}</b><br>
-      <b text-left>{{text.price}}</b>
+      <b text-left>₹ {{text.price}}/-</b>
 
        <div class="time" text-right><br>
-       <!-- {{text.time | date:'short' }}-->
+       {{text.time | date:'short' }}
       </div> 
 
     </ion-col>
@@ -111,7 +111,7 @@ You Accepted the bid for {{item.tentativefinalPrice}}
   you accepted the bid for:{{item.tentativefinalPrice}}
   </div >
   </ion-card>
-  <ion-card color="success" *ngIf="item.isShipperAccepted == true" >
+  <ion-card class="shipperAccept" *ngIf="item.isShipperAccepted == true" >
     <div align="center">
     
     Shipper Approved  for:{{item.tentativefinalPrice}}
@@ -134,8 +134,8 @@ You Accepted the bid for {{item.tentativefinalPrice}}
 
   <!-- <ion-button fill="clear" style="text-align:center; color: red; float: left;">Reject</ion-button> -->
   <ion-button fill="clear" style="float: right; color: green;" (click)="acceptBid()" *ngIf="show">Accept</ion-button>
-  <ion-button fill="clear" style="float: right; color: green;" (click)="acceptBidForFinal()" *ngIf="hide">Accept</ion-button>
-  <ion-button fill="outline" shape="round" style="float: left; " [hidden]="item.initialAccept === 'Accepted'" id="open-modall">Initial Bid</ion-button>
+  <ion-button fill="clear" style="float: right; color: green;" (click)="acceptBidForFinal()" *ngIf="hide" [hidden]="item.TohideAcceptBtn == true" >Accept</ion-button>
+  <ion-button fill="outline" shape="round" style="float: left; " [hidden]="item.agentInitialBidSend == true" id="open-modall">Initial Bid</ion-button>
 
 </ion-card>
 
@@ -181,7 +181,7 @@ You Accepted the bid for {{item.tentativefinalPrice}}
             </ion-col>
       
             <ion-col size="2">
-              <ion-button expand="block" fill="clear" color="primary" [disabled]="newMsg === '' " class="msg-btn"
+              <ion-button expand="block" fill="clear" color="primary" [disabled]="newMsg == '' " class="msg-btn"
               (click)="initialBid()">
                 <ion-icon name="send"></ion-icon>
               </ion-button>

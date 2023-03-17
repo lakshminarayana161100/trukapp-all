@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { NavController, NavParams } from '@ionic/angular';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-add-new-truck-details',
   templateUrl: './add-new-truck-details.page.html',
@@ -19,16 +20,19 @@ export class AddNewTruckDetailsPage implements OnInit {
   vehicleCapacity: any;
   Items: any;
   date: any;
+  isTrukOpenOrClose:any
   DriverName: any;
   DriverNumber: any;
   vehicleType:any;
  _id: any;
+  sub: any;
 
-  constructor(public loadingController: LoadingController) { }
+  constructor(public loadingController: LoadingController,private route: ActivatedRoute) { }
 
   ngOnInit() {
-
-
+this.sub =JSON.parse(localStorage.getItem("loadItem") || '{}')
+  
+    console.log(this.sub)
     this.dropdownList = [
       'Mumbai',
       'Bangaluru',
@@ -80,9 +84,10 @@ export class AddNewTruckDetailsPage implements OnInit {
       vehicleCurrentLocation: this.vehicleCurrentLocation,
       vehicleCapacity: this.vehicleCapacity,
       date: this.date,
+      isTrukOpenOrClose:this.isTrukOpenOrClose,
       DriverName: this.DriverName,
       DriverNumber: this.DriverNumber,
-      _id:"63e4cbb10c1e2c6d00db2738"
+      _id:this.sub
     }
     console.log(data)
     localStorage.setItem("newpostAdd", JSON.stringify(data));

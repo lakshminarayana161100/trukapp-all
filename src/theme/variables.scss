@@ -234,3 +234,18 @@
     --ion-card-background: #1e1e1e;
   }
 }
+
+// Light theme colors
+$primary-color: #3880ff;
+$secondary-color: #0cd1e8;
+$background-color: #f4f5f8;
+
+// Dark theme colors
+$primary-color-dark: #0d47a1;
+$secondary-color-dark: #008ba3;
+$background-color-dark: #121212;
+
+// Define the default color variables
+$primary: $primary-color;
+$secondary: $secondary-color;
+$background: $background-color;

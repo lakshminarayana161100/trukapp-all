@@ -90,7 +90,7 @@ export class AttachExistingLoadsPage implements OnInit {
                   console.log('Confirm Okay');
                   //you can write your code or redirection 
                   // sample redirection code 
-                  // window.location.href = '/tab5';
+                   window.location.href = '/tab/tab4';
                 }
               }
             ],

@@ -57,13 +57,13 @@
     <ion-row>
       <ion-segment [scrollable]="true" value="home">
   
-        <ion-col>
+        <!--<ion-col>
           <ion-segment-button value="home" (click)="get()">
             <ion-label>All Truks</ion-label>
           </ion-segment-button>
-        </ion-col>
+        </ion-col>-->
         <ion-col>
-          <ion-segment-button value="heart" (click)="active('Active')">
+          <ion-segment-button value="home" (click)="active()">
             <ion-label>Active</ion-label>
           </ion-segment-button>
         </ion-col>
@@ -72,11 +72,11 @@
             <ion-label>Deactive</ion-label>
           </ion-segment-button>
         </ion-col>
-        <ion-col>
+        <!--<ion-col>
           <ion-segment-button value="pin" (click)="inprogress()">
             <ion-label>In-progress</ion-label>
           </ion-segment-button>
-        </ion-col>
+        </ion-col>-->
         <ion-col>
           <ion-segment-button value="call" (click)="completedtog()">
             <ion-label>Completed</ion-label>
@@ -85,7 +85,7 @@
       </ion-segment>
     </ion-row>
   </div>
-  <ion-content *ngIf="item.length !=0">
+  <ion-content *ngIf="itemlen !=0">
     <!--<ion-card *ngFor="let text of item">
 
 
@@ -142,14 +142,14 @@
           </div>-->
 
 
-          <div class="dropdown" style="float: right;" >
+          <div class="dropdown" style="float: right;" *ngIf="text.trukisActive == 'Active'" >
             <!--<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               D
             </button>-->
             <i class="bx bx-dots-horizontal-rounded" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 20px;"></i>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
               <a class="dropdown-item" routerLink="/truk-edit-page" (click)="SendData(text)" >Edit</a><a class="dropdown-item" (click)="isactive(text)">Deactive</a><a class="dropdown-item" (click)="deleteTruk(text._id)">Delete</a>
-              <a class="dropdown-item"  >More Details</a>
+              <a class="dropdown-item"  (click)="moredetails(text)" routerLink="/trukmore-details" >More Details</a>
             </div>
           </div>
      
@@ -157,7 +157,7 @@
           <div class="d-flex align-items-center">
               <div><img src="https://media.gettyimages.com/photos/empty-dump-truck-picture-id505895442" alt="" class="avatar-md rounded-circle img-thumbnail" />
                 <br>
-              &nbsp;&nbsp;<span style="color: black; font-weight:bolder;">{{text.trukisActive}}</span>
+              &nbsp;&nbsp;<span style="color: black; font-weight:bolder;" *ngIf="text.trukisActive == 'Active'">{{text.trukisActive}}</span> <span style="color: rgb(237, 27, 27); font-weight:bolder;" *ngIf="text.trukisActive == 'Deactive'">{{text.trukisActive}}</span>
               </div>
               <div class="flex-1 ms-3">
                   <h5 class="font-size-16 mb-1" style="color:black; font-weight:bolder;"><a  class="text-dark">{{text.trukvehiclenumber}}</a></h5>
@@ -169,11 +169,11 @@
               <p  class="text-muted mb-0 mt-2">&nbsp;<i class=" fa fa-truck font-size-15 align-middle pe-2 "></i>{{text.trukcapacity}} Tons --{{text.trukname}}</p>
               <p class="text-muted mb-0 mt-2">&nbsp;<i class="fa fa-map-marker font-size-15 align-middle pe-2 "></i>  Avaliable in <span style="color:black; font-weight:bolder;"> {{text.trukcurrentLocation}}</span></p>
           </div>
-          <div align="center">
+          <div align="center"  *ngIf="text.trukisActive == 'Active'">
           
-              <button type="button" class="viewbidbtn">
+              <button type="button" class="viewbidbtn" (click)="bidbyId(text)">
                 <span> View Bids</span>
-                
+                <span class="badge">{{0}}</span>
                 </button>
                
           </div>
@@ -183,7 +183,7 @@
 
 </ion-content>
 
-<ion-content *ngIf="item.length ==0" class="noitem">
+<ion-content *ngIf="itemlen ==0" class="noitem">
   <div>
     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROYIDHG7JivZlXLJC27oeHti76eHrkkNdq_A&usqp=CAU" />
     <h1>No truk vehicle!</h1>
@@ -191,7 +191,7 @@
 </ion-content>
 
 <div class="center">
-  <ion-button routerLink="/add-truck" class="bb" expand="full" shape="round">Add Trucks</ion-button>
+  <ion-button routerLink="/add-truck" class="bb" expand="full" >Add Trucks</ion-button>
 
 
 </div> 

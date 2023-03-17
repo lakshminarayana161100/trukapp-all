@@ -45,16 +45,20 @@ export class Tab2Page {
     this.logindata =JSON.parse(localStorage.getItem('regdata') || '{}')
     this.post()
   }
-  toggle(isActive:any){
-    this.isactive=isActive
+  ionViewDidEnter(){
     this.post()
-    console.log(isActive)
+    //this.toggle()
+  }
+  toggle(){
+    //this.isactive=isActive
+    this.post()
+    //console.log(isActive)
    }
-   togglesss(isActive:any){
+   /*togglesss(isActive:any){
     this.isactive=isActive
     this.inTransitget()
     console.log(isActive)
-   }
+   }*/
    toggless(isActive:any){
     this.isactive=isActive
     this.completedGet()
@@ -85,7 +89,7 @@ export class Tab2Page {
         console.log(err))
   }
 
-  inTransitget(){
+  /*inTransitget(){
     var body={
           mobileNo:9876543234,
           isActive:"In-Progress"
@@ -108,7 +112,7 @@ export class Tab2Page {
           ).catch(err =>
             console.log(err))
     
-      }
+      }*/
    async completedGet(){
     const loading = await this.loadingController.create({
       message: 'Verifying...',
@@ -178,12 +182,7 @@ export class Tab2Page {
     //this.router.navigate(["place-bid"])
    }
 
-   autorefresh(event:any){
-    this.get()
-    setTimeout(() => {
-      event.target.complete()
-    }, 2000);
-  }
+
   signout(){
     localStorage.removeItem('regdata')
     window.location.href='/loginotp'

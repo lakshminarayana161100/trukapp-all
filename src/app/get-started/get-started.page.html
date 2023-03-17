@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <div style="display: flex; ">
-      <ion-icon name="arrow-back-sharp" routerLink="/selectlanguage" style="font-size: 30px;"></ion-icon>
+      <ion-icon name="arrow-back-sharp" (click)="route()" style="font-size: 30px;"></ion-icon>
       <ion-title align="center"> Get Started</ion-title>
     </div>
   </ion-toolbar>
@@ -17,12 +17,20 @@
 
 
 <div class="boby">
-  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrfSJmssTaTDVEg1WoKdANXb-JdzYts1fcVg&usqp=CAU" alt="centered image"  style="  max-width: 110%;
-  height: anto; ">
+  <ion-slides pager="true" [options]="slideOpts" *ngIf="bannerImages && bannerImages.length">
+    <ion-slide *ngFor="let image of bannerImages">  
+      <div style="display: inline-block;">
+      <div>
+        <img class="banner-image" [src]="image?.imgurl"/>
+      </div>
+      <div class="contanier">
+        <h1 style="text-align:center;">{{image.live}}</h1>
+        <p style=" text-align:center;padding:8px;">{{image.data}}</p>
+      </div>
+      </div>
+    </ion-slide>
+  </ion-slides>
 </div>
-<div class="contanier">
-  <h1 style="text-align:center; margin-top: -14rem;">Live Transport Market</h1>
-  <p style=" text-align:center;padding:8px;">Book Truks,trailers& Trankers from live market and find best delas</p>
-</div>
+
 </ion-content>
 <ion-button class="get" expand="full"  routerLink="/loginotp">Get Strated   <ion-icon name="arrow-forward-outline"></ion-icon> </ion-button>

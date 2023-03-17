@@ -16,7 +16,8 @@ fleet:any
   agents: any;
   constructor() {}
   ngOnInit(): void {
-  this.role=  JSON.parse( localStorage.getItem('loginrole') || "{}")
+  var role=  JSON.parse( localStorage.getItem('regdata') || "{}")
+  this.role =role.role
   this.lookingfor =  JSON.parse( localStorage.getItem('lookingfor') || "{}")
   console.log(this.lookingfor)
   
@@ -29,6 +30,7 @@ fleet:any
   }
 
   hide(){
+    console.log(this.role)
     if(this.role === 'Shipper'){
       this.boss = 'Shipper'
     }

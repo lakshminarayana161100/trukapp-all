@@ -17,10 +17,6 @@ ion-card{
             animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
             border-radius: 9px;
 
-            @keyframes edit {
-                from {background-color:#f58e26;}
-                to {background-color: rgb(42, 26, 26);}
-            }
         }
 
     }

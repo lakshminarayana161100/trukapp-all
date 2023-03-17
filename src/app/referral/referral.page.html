@@ -1,0 +1,68 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <div style="display: flex;">
+      <ion-icon name="arrow-back-sharp" routerLink="/tab/tab2" style="font-size: 30px;"></ion-icon>
+      <ion-title style="text-align:center;">Referral</ion-title>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+
+
+
+<ion-content>
+  <div style="text-align: center;">
+    <h1 style="color: #f58e26;;">How it Works <ion-icon name="information-circle"></ion-icon></h1>
+  </div>
+  <div class="container">
+    <ion-card>
+
+      <ion-card-title style="text-align: center;">Invite the Referral link</ion-card-title>
+      <br>
+      <div class="container">
+        <ion-item fill="outline">
+          <ion-input> {{url}}</ion-input>
+          <ion-icon name="copy-outline" slot="end" color="primary"></ion-icon>
+        </ion-item>
+      </div>
+      <ion-row>
+        <ion-card-content>
+          <!-- <ion-col size="4">
+            <ion-button color="success" (click)="ShareWhatsapp()"><ion-icon
+                name="logo-whatsapp"></ion-icon></ion-button>
+          </ion-col>
+          <ion-col size="4">
+            <ion-button color="warning" (click)="SendInstagram()"><ion-icon
+                name="logo-instagram"></ion-icon></ion-button>
+          </ion-col>
+          <ion-col size="4">
+            <ion-button color="primary" (click)="ShareFacebook()"><ion-icon
+                name="logo-facebook"></ion-icon></ion-button>
+          </ion-col>
+          <ion-col size="4">
+            <ion-button color="secondary" (click)="SendTwitter()"><ion-icon name="logo-twitter"></ion-icon></ion-button>
+          </ion-col> -->
+          <ion-col size="4" style="text-align: center;">
+            <ion-button  (click)="sShare()" shape="round" class="share">Share Now</ion-button>
+          </ion-col>
+        </ion-card-content>
+      </ion-row>
+
+    </ion-card>
+  </div>
+  <br>
+  <ion-card>
+    <ion-card-title style="text-align: center;">Invite from your contacts</ion-card-title><br>
+    <div style="text-align: center;">
+      <ion-button shape="round" style="text-align: center;" class="view" expand="full">View Contacts</ion-button>
+    </div>
+  </ion-card>
+  <br><br>
+  <div style="text-align: center;">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKsRtKVWLzIs6tk-PdpNT2FwihpCyuYCCRcQ&usqp=CAU">
+    <br><br><br>
+    <ion-button class="earn" routerLink="/your-earnings"> Go To your Earnings</ion-button>
+  </div>
+ 
+
+</ion-content>

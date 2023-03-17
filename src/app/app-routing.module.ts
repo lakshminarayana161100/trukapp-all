@@ -14,151 +14,278 @@ const routes: Routes = [
     path: 'tab',
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule),
     //canActivate: [AuthGuard]
+    //canActivate:[LoggeduserGuard]
   },
   {
     path: 'signup',
-    loadChildren: () => import('./signup/signup.module').then( m => m.SignupPageModule)
+    loadChildren: () => import('./signup/signup.module').then( m => m.SignupPageModule),
+    //canActivate:[LoggeduserGuard]
   },
   {
     path: 'loginotp',
-    loadChildren: () => import('./loginotp/loginotp.module').then( m => m.LoginotpPageModule)
+    loadChildren: () => import('./loginotp/loginotp.module').then( m => m.LoginotpPageModule),
+   // canActivate:[LoggeduserGuard]
   },
   {
     path: 'verifyotp',
-    loadChildren: () => import('./verifyotp/verifyotp.module').then( m => m.VerifyotpPageModule)
+    loadChildren: () => import('./verifyotp/verifyotp.module').then( m => m.VerifyotpPageModule),
+   // canActivate:[LoggeduserGuard]
   },
 
   {
     path: 'selectlanguage',
-    loadChildren: () => import('./selectlanguage/selectlanguage.module').then( m => m.SelectlanguagePageModule)
+    loadChildren: () => import('./selectlanguage/selectlanguage.module').then( m => m.SelectlanguagePageModule),
+   //canActivate:[LoggeduserGuard]
   },
   {
     path: 'selecttype',
-    loadChildren: () => import('./selecttype/selecttype.module').then( m => m.SelecttypePageModule)
+    loadChildren: () => import('./selecttype/selecttype.module').then( m => m.SelecttypePageModule),
+    //canActivate:[LoggeduserGuard]
   },
   {
     path: 'personorcompanydetails',
     loadChildren: () => import('./personorcompanydetails/personorcompanydetails.module').then( m => m.PersonorcompanydetailsPageModule),
+    //canActivate:[LoggeduserGuard]
     
   },
   {
     path: 'loadingscreen',
     loadChildren: () => import('./loadingscreen/loadingscreen.module').then( m => m.LoadingscreenPageModule),
    // canActivate:[LoggeduserGuard]
+   
   },
 
   {
     path: 'attach-new-load',
-    loadChildren: () => import('./attach-new-load/attach-new-load.module').then( m => m.AttachNewLoadPageModule)
+    loadChildren: () => import('./attach-new-load/attach-new-load.module').then( m => m.AttachNewLoadPageModule),
+   // canActivate:[LoggeduserGuard]
   },
   {
     path: 'tab4',
-    loadChildren: () => import('./tab4/tab4.module').then( m => m.Tab4PageModule)
+    loadChildren: () => import('./tab4/tab4.module').then( m => m.Tab4PageModule),
+   // canActivate:[LoggeduserGuard]
   },
   {
     path: 'page-not-found',
-    loadChildren: () => import('./page-not-found/page-not-found.module').then( m => m.PageNotFoundPageModule)
+    loadChildren: () => import('./page-not-found/page-not-found.module').then( m => m.PageNotFoundPageModule),
+    //canActivate:[LoggeduserGuard]
   },
   {
     path: 'profile',
-    loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
+    loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule),
+    //canActivate:[LoggeduserGuard]
   },
   {
     path: 'addaddress',
-    loadChildren: () => import('./addaddress/addaddress.module').then( m => m.AddaddressPageModule)
+    loadChildren: () => import('./addaddress/addaddress.module').then( m => m.AddaddressPageModule),
+    //canActivate:[LoggeduserGuard]
   },
   {
     path: 'editalldetails',
-    loadChildren: () => import('./editalldetails/editalldetails.module').then( m => m.EditalldetailsPageModule)
+    loadChildren: () => import('./editalldetails/editalldetails.module').then( m => m.EditalldetailsPageModule),
+   // canActivate:[LoggeduserGuard]
   },
   {
     path: 'vrifyaadharotp',
-    loadChildren: () => import('./verifyaadharotp/vrifyaadharotp.module').then( m => m.VrifyaadharotpPageModule)
+    loadChildren: () => import('./verifyaadharotp/vrifyaadharotp.module').then( m => m.VrifyaadharotpPageModule),
+   // canActivate:[LoggeduserGuard]
   },
   {
     path: 'verifygstotp',
-    loadChildren: () => import('./verifygstotp/verifygstotp.module').then( m => m.VerifygstotpPageModule)
+    loadChildren: () => import('./verifygstotp/verifygstotp.module').then( m => m.VerifygstotpPageModule),
+   // canActivate:[LoggeduserGuard]
   },
   {
     path: 'shipperhome',
     loadChildren: () => import('./shipperhome/shipperhome.module').then( m => m.ShipperhomePageModule),
-    canActivate:[ShipperguardGuard]
+    canActivate:[LoggeduserGuard]
+   // canActivate:[ShipperguardGuard]
   },
   {
     path: 'view-bid',
-    loadChildren: () => import('./view-bid/view-bid.module').then( m => m.ViewBidPageModule)
+    loadChildren: () => import('./view-bid/view-bid.module').then( m => m.ViewBidPageModule),
+   // canActivate:[LoggeduserGuard]
   },
   {
     path: 'place-bid',
-    loadChildren: () => import('./place-bid/place-bid.module').then( m => m.PlaceBidPageModule)
+    loadChildren: () => import('./place-bid/place-bid.module').then( m => m.PlaceBidPageModule),
+    //canActivate:[LoggeduserGuard]
   },
   {
     path: 'edit-page',
-    loadChildren: () => import('./edit-page/edit-page.module').then( m => m.EditPagePageModule)
+    loadChildren: () => import('./edit-page/edit-page.module').then( m => m.EditPagePageModule),
+   // canActivate:[LoggeduserGuard]
   },
   {
     path: 'load-details',
-    loadChildren: () => import('./load-details/load-details.module').then( m => m.LoadDetailsPageModule)
+    loadChildren: () => import('./load-details/load-details.module').then( m => m.LoadDetailsPageModule),
+   // canActivate:[LoggeduserGuard]
   },
   {
     path: 'mytrucks',
-    loadChildren: () => import('./mytrucks/mytrucks.module').then( m => m.MytrucksPageModule)
+    loadChildren: () => import('./mytrucks/mytrucks.module').then( m => m.MytrucksPageModule),
+   // canActivate:[LoggeduserGuard]
   },
   {
     path: 'truk-edit-page',
-    loadChildren: () => import('./truk-edit-page/truk-edit-page.module').then( m => m.TrukEditPagePageModule)
+    loadChildren: () => import('./truk-edit-page/truk-edit-page.module').then( m => m.TrukEditPagePageModule),
+   // canActivate:[LoggeduserGuard]
   },
   {
     path: 'your-truck-posted',
-    loadChildren: () => import('./your-truck-posted/your-truck-posted.module').then( m => m.YourTruckPostedPageModule)
+    loadChildren: () => import('./your-truck-posted/your-truck-posted.module').then( m => m.YourTruckPostedPageModule),
+    //canActivate:[LoggeduserGuard]
   },
   {
     path: 'add-truck',
-    loadChildren: () => import('./add-truck/add-truck.module').then( m => m.AddTruckPageModule)
+    loadChildren: () => import('./add-truck/add-truck.module').then( m => m.AddTruckPageModule),
+   // canActivate:[LoggeduserGuard]
   },
   {
     path: 'add-new-truck',
-    loadChildren: () => import('./add-new-truck/add-new-truck.module').then( m => m.AddNewTruckPageModule)
+    loadChildren: () => import('./add-new-truck/add-new-truck.module').then( m => m.AddNewTruckPageModule),
+   // canActivate:[LoggeduserGuard]
+
   },
   {
     path: 'add-new-truck-details',
-    loadChildren: () => import('./add-new-truck-details/add-new-truck-details.module').then( m => m.AddNewTruckDetailsPageModule)
+    loadChildren: () => import('./add-new-truck-details/add-new-truck-details.module').then( m => m.AddNewTruckDetailsPageModule),
+   // canActivate:[LoggeduserGuard]
+
   },
   {
     path: 'lookingfor',
-    loadChildren: () => import('./lookingfor/lookingfor.module').then( m => m.LookingforPageModule)
+    loadChildren: () => import('./lookingfor/lookingfor.module').then( m => m.LookingforPageModule),
+   // canActivate:[LoggeduserGuard]
+
   },
   {
     path: 'attach-load',
-    loadChildren: () => import('./attach-load/attach-load.module').then( m => m.AttachLoadPageModule)
+    loadChildren: () => import('./attach-load/attach-load.module').then( m => m.AttachLoadPageModule),
+   // canActivate:[LoggeduserGuard]
+
   },
   {
     path: 'all-bids',
-    loadChildren: () => import('./all-bids/all-bids.module').then( m => m.AllBidsPageModule)
+    loadChildren: () => import('./all-bids/all-bids.module').then( m => m.AllBidsPageModule),
+    //canActivate:[LoggeduserGuard]
+
   },
   {
     path: 'existing-loads',
-    loadChildren: () => import('./existing-loads/existing-loads.module').then( m => m.ExistingLoadsPageModule)
+    loadChildren: () => import('./existing-loads/existing-loads.module').then( m => m.ExistingLoadsPageModule),
+    //canActivate:[LoggeduserGuard]
+
   },
   {
     path: 'attach-existing-loads',
-    loadChildren: () => import('./attach-existing-loads/attach-existing-loads.module').then( m => m.AttachExistingLoadsPageModule)
+    loadChildren: () => import('./attach-existing-loads/attach-existing-loads.module').then( m => m.AttachExistingLoadsPageModule),
+   // canActivate:[LoggeduserGuard]
+
   },
   {
     path: 'makepayment',
-    loadChildren: () => import('./makepayment/makepayment.module').then( m => m.MakepaymentPageModule)
+    loadChildren: () => import('./makepayment/makepayment.module').then( m => m.MakepaymentPageModule),
+   // canActivate:[LoggeduserGuard]
+
   },
   {
     path: 'help-and-guide',
-    loadChildren: () => import('./help-and-guide/help-and-guide.module').then( m => m.HelpAndGuidePageModule)
+    loadChildren: () => import('./help-and-guide/help-and-guide.module').then( m => m.HelpAndGuidePageModule),
+    //canActivate:[LoggeduserGuard]
+
   },
   {
     path: 'attach-prefferd-newload',
-    loadChildren: () => import('./attach-prefferd-newload/attach-prefferd-newload.module').then( m => m.AttachPrefferdNewloadPageModule)
+    loadChildren: () => import('./attach-prefferd-newload/attach-prefferd-newload.module').then( m => m.AttachPrefferdNewloadPageModule),
+    //canActivate:[LoggeduserGuard]
+
   },
   {
     path: 'get-started',
-    loadChildren: () => import('./get-started/get-started.module').then( m => m.GetStartedPageModule)
+    loadChildren: () => import('./get-started/get-started.module').then( m => m.GetStartedPageModule),
+    //canActivate:[LoggeduserGuard]
+
+  },
+  {
+    path: 'contact-us',
+    loadChildren: () => import('./contact-us/contact-us.module').then( m => m.ContactUsPageModule),
+    //canActivate:[LoggeduserGuard]
+
+  },
+  {
+    path: 'contact-faq',
+    loadChildren: () => import('./contact-faq/contact-faq.module').then( m => m.ContactFaqPageModule),
+    //canActivate:[LoggeduserGuard]
+
+  },
+  {
+    path: 'modal-contact',
+    loadChildren: () => import('./modal-contact/modal-contact.module').then( m => m.ModalContactPageModule),
+    //canActivate:[LoggeduserGuard]
+
+  },
+  {
+    path: 'your-earnings',
+    loadChildren: () => import('./your-earnings/your-earnings.module').then( m => m.YourEarningsPageModule),
+    //canActivate:[LoggeduserGuard]
+
+  },
+  {
+    path: 'star-rating',
+    loadChildren: () => import('./star-rating/star-rating.module').then( m => m.StarRatingPageModule),
+    //canActivate:[LoggeduserGuard]
+
+  },
+  {
+    path: 'about-us',
+    loadChildren: () => import('./about-us/about-us.module').then( m => m.AboutUsPageModule),
+    //canActivate:[LoggeduserGuard]
+
+  },
+  {
+    path: 'terms-conditions',
+    loadChildren: () => import('./terms-conditions/terms-conditions.module').then( m => m.TermsConditionsPageModule),
+    //canActivate:[LoggeduserGuard]
+
+  },
+  {
+    path: 'privacy-policy',
+    loadChildren: () => import('./privacy-policy/privacy-policy.module').then( m => m.PrivacyPolicyPageModule),
+    //canActivate:[LoggeduserGuard]
+
+  },
+  {
+    path: 'disclaimer',
+    loadChildren: () => import('./disclaimer/disclaimer.module').then( m => m.DisclaimerPageModule),
+    //canActivate:[LoggeduserGuard]
+
+  },
+  {
+    path: 'referral',
+    loadChildren: () => import('./referral/referral.module').then( m => m.ReferralPageModule),
+    //canActivate:[LoggeduserGuard]
+  },
+  {
+    path: 'trukmore-details',
+    loadChildren: () => import('./trukmore-details/trukmore-details.module').then( m => m.TrukmoreDetailsPageModule),
+    //canActivate:[LoggeduserGuard]
+  },
+  {
+    path: 'trukallbids',
+    loadChildren: () => import('./trukallbids/trukallbids.module').then( m => m.TrukallbidsPageModule)
+  },
+  {
+    path: 'truckviewbids',
+    loadChildren: () => import('./truckviewbids/truckviewbids.module').then( m => m.TruckviewbidsPageModule)
+  },
+  {
+    path: 'shipperplacebid',
+    loadChildren: () => import('./shipperplacebid/shipperplacebid.module').then( m => m.ShipperplacebidPageModule)
+  },
+  {
+    path: 'shippernegoplacebid',
+    loadChildren: () => import('./shippernegoplacebid/shippernegoplacebid.module').then( m => m.ShippernegoplacebidPageModule)
   },
   
 

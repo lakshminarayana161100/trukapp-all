@@ -1,0 +1,219 @@
+<ion-header>
+  <ion-toolbar>
+    <div style="display: flex;">
+      <ion-icon name="arrow-back-sharp" routerLink="/tab/tab2" style="font-size: 30px;"></ion-icon>
+      <ion-title style="text-align:center;">Contact Us</ion-title>
+    </div>
+  </ion-toolbar>
+</ion-header>
+<br>
+<ion-content>
+  <h1 style="text-align: center;">Tell us your Query</h1>
+  <div class="container">
+    <ion-accordion-group>
+      <ion-accordion value="first" class="my-accordion">
+        <ion-item slot="header" color="light">
+          <ion-label>Have a query about previous loads</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">
+          <ion-button (click)="get()" color="success" style="float:left">YES</ion-button>
+          <ion-button color="danger" style="float: right;" routerLink="/contact-faq">NO</ion-button>
+        </div>
+      </ion-accordion>
+    </ion-accordion-group>
+  </div>
+
+
+  <!-- <ion-list>
+    <ion-radio-group id="open-modal">
+      <ion-item *ngFor="let card of item" (click)="typeofPay(card.typeOfPay)"
+        [ngClass]="{'selected': selectedItem === card}">
+        <ion-card>
+          <div style="float: left; margin-left: 1rem;">
+            <br>
+            <img src="https://5.imimg.com/data5/SF/YX/MY-2496828/carton-corrugated-box-500x500.jpg" width="10%"
+              height="10%">
+            <span style="margin-left: 2rem;">{{card.OriginLocation}} - {{card.DestinationLocation}}</span>
+            <h3 style="margin-left: 3rem;">Pickup {{card.date}}</h3>
+          </div>
+          .............................................................................
+          <ion-card-content>
+            {{card.product}} <br>
+            <ion-icon name="car-outline" style="font-size: 20px;"></ion-icon>{{card.Quantity}}Tonne(s) {{card.data}}
+            <br>
+            <ion-icon name="card-outline" style="font-size: 15px;"></ion-icon> <span> {{card.typeOfPay}}</span>
+            <span style="float: right; margin-top: -4rem;">
+              <ion-card-content class="expected">
+                <p class="price">Expected Price</p>
+                ₹ {{card.expectedPrice}} /Ton
+              </ion-card-content>
+            </span>
+          </ion-card-content>
+          <div style="text-align: center; ">
+            <ion-button (click)="selectItem(card)" (click)="contactLoad(card)">Select</ion-button>
+          </div>
+        </ion-card>
+      </ion-item>
+    </ion-radio-group>
+  </ion-list> -->
+  <ion-radio-group id="open-modal">  
+  <div class="card" *ngFor="let card of item" (click)="typeofPay(card.typeOfPay)">
+    <div class="card-body" >
+      <div type="button" class="securepayment" *ngIf="card.typeOfPay == 'Online'" ><br>
+        &nbsp;&nbsp; <i class="fa fa-shield" style="font-size: 25px; color:green;" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;
+        <div>
+        <span style="color: green;">Online Payment</span><br>
+        <span style="color: green;">Truk App Assured</span>
+        </div>
+      </div>
+
+      <div type="button" class="handpayment" *ngIf="card.typeOfPay == 'Offline'" ><br>
+        &nbsp;&nbsp; <i class="fa fa-shield" style="font-size: 25px; color:rgb(241, 64, 15);;" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;
+        <div>
+        <span style="color: rgb(241, 64, 15);">Hand Cash </span><br>
+        <span style="color: rgb(241, 64, 15);;">Truk App Assured</span>
+        </div>
+      </div>
+      <br>
+        <!--<div class="dropdown float-end" style="float:right;">
+            <a class="text-muted dropdown-toggle font-size-16" role="button" data-bs-toggle="dropdown" aria-haspopup="true"><i class="bx bx-dots-horizontal-rounded"></i></a>
+            <div class="dropdown-menu dropdown-menu-end"><a class="dropdown-item" >Edit</a><a class="dropdown-item" >Action</a><a class="dropdown-item" >Remove</a></div>
+        </div>-->
+    
+
+        <div class="d-flex align-items-center">
+            <div><img src="https://5.imimg.com/data5/SF/YX/MY-2496828/carton-corrugated-box-500x500.jpg" alt="" class="avatar-md rounded-circle img-thumbnail" />
+              
+
+            </div>
+            <div class="flex-1 ms-3">
+                <h5 class="font-size-16 mb-1" style="color:black; font-weight:bolder;"><a  class="text-dark">{{card.OriginLocation}}--{{card.DestinationLocation}}</a></h5>
+                <span class="badge badge-soft-success mb-0"> Posted On {{card.date}}</span>
+            </div>
+        </div>
+        <div class="mt-3 pt-1">
+            <p  class="text-muted mb-0 mt-2"  ><i class="fa fa-cubes font-size-15 align-middle pe-2 " ></i> {{card.product}}</p>
+            <p  class="text-muted mb-0 mt-2">&nbsp;<i class="fa fa-truck font-size-15 align-middle pe-2 "></i>{{card.Quantity}}tons--{{card.data}}</p>
+            <p class="text-muted mb-0 mt-2">&nbsp;<i class="fa fa-money font-size-15 align-middle pe-2 "></i>  Expected Price ₹ <span style="color:black; font-weight:bolder;">{{card.expectedPrice}}/Ton </span></p>
+        </div>
+        <div style="display:inline-flex;"  >
+        
+            <button type="button" class="viewbidbtn" >
+              <span>Select Load</span>
+              
+              </button>
+             
+        </div>
+    </div>
+</div>
+</ion-radio-group>
+</ion-content>
+
+
+
+
+<ion-modal #modal trigger="open-modal">
+  <ng-template>
+    <ion-content>
+      <ion-toolbar>
+        <ion-title>Select your Query</ion-title>
+        <ion-buttons slot="end">
+          <ion-button color="light" (click)="modal.dismiss()"><ion-icon name="close-sharp"></ion-icon></ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+      <ion-list>
+        <div class="container">
+          <p class="round2" (click)="showConfirmAlert('How I get truk and drive details')">How I get truk and drive
+            details</p><br>
+          <p class="round2" (click)="showConfirmAlert('Payment')">Payment</p><br>
+          <p class="round2" (click)="showConfirmAlert('How I see the load tracking')">How I see the load tracking</p>
+          <br>
+          <p class="round2" (click)="showConfirmAlert('Other Reason')"> Other Reason</p>
+        </div>
+      </ion-list>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+
+
+
+
+
+
+
+
+<!-- this is a contact us details popup page -->
+
+
+<!-- <ion-modal *ngIf="hide === 'show'">
+    <ng-template>
+      <ion-content>
+        <ion-toolbar>
+          <ion-title>Contact Details</ion-title>
+          <ion-buttons slot="end">
+            <ion-button color="light" (click)="modal.dismiss()">Close</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+        <ion-list>
+          <div class="container">
+            <ion-item fill="outline">
+              <ion-label position="floating" >Enter Your Name</ion-label>
+              <ion-input placeholder="Enter text" [(ngModel)]="Name"></ion-input>
+            </ion-item><br>
+            <ion-item fill="outline">
+              <ion-label position="floating" >Enter Your Email Address</ion-label>
+              <ion-input placeholder="Enter text" [(ngModel)]="To"></ion-input>
+            </ion-item><br>
+            <ion-item fill="outline">
+              <ion-label position="floating" >Enter your Mobile Number</ion-label>
+              <ion-input placeholder="Enter text" [(ngModel)]="PhoneNumber"></ion-input>
+            </ion-item><br>
+            <ion-item>
+              <ion-textarea placeholder="Please  the mention ypur Query here....." [autoGrow]="true" [(ngModel)]="Query">
+              </ion-textarea>
+            </ion-item>
+            <br>
+            <ion-button style="float: right;"   (click)="addContact()">Submit</ion-button>
+          </div>
+        </ion-list>
+      </ion-content>
+    </ng-template>
+  </ion-modal> -->
+
+
+
+
+
+<!-- <ion-accordion value="second">
+  <ion-item slot="header" color="light">
+    <ion-label>How I get truk and driver details </ion-label>
+  </ion-item>
+  <div class="ion-padding" slot="content">
+    Second Content
+  </div>
+</ion-accordion><br>
+<ion-accordion value="third">
+  <ion-item slot="header" color="light">
+    <ion-label>Payment</ion-label>
+  </ion-item>
+  <div class="ion-padding" slot="content">
+    Third Content
+  </div>
+</ion-accordion><br>
+<ion-accordion value="four">
+  <ion-item slot="header" color="light">
+    <ion-label>How I see the load tracking </ion-label>
+  </ion-item>
+  <div class="ion-padding" slot="content">
+    Third Content
+  </div>
+</ion-accordion><br>
+<ion-accordion value="five">
+  <ion-item slot="header" color="light">
+    <ion-label>Other Reason</ion-label>
+  </ion-item>
+  <div class="ion-padding" slot="content">
+    Third Content
+  </div>
+</ion-accordion> -->

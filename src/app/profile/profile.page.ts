@@ -106,6 +106,9 @@ otp:any
     };
     
   }
+  ionViewDidEnter(){
+    this.getaddressdetails()
+  }
   onOtpChange(otp: string) {
     this.otp = otp;
   }
@@ -119,13 +122,9 @@ otp:any
 
   passData() {
   
-    localStorage.setItem('detailsforEdit',JSON.stringify(this.passdata))
-
-    setTimeout(() => {
-      this.spin=true
+    //localStorage.setItem('detailsforEdit',JSON.stringify(this.passdata))
       this.router.navigate(['editalldetails'])
-     }, 2500);
-    
+  
   }
  
 
@@ -180,9 +179,10 @@ loading.dismiss()
       const ele =await this.modal.getTop()
     if(ele){
       ele.dismiss();
+      this.router.navigate(['vrifyaadharotp'])
       return;
     }
-        this.router.navigate(['vrifyaadharotp'])
+      
   
             }
             ).catch(
@@ -233,14 +233,21 @@ loading.dismiss()
               }).then(res => res.json())
               
               .then(
-                result =>{
+                async result =>{
              console.log(result)
              var sai =result
                 console.log(result.result.data.client_id)
                localStorage.setItem("gst",JSON.stringify(this.gstinNumber))
                localStorage.setItem("gstusername",JSON.stringify(this.userName))
                loading.dismiss()
-              this.router.navigate(['verifygstotp'])
+                        
+      const ele =await this.modal.getTop()
+      if(ele){
+        ele.dismiss();
+        this.router.navigate(['verifygstotp'])
+        return;
+      }
+           
                 }
                 ).catch(
                     error =>{
@@ -259,11 +266,7 @@ loading.dismiss()
 
 
   async getaddressdetails(){
-    const loading = await this.loadingController.create({
-      message: 'Verifying...',
-      spinner: 'crescent'
-    });
-    await loading.present();
+ 
     fetch("https://amused-crow-cowboy-hat.cyclic.app/TruckAppUsers/getprofiledetails/" + this.logindata.Authentication, {
       
       method:'get',
@@ -287,14 +290,14 @@ loading.dismiss()
          this.passdata =this.routes//store pbject into localstorage
 
          console.log(this.passdata.routes)
-         loading.dismiss()
+         
          }
      
         }
         ).catch(
             error =>{
-              loading.dismiss()
-              alert('unable to get address details');
+              
+              //alert('unable to get address details');
              console.log(error)
             });
            

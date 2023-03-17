@@ -12,6 +12,7 @@ import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
 export class AppComponent {
   notificationToken: any;
   UniqueDeviceID!:string;
+  logindata: any;
   constructor(private platform: Platform,private uniqueDeviceID: UniqueDeviceID) {
 //this. getUniqueDeviceID()
     platform.ready().then(() => {
@@ -20,7 +21,16 @@ export class AppComponent {
 
 //this.getUniqueDeviceID()
   }
+  ngOnInit(): void {
+    this.logindata =JSON.parse(localStorage.getItem('regdata') || '{}')
+    
+  }
+  darkMode = false;
 
+  toggleDarkMode() {
+    this.darkMode = !this.darkMode;
+    document.body.classList.toggle('dark', this.darkMode);
+  }
   getUniqueDeviceID() {
     this.uniqueDeviceID.get()
       .then((uuid: any) => {
@@ -52,7 +62,7 @@ export class AppComponent {
       console.log("User accepted notifications: " + accepted);
   });
 
-OneSignal.setExternalUserId(this.UniqueDeviceID,(result)=>{
+OneSignal.setExternalUserId(this.UniqueDeviceID ,(result)=>{
   console.log(result)
   //alert(JSON.stringify(result))
 })
@@ -78,6 +88,9 @@ alert(id.userId)
 
 }
 
-
+signout(){
+  localStorage.removeItem('regdata')
+  window.location.href='/loginotp'
+}
 
 }

@@ -54,7 +54,9 @@
 <br>
 <ion-note>
   Didn't receive OTP?
-  <ion-text color="dark" style="font-weight: 600;">Resend OTP</ion-text>
+ 
+  <ion-text color="dark" style="font-weight: 600;" [hidden]="timer > 0" (click)="resendOTP()">Resend OTP</ion-text>
+  <div *ngIf="timer > 0">Resend OTP in <span style="color:red;">{{ timer }}</span> seconds</div>
 </ion-note>
 
 </div>
@@ -107,4 +109,4 @@
 </ion-grid>
 </div>-->
 </ion-content>
-<ion-button style="height:50px;"  (click)="handleClick()" >Verify OTP</ion-button>
+<ion-button style="height:50px;"  (click)="handleClick()"  >Verify OTP</ion-button>

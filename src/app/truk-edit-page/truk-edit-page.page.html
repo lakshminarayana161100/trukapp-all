@@ -8,194 +8,148 @@
 </ion-header>
 
 <br>
-<ion-content> 
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="autorefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" refreshingSpinner="circles" refreshingText="Refreshing..">
 
+    </ion-refresher-content>
+  </ion-refresher>
   <form [formGroup]="updateproductForm" (ngSubmit)="updateForm(userPost.value)" #userPost="ngForm">
-    
-    <ion-accordion-group class="container" [value]="['first']" [multiple]="true">
-      <ion-accordion value="first">
-        <ion-item slot="header">
-          <ion-label>Add New Truk</ion-label>
-        </ion-item>
-        <div class="ion-padding" slot="content" style="overflow-y: scroll;">
-          <div class="container">
-            <!-- <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-            <label class="form-check-label" for="flexCheckDefault">
-              Vechile Details
-            </label>
-          </div> -->
-            <ion-item fill="outline">
-              <ion-label position="floating">Enter Vechile number</ion-label>
-              <ion-input placeholder="K.A 10 5555" [(ngModel)]="real.trukvehiclenumber" formControlName="trukvehiclenumber"></ion-input>
-            </ion-item>
-            <br>
-            <ion-item fill="outline">
-              <ion-label position="floating">Current Location</ion-label>
-              <ion-input placeholder="Current vechile Location" [(ngModel)]="real.trukcurrentLocation" formControlName="trukcurrentLocation"></ion-input>
-              <ion-icon name="location-outline" slot="end"></ion-icon>
-            </ion-item>
 
-            <br>
-            <!-- <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" (click)="read()">
-            <label class="form-check-label" for="flexCheckDefault">
-              All India Premit
-            </label>
-          </div>  -->
+    <div class="container">
+      <h2 style="text-align: center; color: #f58e26;">Edit Truk</h2>
 
-            <div>
-              <ng-multiselect-dropdown [placeholder]="'Add Your Vechile Routes (States)'" [settings]="dropdownSettings"
-                [data]="dropdownList" [(ngModel)]="real.trukoperatingRoutes" (onSelect)="onItemSelect($event)" formControlName="trukoperatingRoutes"
-                (onSelectAll)="onSelectAll($event)">
-              </ng-multiselect-dropdown>
-            </div>
-            <br>
-            <div class="form-group">
-              <div class="form-control">
-                <ion-input type="datetime-local" style="border: none; " [(ngModel)]="real.trukdate" formControlName="trukdate"></ion-input>
-              </div>
-            </div>
-
-            <!-- <ion-item>
-            <ion-label>State</ion-label>
-            <ion-select [(ngModel)]="toppings" multiple="true">
-     
-              <ion-select-option>Andhra Pradesh</ion-select-option>
-              <ion-select-option>Arunachal Pradesh </ion-select-option>
-              <ion-select-option>Assam</ion-select-option>
-              <ion-select-option>Bihar</ion-select-option>
-              <ion-select-option>Pepperoni</ion-select-option>
-              <ion-select-option>Sausage</ion-select-option>
-            </ion-select>
-          </ion-item>   -->
-          </div>
-        </div>
-
-      </ion-accordion>
-
+      <div class="form-group">
+        <ion-label position="floating">Enter Vechile number</ion-label>
+        <input placeholder="K.A 10 5555" [(ngModel)]="real.trukvehiclenumber" formControlName="trukvehiclenumber" class="form-control">
+      </div>
       <br>
-      <ion-accordion value="second">
-        <ion-item slot="header">
-          <ion-label> Vehicle Type</ion-label>
-        </ion-item>
-        <div class="ion-padding" slot="content">
-          <!-- <ion-card>
-      <ion-card-content>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-          <label class="form-check-label" for="flexCheckDefault">
-            Vechile Details
-          </label> 
+      <div class="form-group">
+      <ion-label position="floating">Current Location</ion-label>
+      <input placeholder="Current vechile Location" [(ngModel)]="real.trukcurrentLocation"
+        formControlName="trukcurrentLocation" class="form-control">
+      <!-- <ion-icon name="location-outline" slot="end"></ion-icon> -->
+    </div>
+      <br>
+      <div>
+        <ng-multiselect-dropdown [placeholder]="'Add Your Vechile Routes (States)'" [settings]="dropdownSettings"
+          [data]="dropdownList" [(ngModel)]="real.trukoperatingRoutes" (onSelect)="onItemSelect($event)"
+          formControlName="trukoperatingRoutes" (onSelectAll)="onSelectAll($event)">
+        </ng-multiselect-dropdown>
+      </div>
+      <br>
+      <div class="form-group">
+        <div class="form-control">
+          <ion-input type="datetime-local" style="border: none; " [(ngModel)]="real.trukdate"
+            formControlName="trukdate"></ion-input>
         </div>
-        <div class="class">
-          <h5>KA 10 EE555</h5>
-          <h6>Ongole ,andhar Pradesh,India</h6>
-        </div>
-        <ion-button slot="end" class="class">Edit</ion-button>
-      </ion-card-content>
-    </ion-card> -->
+      </div>
+    </div>
+    <br>
 
-          <div class="row">
-            <div>
-              <div class="column">
-                <input type="radio" name="payment" id="card" (change)="out('Tanker')">
-                <label for="card" class="label">
-                  <ion-card-header>
-                    <img src="https://sc04.alicdn.com/kf/HTB12f2keirpK1RjSZFhq6xSdXXa6.jpg" style="height: 94px;
+    <div class='container'>
+      <h2 style="text-align: center; color: #f58e26;">choose one TrukVehicle</h2>
+
+      <div class="row" style="margin-top: -2rem;">
+        <div>
+          <div class="column">
+            <input type="radio" name="payment" id="card" (change)="out('Tanker')" [checked]="real.trukname == 'Tanker' || trukname == 'Tanker'">
+            <label for="card" >
+              <ion-card-header>
+                <img src="https://sc04.alicdn.com/kf/HTB12f2keirpK1RjSZFhq6xSdXXa6.jpg" style="height: 94px;
           width: 131px;
           margin-top: -50px;;">
-                    <ion-card-title>Tanker</ion-card-title>
-                    <ion-card-subtitle>1 to 35 KL</ion-card-subtitle>
-                  </ion-card-header>
-                </label>
-              </div>
-
-              <div class="column">
-                <input type="radio" name="payment" id="car" (change)="out('Hyva')">
-                <label for="car" class="label">
-                  <ion-card-header>
-                    <img
-                      src="https://cms.eichertrucksandbuses.com/uploads/truck/exterior/d3a75f14ce8935f16998f318360966a0.jpg"
-                      style="height: 94px;
-          width: 131px;
-          margin-top: -50px;;">
-                    <ion-card-title> Hyva</ion-card-title>
-                    <ion-card-subtitle>1 to 35 Tonnes</ion-card-subtitle>
-                  </ion-card-header>
-                </label>
-              </div>
-
-              <div class="column">
-                <input type="radio" name="payment" id="ca" (change)="out('LCV')">
-                <label for="ca" class="label">
-                  <ion-card-header>
-                    <img
-                      src="https://vamosys.com/wp-content/uploads/2021/05/top-6-lcv-vehicles-tata-ace-gold-petrol.png"
-                      style="height: 94px;
-          width: 131px;
-          margin-top: -50px;;">
-                    <ion-card-title>LCV</ion-card-title>
-                    <ion-card-subtitle>1 to 6 Tonnes</ion-card-subtitle>
-                  </ion-card-header>
-                </label>
-              </div>
-
-              <div class="column">
-                <input type="radio" name="payment" id="cad" (change)="out('Open Truck')">
-                <label for="cad" class="label">
-                  <ion-card-header>
-                    <img src="https://www.bharatbenz.com/uploads/truck_images/product_types/main_1661768896.png" style="height: 94px;
-        width: 131px;
-        margin-top: -50px;;">
-                    <ion-card-title>Open Truck</ion-card-title>
-                    <ion-card-subtitle>1 to 14 tonnes</ion-card-subtitle>
-                  </ion-card-header>
-                </label>
-              </div>
-
-              <div class="column">
-                <input type="radio" name="payment" id="Trailer" (change)="out('Trailer')">
-                <label for="Trailer" class="label">
-                  <ion-card-header>
-                    <img
-                      src="https://tatatrucks.tatamotors.com/images/tata-heavy-medium-trucks/fully-built-solutions/tata-flat-bed-trailer/flatbedtrailer-overview.png"
-                      style="height: 94px;
-        width: 131px;
-        margin-top: -50px;;">
-                    <ion-card-title>Trailer</ion-card-title>
-                    <ion-card-subtitle>1 to 100 Tonnes</ion-card-subtitle>
-                  </ion-card-header>
-                </label>
-              </div>
-
-              <div class="column">
-                <input type="radio" name="payment" id="container" (change)="out('Container')">
-                <label for="container" class="label">
-                  <ion-card-header>
-                    <img
-                      src="https://www.icemakeindia.com/wp-content/uploads/2019/08/Refrigerated-Container-8-1024x1024.png"
-                      style="height: 94px;
-        width: 131px;
-        margin-top: -50px;;">
-                    <ion-card-title>Container</ion-card-title>
-                    <ion-card-subtitle>1 to 18 Tonnes</ion-card-subtitle>
-                  </ion-card-header>
-                </label>
-              </div>
-            </div>
+                <ion-card-subtitle>Tanker</ion-card-subtitle>
+                <ion-card-subtitle>1 to 35 KL</ion-card-subtitle>
+              </ion-card-header>
+            </label>
           </div>
 
-          <div class="form-group">
-            <label for="text">Enter the LCV Capacity</label>
-            <input type="text" class="form-control" id="email" [(ngModel)]="real.trukcapacity" formControlName="trukcapacity">
+          <div class="column">
+            <input type="radio" name="payment" id="car" (change)="out('Hyva')"  [checked]="real.trukname == 'Hyva' || trukname == 'Hyva'">
+            <label for="car" >
+              <ion-card-header>
+                <img
+                  src="https://cms.eichertrucksandbuses.com/uploads/truck/exterior/d3a75f14ce8935f16998f318360966a0.jpg"
+                  style="height: 94px;
+          width: 131px;
+          margin-top: -50px;;">
+                <ion-card-subtitle> Hyva</ion-card-subtitle>
+                <ion-card-subtitle>1 to 35 Tonnes</ion-card-subtitle>
+              </ion-card-header>
+            </label>
+          </div>
+
+          <div class="column">
+            <input type="radio" name="payment" id="ca" (change)="out('LCV')"  [checked]="real.trukname == 'LCV' || trukname == 'LCV'">
+            <label for="ca" >
+              <ion-card-header>
+                <img src="https://vamosys.com/wp-content/uploads/2021/05/top-6-lcv-vehicles-tata-ace-gold-petrol.png"
+                  style="height: 94px;
+          width: 131px;
+          margin-top: -50px;;">
+                <ion-card-subtitle>LCV</ion-card-subtitle>
+                <ion-card-subtitle>1 to 6 Tonnes</ion-card-subtitle>
+              </ion-card-header>
+            </label>
+          </div>
+
+          <div class="column">
+            <input type="radio" name="payment" id="cad" (change)="out('Open Truck')"  [checked]="real.trukname == 'Open Truck' || trukname == 'Open Truck'">
+            <label for="cad" >
+              <ion-card-header>
+                <img src="https://www.bharatbenz.com/uploads/truck_images/product_types/main_1661768896.png" style="height: 94px;
+        width: 131px;
+        margin-top: -50px;;">
+                <ion-card-subtitle>Open Truck</ion-card-subtitle>
+                <ion-card-subtitle>1 to 14 tonnes</ion-card-subtitle>
+              </ion-card-header>
+            </label>
+          </div>
+
+          <div class="column">
+            <input type="radio" name="payment" id="Trailer" (change)="out('Trailer')"  [checked]="real.trukname == 'Trailer' || trukname == 'Trailer'">
+            <label for="Trailer" >
+              <ion-card-header>
+                <img
+                  src="https://tatatrucks.tatamotors.com/images/tata-heavy-medium-trucks/fully-built-solutions/tata-flat-bed-trailer/flatbedtrailer-overview.png"
+                  style="height: 94px;
+        width: 131px;
+        margin-top: -50px;;">
+                <ion-card-subtitle>Trailer</ion-card-subtitle>
+                <ion-card-subtitle>1 to 100 Tonnes</ion-card-subtitle>
+              </ion-card-header>
+            </label>
+          </div>
+
+          <div class="column">
+            <input type="radio" name="payment" id="container" (change)="out('Container')"  [checked]="real.trukname == 'Container' || trukname == 'Container'">
+            <label for="container" >
+              <ion-card-header>
+                <img
+                  src="https://www.icemakeindia.com/wp-content/uploads/2019/08/Refrigerated-Container-8-1024x1024.png"
+                  style="height: 94px;
+        width: 131px;
+        margin-top: -50px;;">
+                <ion-card-subtitle>Container</ion-card-subtitle>
+                <ion-card-subtitle>1 to 18 Tonnes</ion-card-subtitle>
+              </ion-card-header>
+            </label>
           </div>
         </div>
-      </ion-accordion>
-    </ion-accordion-group>
-    
-    </form>
+      </div>
+
+      <div class="form-group">
+        <ion-label for="text">Enter the LCV Capacity</ion-label>
+        <input type="text" class="form-control" id="email" [(ngModel)]="real.trukcapacity"
+          formControlName="trukcapacity">
+      </div>
+    </div>
+
+
+  </form>
 
 
 </ion-content>
-<ion-button expand="full" shape="round" (click)="updateForm(userPost.value)" routerLink="/tab/tab2">SAVE</ion-button>
+
+<ion-button expand="full" shape="round" (click)="updateForm(userPost.value)" routerLink="/tab/tab2" class="Update">Update</ion-button>

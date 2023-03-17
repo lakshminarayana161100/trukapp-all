@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-mytrucks',
   templateUrl:'./mytrucks.page.html' ,
@@ -20,19 +20,24 @@ export class MytrucksPage implements OnInit {
   products: any;
   logindata: any;
   isTruckActive: any;
+  itemlen: any;
 
 
-  constructor(public loadingController: LoadingController) { }
+  constructor(public loadingController: LoadingController,private router:Router) { }
 
 
   ngOnInit(): void {
     this.logindata =JSON.parse(localStorage.getItem('regdata') || '{}')
     this.get()
+  this.active()
     
   }
-
-  active(active:any){
-    this.isTruckActive =active,
+ionViewDidEnter(){
+  this.get()
+  this.active()
+}
+  active(){
+    
 this.toggles()
 
   }
@@ -56,9 +61,9 @@ this.completed()
     });
     await loading.present();
     var data ={
-      trukOwnerNumber:"8897820507"
+      trukOwnerNumber:this.logindata.mobileNo
     }
-    fetch("https://amused-crow-cowboy-hat.cyclic.app/addTruk/allVehicles", {
+    fetch("https://amused-crow-cowboy-hat.cyclic.app/addTruk/truksByStatusAndNumber", {
       method: 'POST',
       headers: {
         "access-Control-Allow-Origin": "*",
@@ -69,7 +74,8 @@ this.completed()
       .then(response => response.json())
       .then(result => {
         console.log(result)
-          this.item = result.doc
+          this.item = result.vehicle
+          this.itemlen =result.TotalVehicles
         console.log(this.item)
         loading.dismiss()
       }
@@ -157,7 +163,9 @@ async toggles() {
     .then(result => {
       console.log(result),
 
-        this.item= result.vehicle  //it  runs $parse automatically when it runs the $digest loop, basically $parse is the way angular evaluates expressions
+        this.item= result.vehicle 
+        this.itemlen =result.TotalVehicles
+        //it  runs $parse automatically when it runs the $digest loop, basically $parse is the way angular evaluates expressions
 console.log(this.item)
 loading.dismiss()
       //window.location.reload()  // reloading window
@@ -200,7 +208,8 @@ async completed() {
     .then(result => {
       console.log(result),
 
-        this.item= result.vehicle  //it  runs $parse automatically when it runs the $digest loop, basically $parse is the way angular evaluates expressions
+        this.item= result.vehicle
+        this.itemlen =result.TotalVehicles  //it  runs $parse automatically when it runs the $digest loop, basically $parse is the way angular evaluates expressions
 console.log(this.item)
 loading.dismiss()
       //window.location.reload()  // reloading window
@@ -274,7 +283,8 @@ loading.dismiss()
       .then(result => {
         console.log(result),
   
-          this.item= result.vehicle  //it  runs $parse automatically when it runs the $digest loop, basically $parse is the way angular evaluates expressions
+          this.item= result.vehicle
+          this.itemlen =result.TotalVehicles  //it  runs $parse automatically when it runs the $digest loop, basically $parse is the way angular evaluates expressions
   console.log(this.item)
   loading.dismiss()
         //window.location.reload()  // reloading window
@@ -313,7 +323,8 @@ loading.dismiss()
       .then(result => {
         console.log(result),
   
-          this.item= result.vehicle  //it  runs $parse automatically when it runs the $digest loop, basically $parse is the way angular evaluates expressions
+          this.item= result.vehicle
+          this.itemlen =result.TotalVehicles  //it  runs $parse automatically when it runs the $digest loop, basically $parse is the way angular evaluates expressions
   console.log(this.item)
   loading.dismiss()
         //window.location.reload()  // reloading window
@@ -325,4 +336,45 @@ loading.dismiss()
         console.log(err)
       })
   }
+
+  moredetails(data:any){
+    console.log(data)
+    localStorage.setItem("TrukmoreDetails", JSON.stringify(data));
+  }
+
+viewTruckSpecificLoads(){
+var data ={
+  trukvehiclenumber:"1234"
+}
+ fetch("http://localhost:3000/quotes/LoadsForSpecificTruck", {
+      method: 'POST',
+      headers: {
+        "access-Control-Allow-Origin": "*",
+        "Content-Type": 'application/json'
+      },
+      body: JSON.stringify(data),        // JSON Means An intrinsic object that provides functions to convert JavaScript values to and from the JavaScript Object Notation (JSON) format.
+  
+    })
+      .then(res => res.json())
+      .then(result => {
+        console.log(result)
+  
+            //it  runs $parse automatically when it runs the $digest loop, basically $parse is the way angular evaluates expressions
+  
+  
+        //window.location.reload()  // reloading window
+  
+      }
+  
+      ).catch(err =>{
+       // loading.dismiss()
+        console.log(err)
+      })
+}
+
+bidbyId(text:any){
+  localStorage.setItem("truckallBids",JSON.stringify(text))
+  this.router.navigate(['trukallbids'])
+}
+
 }

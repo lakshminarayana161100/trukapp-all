@@ -1,85 +1,36 @@
-<ion-app>
-  <ion-menu contentId="main-content">
 
-
-    <ion-content >
-   
-      <div class="menu-header-bg"></div>
-      <div class="header-content">
-        <img src="https://th.bing.com/th/id/OIP.c3xZFEubLwRrbMU1w2W1uwHaHa?w=198&h=198&c=7&r=0&o=5&dpr=1.3&pid=1.7" alt="">
-        <ion-label>
-          <h2>{{logindata.firstName}} {{logindata.lastName}}</h2>
-          <p>{{logindata.role}}</p>
-          <p>{{logindata.mobileNo}}</p>
-        </ion-label>
-      </div>
-      <!--<div class="action-button">
-        <ion-button>
-          <ion-icon slot="start" name="add">Add Branch</ion-icon>
-        </ion-button>
-      </div>-->
-
-      <ion-list class="menu-items">
-        <ion-item>
-          <ion-icon name="wallet-outline"></ion-icon>My wallet
-        </ion-item>
-        <ion-item routerLink="/help-and-guide">
-          <ion-icon name="pie-chart-outline"></ion-icon>Help$Guid
-        </ion-item>
-        <ion-item class="active">
-          <ion-icon name="bag-handle-outline"></ion-icon>My Load
-        </ion-item>
-        <ion-item>
-          <ion-icon name="chatbubble-ellipses-outline"></ion-icon>Contact-us
-        </ion-item>
-        <ion-item>
-          <ion-icon name="settings-outline"></ion-icon>Setting
-        </ion-item>
-        <ion-item (click)="signout()">
-          <ion-icon name="exit-outline"></ion-icon>Signout
-        </ion-item>
-      </ion-list>
-
-      <div class="action-button">
-
-      </div>
-    </ion-content>
-  </ion-menu>
 
   <div class="ion-page" id="main-content">
     <ion-header>
       <ion-toolbar >
-        
-  
 
-  <ion-buttons slot="start">  
-    <ion-menu-button color="dark"></ion-menu-button>   
+  <ion-buttons slot="start" >
+    <ion-menu-button  menu="main-menu"></ion-menu-button>
   </ion-buttons>
-        
         <ion-icon name="notifications-outline" style=" margin-top: 7px; font-size: 30px; margin-left: -3px;" slot="end" ></ion-icon>
        
       </ion-toolbar>
   
     </ion-header>
     <ion-content class="ion-padding">
-      <ion-refresher slot="fixed" (ionRefresh)="autorefresh($event)">
-        <ion-refresher-content pullingIcon="arrow-dropdown" refreshingSpinner="circles" refreshingText="Refreshing..">
-
-        </ion-refresher-content>
-      </ion-refresher>
-    
+     
+    <ion-row>
       <ion-segment [scrollable]="true" value="home">
-        <ion-segment-button value="home" (click)="toggle('Active')">
+        <ion-col>
+        <ion-segment-button value="home" (click)="toggle()">
           <ion-label>Active Loads</ion-label>
         </ion-segment-button>
-        <ion-segment-button value="hom" (click)="togglesss('In-Progress')">
+        </ion-col>
+        <!--<ion-segment-button value="hom" (click)="togglesss('In-Progress')">
           <ion-label>In-Progress</ion-label>
-        </ion-segment-button>
+        </ion-segment-button>-->
+        <ion-col>
         <ion-segment-button value="pin" (click)="toggless('Completed')">
           <ion-label>Accepted by shipper</ion-label>
         </ion-segment-button>
-      
+      </ion-col>
       </ion-segment>
+      </ion-row>
       <br>
       
       
@@ -88,7 +39,7 @@
             align="centre" [(ngModel)]="searchtext"></ion-searchbar>
       
           <br>
-          <H5 style="font-weight: bold;">Loads :</H5>
+      
       
       
       
@@ -99,14 +50,22 @@
 
             <div class="card" *ngFor='let text of item | filter:searchtext' >
               <div class="card-body" >
-                <div type="button" class="securepayment" ><br>
+                <div type="button" class="securepayment" *ngIf="text.typeOfPay == 'Online'" ><br>
                   &nbsp;&nbsp; <i class="fa fa-shield" style="font-size: 25px; color:green;" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;
                   <div>
                   <span style="color: green;">Online Payment</span>,&nbsp;
                   <span style="color: green;">Truk App Assured</span>
                   </div>
                 </div>
-                <br>
+
+                <div type="button" class="offlinepayment" *ngIf="text.typeOfPay == 'Offline'"  ><br>
+                  &nbsp;&nbsp; <i class="fa fa-shield" style="font-size: 25px; color:rgb(248, 42, 24);" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;
+                  <div>
+                  <span style="color: rgb(248, 42, 24);">Offline Payment</span><br>
+                  <span style="color: rgb(248, 42, 24);">Hand Cash</span>
+                  </div>
+                </div>
+                
                   <!--<div class="dropdown float-end" style="float:right;">
                       <a class="text-muted dropdown-toggle font-size-16" role="button" data-bs-toggle="dropdown" aria-haspopup="true"><i class="bx bx-dots-horizontal-rounded"></i></a>
                       <div class="dropdown-menu dropdown-menu-end"><a class="dropdown-item" >Edit</a><a class="dropdown-item" >Action</a><a class="dropdown-item" >Remove</a></div>
@@ -117,16 +76,16 @@
                       <div><img src="https://media.istockphoto.com/id/1150981488/vector/brown-paper-box.jpg?b=1&s=170667a&w=0&k=20&c=ExZoHBgVStsXWmQiQw4hVlN-EvhEec-QrqhpXiym2og=" alt="" class="avatar-md rounded-circle img-thumbnail" />
                         <br>
                       &nbsp;&nbsp;<span style="color: black; font-weight:bolder;">{{text.isActive}}</span>
-                      </div>
-                      <div class="flex-1 ms-3">
-                          <h5 class="font-size-16 mb-1" style="color:black; font-weight:bolder;"><a  class="text-dark">{{text.pickupState}}--{{text.dropupState}}</a></h5>
+                      </div>&nbsp;&nbsp;
+                      <div class="flex-1">
+                          <h5 class="font-size-12 mb-3" style="color:black; font-weight:bolder;"><a  class="text-dark">{{text.OriginLocation}}--{{text.DestinationLocation}}</a></h5>
                           <span class="badge badge-soft-success mb-0"> Posted On {{text.date}}</span>
                       </div>
                   </div>
                   <div class="mt-1 pt-0">
-                     &nbsp;&nbsp;&nbsp; <p  class="text-muted mb-0 mt-0"  ><i class="fa fa-cubes font-size-15 align-middle pe-2 " ></i> {{text.product}}</p>
-                      <p  class="text-muted mb-0 mt-2">&nbsp;<i class="fa fa-truck font-size-15 align-middle pe-2 "></i>{{text.Quantity}}tons--{{text.data}}</p>
-                      <p class="text-muted mb-0 mt-2">&nbsp;<i class="fa fa-money font-size-15 align-middle pe-2 "></i>  Expected Price ₹ <span style="color:black; font-weight:bolder;">{{text.expectedPrice}}</span></p>
+                     &nbsp;&nbsp;&nbsp; <p  class="text-muted mb-0 mt-2"  ><i class="fa fa-cubes font-size-15 align-middle pe-2 " ></i> {{text.product}}</p>
+                      <p  class="text-muted mb-0 mt-2 mr-3">&nbsp;<i class="fa fa-truck font-size-15 align-middle pe-2 "></i>{{text.Quantity}}--{{text.data}}</p>
+                      <p class="text-muted mb-0 mt-2">&nbsp;<i class="fa fa-money font-size-15 align-middle pe-2 "></i>  Expected Price ₹ <span style="color:black; font-weight:bolder;">{{text.expectedPrice}}/-</span></p>
                   </div>
                   <div align="center">
                   
@@ -172,7 +131,7 @@
   </div>
 
   
-</ion-app>
+
 
     <!--<ion-header>
       <ion-toolbar color="white">

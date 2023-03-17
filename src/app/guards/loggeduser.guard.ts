@@ -9,16 +9,25 @@ export class LoggeduserGuard implements CanActivate {
   logindata: any;
   constructor(private router :Router){
     this.logindata=  JSON.parse(localStorage.getItem('regdata')|| '{}')
+    console.log(this.logindata)
   }
-  canActivate() {
-    if( this.logindata.role === 'Shipper'){
-      this.router.navigate(['tab/tab1'])
-      return true
-    } else if( this.logindata.role === 'Transporter' || 'Fleet Owner' || 'Agent/Broker'){
-      this.router.navigate(['shipperhome'])
-      return true
+
+  IsLoggedIn(){
+    return !!localStorage.getItem('regdata')
+  }
+  canActivate() : boolean{
+    if(this.IsLoggedIn()){
+      this.router.navigate(['loginotp'])
+      return true;
+      
+     
+    }else{
+      this.router.navigate(['selectlanguage'])
+      
+      return false
+     
     }
-    return true;
+    
   }
   
 }

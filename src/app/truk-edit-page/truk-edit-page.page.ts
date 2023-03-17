@@ -121,6 +121,15 @@ export class TrukEditPagePage implements OnInit {
       spinner: 'crescent'
     });
     await loading.present();
+
+    var body = {
+      trukvehiclenumber: this.updateproductForm.value.trukvehiclenumber,
+      trukcapacity: this.updateproductForm.value.trukcapacity,
+      trukcurrentLocation: this.updateproductForm.value.trukcurrentLocation,
+      trukoperatingRoutes: this.updateproductForm.value.trukoperatingRoutes,
+      trukname: this.trukname,
+      trukdate: this.updateproductForm.value.trukdate
+    }
     console.log(data)
     //console.log(this.description, this.image, this.price, this.description, this.name)
     console.log(this.real._id)
@@ -130,7 +139,7 @@ export class TrukEditPagePage implements OnInit {
         "access-Control-Allow-Origin": "*",
         "Content-Type": 'application/json'
       },
-      body: JSON.stringify(data),        // JSON Means An intrinsic object that provides functions to convert JavaScript values to and from the JavaScript Object Notation (JSON) format.
+      body: JSON.stringify(body),        // JSON Means An intrinsic object that provides functions to convert JavaScript values to and from the JavaScript Object Notation (JSON) format.
 
     })
       .then(response => response.json())
@@ -151,5 +160,12 @@ export class TrukEditPagePage implements OnInit {
       })
   }
 
-
+  autorefresh(event:any){
+    
+    setTimeout(() => {
+      event.target.complete()
+      //window.location.href="tab/tab1"
+     window.location.reload()
+    }, 2000);
+  }
 }

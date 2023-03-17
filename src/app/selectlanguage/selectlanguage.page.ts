@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {OneSignal} from '@ionic-native/onesignal'
+//import {OneSignal} from '@ionic-native/onesignal'
 @Component({
   selector: 'app-selectlanguage',
   templateUrl: './selectlanguage.page.html',
@@ -17,7 +17,7 @@ disabled=true
     console.log(this.language)
 
 
-    OneSignal.startInit("913bcc8c-f580-44fb-94e5-1e5f97a80546", "ZTk0Y2I0NmEtMTVmZC00MDJjLTljYjYtOTNjYWYyZTBjODlh");
+   /* OneSignal.startInit("913bcc8c-f580-44fb-94e5-1e5f97a80546", "ZTk0Y2I0NmEtMTVmZC00MDJjLTljYjYtOTNjYWYyZTBjODlh");
     OneSignal.inFocusDisplaying(OneSignal.OSInFocusDisplayOption.InAppAlert);
     OneSignal.handleNotificationReceived().subscribe((data:any) => {
         // do something when notification is received
@@ -26,7 +26,7 @@ disabled=true
     });
   
   
-   //OneSignal.endInit();
+  
   
   
   
@@ -35,8 +35,8 @@ disabled=true
         console.log(id.userId);
   alert(id.userId)
         this.notificationToken = id.userId;
-        //this.getStoreDetails();
-    });
+      
+    });*/
   }
 
 

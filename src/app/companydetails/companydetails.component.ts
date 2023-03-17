@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-
-
+declare var google :any;
+import { CommonServiceService } from '../common-service.service';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { FormBuilder, FormGroup, Validators,FormControl,NgControl } from '@angular/forms';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
@@ -12,6 +12,7 @@ import { LoadingController } from '@ionic/angular';
   styleUrls: ['./companydetails.component.scss'],
 })
 export class CompanydetailsComponent implements OnInit {
+  @ViewChild('map', { static: false }) mapElement: any;
   FirstName:any
   LastName:any
   ReferalCode:any
@@ -21,7 +22,8 @@ export class CompanydetailsComponent implements OnInit {
   selectedItems:any= [];
   dropdownSettings!: IDropdownSettings;
   UniqueDeviceID!:string;
-  constructor(private router:Router,private uniqueDeviceID: UniqueDeviceID,public loadingController: LoadingController) { }
+  location: any;
+  constructor(private router:Router,private uniqueDeviceID: UniqueDeviceID,public loadingController: LoadingController,private commonService:CommonServiceService) { }
   signupForm!:FormGroup 
   ngOnInit() {
     this.signupForm= new FormGroup ({
@@ -95,6 +97,8 @@ export class CompanydetailsComponent implements OnInit {
   onSelectAll(items: any) {
     console.log(items);
   }
+
+  
   getUniqueDeviceID() {
     this.uniqueDeviceID.get()
       .then((uuid: any) => {
@@ -123,5 +127,12 @@ export class CompanydetailsComponent implements OnInit {
     }
     localStorage.setItem('allDetails',JSON.stringify(companyDetails))
     this.router.navigate(['signup'])
+      }
+
+      loac(){
+        this.commonService.getLocation().subscribe((response)=>{
+          console.log(response);
+          this.location = response;
+        })
       }
 }

@@ -40,6 +40,8 @@ body={
   logindata: any;
   bids: any;
   searchtext:any
+  inarray: any;
+  intruckdata: any;
   constructor(private router:Router,public loadingController: LoadingController,public nav:NavController) {}
 
   
@@ -55,6 +57,9 @@ body={
    this.toggle(this.isActive="Active")
    this.logindata =JSON.parse(localStorage.getItem('regdata')||'{}')
    console.log(this.logindata)
+  }
+  ionViewDidEnter(){
+    this.toggle(this.isActive="Active")
   }
   async get() {
     const loading = await this.loadingController.create({
@@ -186,6 +191,14 @@ loading.dismiss()
       .then(result => {
         console.log(result),
           this.item = result.load
+          for(let i=0;i<this.item.length;i++){
+            this.inarray = this.item[i].TruckMarketVehicle
+          }
+          console.log(this.inarray)
+          for(let i=0;i<this.inarray.length;i++){
+            this.intruckdata = this.inarray[i].trukOwnerNumber
+          }
+          console.log(this.intruckdata)
          console.log(this.item)
        
          loading.dismiss()
@@ -193,6 +206,7 @@ loading.dismiss()
 
       ).catch(err =>{
         loading.dismiss()
+        alert('Something Went Wrong')
         console.log(err)})
   }
 
@@ -241,7 +255,7 @@ fetch("https://amused-crow-cowboy-hat.cyclic.app/quotes/loadsByStatusAndNumber" 
   var body={
     Number: this.logindata.mobileNo, isActive:"In-Progress" 
   }
-fetch("http://localhost:3000/quotes/loadsByStatusAndNumber" , {
+fetch("https://amused-crow-cowboy-hat.cyclic.app/quotes/loadsByStatusAndNumber" , {
 method: 'POST',
 headers: {
   "access-Control-Allow-Origin": "*",
@@ -292,5 +306,22 @@ body: JSON.stringify(body),
   loading.dismiss()
   console.log(err)
 })
+}
+
+
+autorefresh(event:any){
+   
+  setTimeout(() => {
+
+    event.target.complete()
+    
+    
+  }, 2000);
+}
+
+placebidById(data:any){
+  localStorage.setItem("shipperplacebid",JSON.stringify(data))
+  this.router.navigate(["shippernegoplacebid"])
+
 }
 }

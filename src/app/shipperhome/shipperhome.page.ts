@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
 import { IonSlides } from '@ionic/angular';
 import { reload } from 'firebase/auth';
 import { LoadingController } from '@ionic/angular';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-shipperhome',
   templateUrl: './shipperhome.page.html',
@@ -50,13 +51,17 @@ option = {
   closedbids1: any;
   truck: any;
   activetrucks: any;
-  constructor(public loadingController: LoadingController) { }
+  truckshift: any;
+  loadshift: any;
+  loortr: any;
+  constructor(public loadingController: LoadingController,private router:Router) { }
 
   ngOnInit() {
     this.logindata =  JSON.parse(localStorage.getItem('regdata')|| '{}')
     console.log(this.logindata)
     this.get()
     this.gettrucks()
+  this.loortr =JSON.parse(localStorage.getItem('lookingfor') || '{}')
     /*this.http.get('http://localhost:3000/images').subscribe(images => {
       console.log(images)
       this.bannerImages = images;
@@ -88,11 +93,7 @@ option = {
   }
 
   async get() {
-    const loading = await this.loadingController.create({
-      //message: '...',
-      spinner: 'lines'
-    });
-    await loading.present();
+
     fetch("https://amused-crow-cowboy-hat.cyclic.app/quotes/allQuotes", {
       method: 'GET',
       headers: {
@@ -119,23 +120,28 @@ option = {
   })
   this.closedbids1= closebids1.length
          console.log(this.item)
-         loading.dismiss()
+      
       }
 
       ).catch(err =>{
-        loading.dismiss()
+        
         console.log(err)})
   }
-  looking(data:any){
-    console.log(data)
-    localStorage.setItem('lookingfor',JSON.stringify(data))
+  looking(){
+  this.truckshift ="trucks"
+    localStorage.setItem('lookingfor',JSON.stringify(this.truckshift))
     
 window.location.reload()
   }
-
+  lookingload(){
+  this.truckshift ="loads"
+    localStorage.setItem('lookingfor',JSON.stringify(this.truckshift))
+    window.location.reload()
+//this.router.navigate('shipperhome')
+  }
 
   gettrucks() {
-    fetch("https://amused-crow-cowboy-hat.cyclic.app/addTruk/allVehicles/" +"8897820507", {
+    fetch("https://amused-crow-cowboy-hat.cyclic.app/addTruk/allVehicles/" +this.logindata.mobileNo, {
       method: 'GET',
       headers: {
         "access-Control-Allow-Origin": "*",

@@ -1,6 +1,8 @@
 
 
 .bb{
+  height: 50px;
+  margin: 10px;
     --background: #f58e26;
   }
   
@@ -115,3 +117,16 @@
     .mb-0 {
         margin-bottom: 0!important;
     }
+
+    .badge {
+      display: inline-block;
+      padding: 0.25em 0.6em;
+      font-size: 75%;
+      font-weight: 500;
+      line-height: 1;
+      color: #fff;
+      text-align: center;
+      white-space: nowrap;
+      vertical-align: baseline;
+      border-radius: 0.75rem;
+  }

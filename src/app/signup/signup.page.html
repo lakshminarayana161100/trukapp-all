@@ -15,26 +15,29 @@
     <div class="circle circle-2"></div>
   </div>
 
-  <div align="center" style="margin-top: 4rem;">
-    <h2>Registering As:</h2>
+  <div align="center" style="margin-top: 1rem;font-size:23px;margin-bottom:14px;">
+    Registering As:
   </div>
-  <ion-segment>
 
-    <ion-button class="company">Company</ion-button>
+<div align="center" style="margin-top: -4rem;">
+    <ion-button  class="company">Company</ion-button>
+</div>
 
-  </ion-segment>
   <ion-list lines="none" class="ion-margin">
     <!--<ion-list-header>WELCOME !</ion-list-header>
     <h3>Sign Up Page</h3>-->
     <form #userPost="ngForm" [formGroup]="signupForm" >
+      
     <ion-item class="ion-margin">
+ 
       <ion-input placeholder="Enter FirstName" type="text" clearInput="true" formControlName="firstName"></ion-input>
     </ion-item>
     <ion-item class="ion-margin">
       <ion-input placeholder="Enter LastName" type="text" clearInput="true" formControlName="lastName"></ion-input>
     </ion-item>
     <ion-item class="ion-margin">
-      <ion-input placeholder="Enter City" type="text" clearInput="true" formControlName="city"></ion-input>
+      <ion-input placeholder="Enter City" type="text" clearInput="true" formControlName="city" ngModel={{location?.city}}></ion-input>
+      <ion-icon (click)="loac()" name="location-outline" style="color:rgb(201, 13, 13);"></ion-icon>
     </ion-item>
     <ion-item class="ion-margin">
       <ion-input placeholder="Enter companyName" type="text" clearInput="true" formControlName="companyName"></ion-input>
@@ -93,15 +96,26 @@
     
     
   
-      <ion-button style="height: 50px;   border-radius: 10px; margin-top:20px;" expand="full" strong="true" type="submit"   [hidden]="role === 'Shipper'" [disabled]="signupForm.value.mobileNo === ''"  [disabled]="signupForm.value.firstName === ''" [disabled]="signupForm.value.lastName === ''" [disabled]="signupForm.value.city === ''" [disabled]="signupForm.value.companyName === ''" [disabled]="signupForm.value.routes === ''" [disabled]="signupForm.value.aboutCompany === ''" (click)="onSubmit(userPost.value)" >
+      <ion-button *ngIf="role == 'Shipper'" style="height: 50px;   border-radius: 10px; margin-top:20px;" expand="full" strong="true" type="submit" [disabled]="userPost.value.firstName == '' || userPost.value.lastName == '' || !userPost.value.mobileNo || userPost.value.city == '' || userPost.value.companyName == ''"   (click)="onSubmit(userPost.value)" >
+        SIGN UP
+        <!--<ion-icon name="log-in" slot="end"></ion-icon>-->
+      </ion-button>
+     
+     
+      <ion-button  *ngIf="role == 'Fleet Owner' || role == 'Transporter' || role == 'Agent/Broker'" style="height: 50px;   border-radius: 10px; margin-top:20px;" expand="full" strong="true" type="submit" [disabled]="userPost.value.firstName == '' || userPost.value.lastName == '' || !userPost.value.mobileNo || userPost.value.city == '' || userPost.value.companyName == '' || userPost.value.routes == ''"      (click)="onSubmit(userPost.value)" >
         SIGN UP
         <!--<ion-icon name="log-in" slot="end"></ion-icon>-->
       </ion-button>
 
-      <ion-button style="height: 50px;   border-radius: 10px;margin-top:20px;" expand="full"  type="submit" [disabled]="signupForm.value.mobileNo === ''" *ngIf="role === 'Shipper'" [disabled]="signupForm.value.firstName === ''" [disabled]="signupForm.value.lastName === ''" [disabled]="signupForm.value.city === ''" [disabled]="signupForm.value.companyName === ''" [disabled]="signupForm.value.aboutCompany === ''" (click)="onSubmit(userPost.value)" >
+     <!--<ion-button  *ngIf="role == 'Transporter'" style="height: 50px;   border-radius: 10px; margin-top:20px;" expand="full" strong="true" type="submit" [disabled]="userPost.value.firstName == '' || userPost.value.lastName == '' || !userPost.value.mobileNo || userPost.value.city == '' || userPost.value.companyName == '' || userPost.value.routes == ''"   (click)="onSubmit(userPost.value)" >
         SIGN UP
-        <!--<ion-icon name="log-in" slot="end"></ion-icon>-->
+  
       </ion-button>
+
+      <ion-button  *ngIf="role == 'Agent/Broker'" style="height: 50px;   border-radius: 10px; margin-top:20px;" expand="full" strong="true" type="submit" [disabled]="userPost.value.firstName == '' || userPost.value.lastName == '' || !userPost.value.mobileNo || userPost.value.city == '' || userPost.value.companyName == '' || userPost.value.routes == ''"   (click)="onSubmit(userPost.value)" >
+        SIGN UP
+  
+      </ion-button>-->
   
     </form>
   </ion-list>

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { LoadingController,ToastController } from '@ionic/angular';
-
+import { AlertController } from '@ionic/angular';
 import {  OnInit, NgZone } from '@angular/core';
 import 'firebase/compat/auth';
 import  'firebase/auth';
@@ -8,7 +8,15 @@ import 'firebase/compat/firestore';
 import  firebase from 'firebase/compat/app';
 import { Router } from '@angular/router';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
-
+var config = {
+  apiKey: "AIzaSyDM4C1YRZ14Lx_8NzbDnChklv9VInrgUmw",
+  authDomain: "otplogin-c4da2.firebaseapp.com",
+  projectId: "otplogin-c4da2",
+  storageBucket: "otplogin-c4da2.appspot.com",
+  messagingSenderId: "783500853422",
+  appId: "1:783500853422:web:9b813df9ba59a87c31ad3f",
+  measurementId: "G-69272HMPPD"
+}
 @Component({
   selector: 'app-verifyotp',
   templateUrl: './verifyotp.page.html',
@@ -18,12 +26,13 @@ export class VerifyotpPage implements OnInit {
 
  otp!:string
   verify:any
-  
+  reCaptchaVerifier!: any;
   mobileNo:any
   spin!:boolean
   verified:any
   UniqueDeviceID!:string;
-    constructor(public loadingCtrl:LoadingController ,public toastCtrl:ToastController,private router: Router, private ngZone: NgZone,private uniqueDeviceID: UniqueDeviceID,) {}
+  timer: any;
+    constructor(public loadingCtrl:LoadingController ,public toastCtrl:ToastController,private router: Router, private ngZone: NgZone,private uniqueDeviceID: UniqueDeviceID,private alert:AlertController) {}
     config = {
       allowNumbersOnly: true,
       length: 6,
@@ -38,7 +47,7 @@ export class VerifyotpPage implements OnInit {
   
     ngOnInit(){
       this.getUniqueDeviceID()
-      
+    
       this.verify = JSON.parse(localStorage.getItem('verificationId') || '{}');
       this.mobileNo = JSON.parse(localStorage.getItem('mobileNo') || '{}');
       console.log(this.verify);
@@ -54,7 +63,7 @@ export class VerifyotpPage implements OnInit {
           console.log(uuid);
           this.UniqueDeviceID = uuid;
   
-          alert(this.UniqueDeviceID)
+          //alert(this.UniqueDeviceID)
         })
         .catch((error: any) => {
           console.log(error);
@@ -182,19 +191,23 @@ loading.dismiss()
     alert('Login as Shipper')
     this.router.navigate(['/tab/tab1'])
     localStorage.setItem('loginrole',JSON.stringify(this.verified.role))
+    localStorage.removeItem('lookingfor')
   });
 
 }else if(this.verified.role === "Agent/Broker"){
+  localStorage.setItem('lookingfor',JSON.stringify('loads'))
   loading.dismiss()
 alert('Login as agent/broker')
 this.router.navigate(['/tab/shipperhome'])
 localStorage.setItem('loginrole',JSON.stringify(this.verified.role))
 }else if(this.verified.role === "Transporter"){
+  localStorage.setItem('lookingfor',JSON.stringify('loads'))
   loading.dismiss()
   alert('Login as transporter')
   this.router.navigate(['/tab/shipperhome'])
   localStorage.setItem('loginrole',JSON.stringify(this.verified.role))
 }else if(this.verified.role === 'Fleet Owner'){
+  localStorage.setItem('lookingfor',JSON.stringify('loads'))
   loading.dismiss()
   alert('Login as Fleet Owner')
   this.router.navigate(['/tab/shipperhome'])
@@ -236,6 +249,135 @@ this.updatedeviceid()
     
         ).catch(err =>
           console.log(err))
+    }
+
+    async getOTP(){
+      const loading = await this.loadingCtrl.create({
+        message: 'Loading...',
+        spinner: 'crescent'
+      });
+      await loading.present();
+      var data ={
+        mobileNo:this.mobileNo
+      }
+      //fetch("https://amused-crow-cowboy-hat.cyclic.app/TruckAppUsers/getRegisterData", {
+        fetch("https://amused-crow-cowboy-hat.cyclic.app/login/loginDetails", {
+        method:'post',
+        headers:{
+                  "Access-Control-Allow-Origin": "*",
+                  "Content-Type":'application/json'
+                },
+                body:JSON.stringify(data)
+        }).then(res => res.json())
+        
+        .then(
+           async result =>{
+            console.log(result)
+        
+        /*this.regData=result.data
+     
+        console.log(this.regData)
+    console.log(this.phoneNumber)
+     this.regNumber = this.regData.find((t: { mobileNo: any; })=>t.mobileNo == this.phoneNumber);
+    console.log(this.regNumber)*/
+    
+    if(result.mobileNo === this.mobileNo){
+    
+      this.reCaptchaVerifier = new firebase.auth.RecaptchaVerifier(
+        'sign-in-button',
+        {
+          size: 'invisible',
+        }
+      );
+      console.log(this.reCaptchaVerifier);
+    
+      console.log(this.mobileNo);
+      firebase
+        .auth()
+        .signInWithPhoneNumber( '+91' + this.mobileNo, this.reCaptchaVerifier)
+        .then((confirmationResult:any) => {
+          localStorage.setItem(
+            'verificationId',
+            JSON.stringify(confirmationResult.verificationId)
+          );
+          localStorage.setItem(
+            'mobileNo',
+            JSON.stringify(this.mobileNo)
+          );
+          localStorage.setItem('regdata',JSON.stringify(result))
+          loading.dismiss();
+            this.ngZone.run(() => {
+              this.router.navigate(['/verifyotp']);
+            });
+          
+        
+        })
+        .catch((error:any) => {
+          loading.dismiss()
+          console.log(error.message);
+          alert(error.message);
+       
+        });
+    
+    }else{
+      loading.dismiss()
+        //this.loadingCtrl.dismiss();
+        const alert = await  this.alert.create({
+          header: 'Alert',
+          subHeader: 'Your Number is Not Registered',
+          message: 'Please Follow these steps',
+          buttons: ['OK'],
+        });
+    
+        await alert.present();
+      
+          //this.presentToast("Not Registered","danger");
+          this.router.navigate(['/selecttype'])
+         // window.location.href="/selecttype"
+      
+    }
+          }).catch(async error =>{
+            loading.dismiss()
+             // this.loadingCtrl.dismiss();
+            
+             const alert = await this.alert.create({
+              header: 'Alert',
+              subHeader: 'Your Number is Not Registered',
+              message: 'Please Follow these steps',
+              buttons: ['OK'],
+              
+            });
+           
+            await alert.present();
+           this.router.navigate(['/selecttype']) 
+            // window.location.href="/selecttype"
+                  
+                
+           /*setTimeout(() => {
+            this.spin=false
+            this.ngZone.run(() => {
+              this.router.navigate(['/selecttype']);
+            });
+          }, 2000);*/
+            
+           
+          
+             console.log(error)
+            });
+    }
+
+    resendOTP() {
+      // Call your OTP sending function here
+      this.getOTP();
+      
+      // Set a timer for 60 seconds
+    this.timer = 60;
+      let interval = setInterval(() => {
+        this.timer--;
+        if (this.timer == 0) {
+          clearInterval(interval);
+        }
+      }, 1000);
     }
 
 }

@@ -20,11 +20,13 @@ export class AddTruckPage implements OnInit {
   trukdate: any;
 
   trukOwnerNumber:any
+  logindata: any;
+  isTrukOpenOrClose: any;
 
   constructor(private alertController: AlertController,public loadingController: LoadingController) { }
 
   ngOnInit() {
-
+    this.logindata =JSON.parse(localStorage.getItem('regdata') || '{}')
     this.dropdownList = [
       'Amaravati', 
       'Itanagar',
@@ -100,7 +102,8 @@ export class AddTruckPage implements OnInit {
       trukoperatingRoutes: this.trukoperatingRoutes,
       trukname: this.trukname,
       trukdate: this.trukdate,
-      trukOwnerNumber:this.trukOwnerNumber
+      trukOwnerNumber:this.logindata.mobileNo,
+      isTrukOpenOrClose:this.isTrukOpenOrClose
     }
     console.log()
     fetch("https://amused-crow-cowboy-hat.cyclic.app/addTruk/vehiclepost", {

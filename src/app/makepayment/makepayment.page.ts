@@ -22,6 +22,7 @@ export class MakepaymentPage implements OnInit {
   receivemobile: any;
   filname: any;
   array :any =[]
+  checkbox =false
   constructor(private auth:AuthpaymentService,private modal:ModalController,private alert:AlertController) { }
   async presentAlert() {
     const alert = await this.alert.create({

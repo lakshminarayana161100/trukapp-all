@@ -9,7 +9,9 @@ import { NavController, Platform } from '@ionic/angular';
 export class SelecttypePage implements OnInit {
 type:any
   constructor(private router:Router, private navCtrl: NavController,
-    private platform: Platform) { }
+    private platform: Platform) { 
+      //window.location.reload()
+    }
 
   ngOnInit() {
   }
@@ -29,7 +31,7 @@ type:any
   selectType(){
     localStorage.setItem('selectType',JSON.stringify(this.type))
     this.router.navigate(['signup'])
-
+window.location.href="/signup"
   }
   autorefresh(event:any){
    

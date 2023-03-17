@@ -2,8 +2,23 @@
 <ion-button (click)="pay()" >Pay</ion-button>
 
 <ion-button (click)="presentAlert()">Click Me</ion-button>
+<ion-button (click)="loac()">Current Location</ion-button>
+<h1>Current Location</h1>
+<p>Latitude: {{location?.latitude}}</p>
+<p>Longitude: {{location?.longitude}}</p>
+<p>City: {{location?.city}}</p>
 
-
-
-
+<input type="text" placeholder="Enter city name" [(ngModel)]="cityName" (input)="onInput()">
+<ul>
+    <li *ngFor="let result of autocompleteResults">
+      {{ result.description }}
+      
+    </li>
+  </ul>
 <ion-button (click)="alerts()">popup</ion-button>
+
+
+<input type="text" [(ngModel)]="citys">
+<ul>
+  <li *ngFor="let city of cities">{{ city }}</li>
+</ul>

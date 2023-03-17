@@ -21,12 +21,14 @@ import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
 
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 //import { OneSignal } from '@ionic-native/onesignal';
+
+import { SocialSharing } from '@awesome-cordova-plugins/social-sharing/ngx';
 @NgModule({
   declarations: [AppComponent, 
    // HasRoleDirective
   ],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,Ng2SearchPipeModule,HttpClientModule,],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },FormsModule,CommonModule,ReactiveFormsModule,HttpClient,
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },FormsModule,CommonModule,ReactiveFormsModule,HttpClient,SocialSharing,
     
   File,
   Camera,

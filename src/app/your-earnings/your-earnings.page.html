@@ -1,0 +1,85 @@
+<ion-header>
+  <ion-toolbar>
+    <div style="display: flex;">
+      <ion-icon name="arrow-back-sharp" routerLink="/tab/tab2" style="font-size: 30px;"></ion-icon>
+      <ion-title style="text-align:center;">Your Earning</ion-title>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <div class="container">
+      <div>
+        <div>
+          <img style="float: right; margin-top: 1rem;"
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpkBooukGLBrkX76ONnWxwo2l30qi2R_jPpA&usqp=CAU"
+            width="25%"><br>
+          <h3>Total cash Earned</h3>
+          <h1 style="color:#f58e26 ;">₹400</h1>
+        </div>
+      </div>
+      <div style="text-align: center;">
+        ..................................................................................</div>
+      <div>
+        
+        <div style="float: right;">
+          <h1>withdrawable</h1>
+          <h4 style="text-align: center;">₹400</h4>
+        </div>
+        <h1>withdrawn</h1>
+        <h4 >₹400</h4>
+      </div>
+
+      <div style="text-align: center;">
+        ..................................................................................</div>
+
+      <ion-button style="float: left;" shape="round" class="attach" id="open-modal">View Histroy</ion-button>
+  <ion-button style="float: right;" shape="round" class="attach" id="open-modal" >Withdraw</ion-button>
+    </div>
+  </ion-card>
+
+
+
+  <ion-segment value="custom" class="container">
+    <ion-segment-button (click)="toggle()" value="custom">
+      <ion-label>your Refferals</ion-label>
+    </ion-segment-button>
+    <ion-segment-button (click)="toggle1()" value="segment">
+      <ion-label>Remined all pendings</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+<div *ngIf="data">
+  <ion-grid class="ion-margin" [fixed]="true">
+    <ion-row>
+      <ion-col>S.No</ion-col>
+      <ion-col>phonenumber</ion-col>
+      <ion-col>reward</ion-col>
+      <ion-col>status</ion-col>
+    </ion-row>
+    <ion-row *ngFor="let student of studends; index as i">
+      <ion-col>{{ i + 1 }}</ion-col>
+      <ion-col>{{ student.phonenumber }}</ion-col>
+      <ion-col>{{ student.reward }}</ion-col>
+      <ion-col>{{ student.status }}</ion-col>
+    </ion-row>
+  </ion-grid>
+</div>
+<div *ngIf="data1">
+  <ion-grid class="ion-margin" [fixed]="true">
+    <ion-row>
+      <ion-col size="3" >S.No</ion-col>
+      <ion-col size="3" >phonenumber</ion-col>
+      <ion-col size="3" >reward</ion-col>
+      <ion-col size="3" >status</ion-col>
+    </ion-row>
+    <ion-row *ngFor="let student of studends; index as i">
+      <ion-col size="3" >{{ i + 1 }}</ion-col>
+      <ion-col size="3" >{{ student.phonenumber }}</ion-col>
+      <!-- <ion-col>{{ student.reward }}</ion-col> -->
+    
+    </ion-row>
+  </ion-grid>
+</div>
+</ion-content>

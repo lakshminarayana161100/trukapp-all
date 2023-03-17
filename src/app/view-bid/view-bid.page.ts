@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { LoadingController,NavController } from '@ionic/angular';
-
+import { Subject } from 'rxjs';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-view-bid',
   templateUrl: './view-bid.page.html',
   styleUrls: ['./view-bid.page.scss'],
 })
 export class ViewBidPage implements OnInit {
+  private refresh = new Subject<void>();
   item: any = [];
   bids:any=[];
   NegoPrice:any;
@@ -30,8 +32,9 @@ export class ViewBidPage implements OnInit {
   agentconditions: any;
   products: any;
   tenprice: any;
+  paymentdone: any;
   
-    constructor(public loadingController: LoadingController,public navControl:NavController) { }
+    constructor(public loadingController: LoadingController,public navControl:NavController,private router:Router) { }
   
     ngOnInit() {
       this.regdata =JSON.parse(localStorage.getItem('regdata') || '{}')
@@ -40,26 +43,34 @@ export class ViewBidPage implements OnInit {
       this.openedBid =JSON.parse(localStorage.getItem('openedBid') || '{}')
       console.log(this.openedBid)
       this.bidactivityofopenbid =this.openedBid.BidActivity
-      for(let i=0;i<this.bids.bids.length;i++){
+      for(let i=0; i<this.bids.bids.length;i++){
            this.bidact=this.bids.bids[i]
       }
-      
-  /* for(let i=0;i<this.bids.bids.length;i++){
-     this.bidActivity= this.bids.bids[i].BidActivity
-    console.log(this.bidActivity)
-  } */
+
+  this.all()
   
-  fetch("https://amused-crow-cowboy-hat.cyclic.app/quotes/quoteByid/"+ this.bids._id, {
+      this.autorefreshdata.subscribe(res =>{
+        this.all()
+      })
+  }
+
+  get autorefreshdata(){
+return this.refresh
+  }
+
+  all(){
+    fetch("https://amused-crow-cowboy-hat.cyclic.app/quotes/quoteByid/"+ this.bids._id, {
     method: 'GET',
     headers: {
       "access-Control-Allow-Origin": "*",
   
-    },
+    }
   })
     .then(response => response.json())
     .then(result => {
       console.log(result)
-      for(let i=0; i<result.length;i++){
+      this.paymentdone =result.isPaymentCompleted
+      for(let i=0; i<result.length; i++){
     var final= result[i].bids
       }
       console.log(final)
@@ -70,7 +81,8 @@ export class ViewBidPage implements OnInit {
         })
         console.log(this.filteredbid)
    for(let i=0;i<this.filteredbid.length;i++){
-    this.conditions = this.filteredbid[i].isShipperAccepted
+    this.conditions = this.filteredbid[i].isAgentAccepted
+  
     this.agentconditions = this.filteredbid[i].isShipperAccepted
     this.onlybid =this.filteredbid[i].BidActivity
     this.tenprice = this.filteredbid[i].tentativefinalPrice
@@ -101,12 +113,11 @@ console.log(this.onlybid)
      
     }
   
-    ).catch(err =>
-      console.log(err))
+    ).catch(err =>{
+      alert('Something went wrong')
+      console.log(err)})
  
-      
   }
-  
     
   
     async negotiate(){
@@ -124,8 +135,8 @@ console.log(this.onlybid)
         "userNo":this.regdata.mobileNo,
         "userType":this.regdata.role,
         "price":this.NegoPrice,
-        "Name":this.regdata.firstName+this.regdata.lastName,//for notifi
-        
+        "TohideAcceptBtn":false,
+        "Name":this.regdata.firstName+this.regdata.lastName,//for notifi 
         "Number":this.openedBid.mobileNo, //fornotifca
         "mess":"Placed a Bid for amount"
       
@@ -145,6 +156,7 @@ console.log(this.onlybid)
         .then(response => response.json())
         .then(async result => {
           console.log(result)
+          window.location.reload()
           loading.dismiss()
           
     
@@ -159,6 +171,7 @@ console.log(this.onlybid)
     }
   
     async acceptBid(){
+      confirm("Are You Sure, To accept")
       const loading = await this.loadingController.create({
         message: 'Loading...',
         spinner: 'crescent'
@@ -174,6 +187,7 @@ console.log(this.onlybid)
          "Name":this.regdata.firstName+this.regdata.lastName,
          "Bidprice":this.tenprice,
          
+        
         
          "Number":this.bidnumber, //transporte
          "mess":"Accepted your bid for"
@@ -219,7 +233,7 @@ console.log(this.onlybid)
      // console.log(data)
   
       console.log(this.bids._id)
-      fetch("https://amused-crow-cowboy-hat.cyclic.app/postLoad/loadDeactivate/" + this.bids._id, {
+      fetch("https://amused-crow-cowboy-hat.cyclic.app/quotes/quoteDeactivate/" + this.bids._id, {
         method: 'PUT',
         headers: {
           "access-Control-Allow-Origin": "*",
@@ -235,7 +249,7 @@ console.log(this.onlybid)
             this.products = result  //it  runs $parse automatically when it runs the $digest loop, basically $parse is the way angular evaluates expressions
   
        
-         // window.location.reload()  // reloading window
+          window.location.reload()  // reloading window
   
         }
   
@@ -257,4 +271,10 @@ console.log(this.onlybid)
     }, 2000);
   }
 
+  posttruck(){
+    this.router.navigate(['add-new-truck-details'])
+    localStorage.setItem("loadItem",JSON.stringify(this.bids._id))
+    window.location.href="/add-new-truck-details"
+    
+  }
 }

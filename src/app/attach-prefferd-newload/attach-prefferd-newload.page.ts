@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, NgZone, OnInit, ViewChild } from '@angular/core';
-import { AlertController, LoadingController } from '@ionic/angular';
-
+import { AlertController, IonSlides, LoadingController } from '@ionic/angular';
+import { Router } from '@angular/router';
 declare var google :any;
 @Component({
   selector: 'app-attach-prefferd-newload',
@@ -9,6 +9,8 @@ declare var google :any;
 })
 export class AttachPrefferdNewloadPage implements OnInit {
 
+  @ViewChild(IonSlides)
+  slides!: IonSlides;
   @ViewChild('map', { static: false }) mapElement: any;
   tonnes: any;
   product: any;
@@ -25,7 +27,7 @@ export class AttachPrefferdNewloadPage implements OnInit {
   height: any;
   state:any;
   dropupState:any
-
+  QuantityType:any
   map: any;
   address: any;
   lat: any;
@@ -59,10 +61,20 @@ export class AttachPrefferdNewloadPage implements OnInit {
   data: any;
   regdata: any;
   veh: any;
+  pickupPincode: any;
+  dropupPincode: any;
+  pickup: any;
+  dropup: any;
+  slideOpts = {
+    
+  };
+  paymentTypeForOffline: any;
+  advance: any;
+  isTrukOpenOrClose: any;
 
 
   constructor(
-    public zone: NgZone, private alertController: AlertController,public loadingController: LoadingController
+    public zone: NgZone, private alertController: AlertController,public loadingController: LoadingController,private router :Router,
   ) {
     this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
     this.autocomplete = { input: '' };
@@ -77,9 +89,9 @@ export class AttachPrefferdNewloadPage implements OnInit {
     this.objects = localStorage.getItem("AttachNewLoad");  //use the localstorage we getdata from savedData
     //The localStorage object allows you to save key/value pairs in the browser.
     this.post = JSON.parse(this.objects)  //parse() The JSON. parse() method parses a JSON string, constructing the JavaScript value or object described by the string.
-   for(let i=0;i<this.post.selectedItems.length;i++){
+  /* for(let i=0;i<this.post.selectedItems.length;i++){
     this.veh = this.post.selectedItems[i]
-   }
+   }*/
     console.log(this.post)
   }
 
@@ -198,6 +210,31 @@ export class AttachPrefferdNewloadPage implements OnInit {
     this.autocomplete.input = ''
   }
 
+  async getPickupState() {
+    const url = `https://api.postalpincode.in/pincode/${this.pickupPincode}`;
+    const response = await fetch(url);
+    const data = await response.json();
+  
+    if (data[0].Status === 'Success') {
+      const postOffice = data[0].PostOffice[0];
+      this.pickup = `${postOffice.State}`;
+    } else {
+      this.pickup = 'Invalid Pincode';
+    }
+  }
+
+  async getDropupState() {
+    const url = `https://api.postalpincode.in/pincode/${this.dropupPincode}`;
+    const response = await fetch(url);
+    const data = await response.json();
+  
+    if (data[0].Status === 'Success') {
+      const postOffice = data[0].PostOffice[0];
+      this.dropup = `${postOffice.State}`;
+    } else {
+      this.dropup = 'Invalid Pincode';
+    }
+  }
 
   async sendData() {
     const loading = await this.loadingController.create({
@@ -208,17 +245,20 @@ export class AttachPrefferdNewloadPage implements OnInit {
     var body = {
       DestinationLocation: this.DestinationLocation,
       OriginLocation: this.OriginLocation,
-      dropupState:this.dropupState,
-      state: this.state,
-      Number: this.Number,
+      dropupState:this.dropup,
+      pickupState: this.pickup,
+      Number: this.regdata.mobileNo,
       date: this.date,
       product: this.product,
-      Quantity: this.Quantity,
+      Quantity: this.Quantity+ this.QuantityType,
       vehicle: this.vehicle,
       loadCapacity: this.loadCapacity,
       expectedPrice: this.expectedPrice,
       data: this.data,
+      isTrukOpenOrClose:this.isTrukOpenOrClose,
       typeOfPay: this.typeOfPay,
+      paymentTypeForOffline:this.paymentTypeForOffline,
+      advance:this.advance,
       length: this.length,
       breadth: this.breadth,
       height: this.height,
@@ -227,7 +267,8 @@ export class AttachPrefferdNewloadPage implements OnInit {
       trukcapacity:this.post.trukcapacity,
       trukcurrentLocation:this.post.trukcurrentLocation,
       trukoperatingRoutes:this.post.trukoperatingRoutes,
-      trukvehiclenumber:this.post.trukvehiclenumber
+      trukvehiclenumber:this.post.trukvehiclenumber,
+      trukOwnerNumber:this.regdata.mobileNo,
     }
     console.log(body)
    // if(this.regdata.aadharVerify === 'Verified' || this.regdata.gstVerify === 'Verified'){
@@ -245,30 +286,31 @@ export class AttachPrefferdNewloadPage implements OnInit {
         console.log(result)
         this.Items = result
         loading.dismiss()
-        if(result.status === 'failed'){
+        if(result.status == 'success'){
           loading.dismiss()
-       alert('No providers available')
+          const alert = await this.alertController.create({
+            header: 'Successfull',
+            message: 'Load posted Successfully',
+            buttons: [
+              {
+                text: 'Okay',
+                handler: () => {
+                  console.log('Confirm Okay');
+                  //you can write your code or redirection 
+                  // sample redirection code 
+                 this.router.navigate(['tab/tab4'])
+  
+                }
+              }
+            ],
+          });
+          window.location.href = '/tab/tab4';
+          await alert.present();
+      
 
       }else{
         loading.dismiss()
-        const alert = await this.alertController.create({
-          header: 'Successfull',
-          message: 'Load posted Successfully',
-          buttons: [
-            {
-              text: 'Okay',
-              handler: () => {
-                console.log('Confirm Okay');
-                //you can write your code or redirection 
-                // sample redirection code 
-                window.location.href = '/tab/tab1';
-
-              }
-            }
-          ],
-        });
-      
-        await alert.present();
+        alert('No providers available')
 
       }
       }
@@ -283,6 +325,14 @@ export class AttachPrefferdNewloadPage implements OnInit {
      // }
 
 
+  }
+
+  slidePrev() {
+    this.slides.slidePrev();
+  }
+
+  slideNext() {
+    this.slides.slideNext();
   }
 
 }

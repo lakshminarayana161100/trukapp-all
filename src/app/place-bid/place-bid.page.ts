@@ -2,12 +2,14 @@ import { Component, OnInit,ViewChild } from '@angular/core';
 import {  Router } from '@angular/router';
 import { IonContent, LoadingController,NavController } from '@ionic/angular';
 import { Location } from '@angular/common';
+import { Subject } from 'rxjs';
 @Component({
   selector: 'app-place-bid',
   templateUrl: './place-bid.page.html',
   styleUrls: ['./place-bid.page.scss'],
 })
 export class PlaceBidPage implements OnInit {
+  private refresh = new Subject<void>();
   item: any = []; 
   bids:any=[];
   show:boolean | undefined;
@@ -48,7 +50,7 @@ id:any
   finalAcceptforBid: any;
   regdata: any;
 
-  constructor(private route:Router,public loadingController: LoadingController,public navController:NavController,
+  constructor(private router:Router,public loadingController: LoadingController,public navController:NavController,
     private location:Location) { }
 
   @ViewChild(IonContent)
@@ -66,10 +68,19 @@ console.log(this.regdata)
    console.log(this.objects)
 this.getfullarray()
   
+this.autorefreshdata.subscribe(res =>{
+  this.getfullarray()
+})
 //this.finalAcceptforBid =JSON.parse(localStorage.getItem("finalAcceptforBid") ||'{}')
    // console.log(this.finalAcceptforBid)
   }
 
+  get autorefreshdata(){
+    return this.refresh
+      }
+ionViewDidEnter(){
+  this.getfullarray()
+}
   getfullarray(){
 
     var query ={
@@ -146,6 +157,7 @@ this.getfullarray()
 } */
 
   async acceptBid(){
+    confirm("Are You Sure,To Accept")
   const loading = await this.loadingController.create({
     message: 'Loading...',
     spinner: 'crescent'
@@ -178,7 +190,7 @@ console.log(body)
       console.log(result)
       
       loading.dismiss()
-
+      window.location.reload()
 
     }
 
@@ -205,6 +217,8 @@ console.log(body)
     "Bidprice":this.newMsg,
     "Number":parseInt(this.objects.Number), //for notification
     "Name":this.regdata.firstName+this.regdata.lastName, //for notification
+    "agentInitialBidSend":true,
+    "TohideAcceptBtn":true,
     "mess":"placed a Bid To Your Load ,Price:" 
   
    }
@@ -223,7 +237,7 @@ console.log(body)
       console.log(result)
       
       loading.dismiss()
-
+      window.location.reload()
 
     }
 
@@ -247,6 +261,7 @@ console.log(body)
     "userNo":this.regdata.mobileNo,
     "userType":this.regdata.role,
     "price":this.NegoPrice,
+    "TohideAcceptBtn":true,
     "Number":parseInt(this.objects.Number),//for notification
     "Name":this.regdata.firstName+this.regdata.lastName, //for notification
     "mess":"placed a Bid To Your Load ,Price:" //for notification
@@ -267,7 +282,7 @@ console.log(body)
       console.log(result)
       
       loading.dismiss()
-
+  window.location.reload()
 
     }
 
@@ -277,6 +292,9 @@ console.log(body)
 
 }
   async acceptBidForFinal(){
+    
+      confirm("Are you Sure To Accept")
+    
   const loading = await this.loadingController.create({
     message: 'Loading...',
     spinner: 'crescent'
@@ -289,8 +307,8 @@ console.log(body)
     
     "_id":this.objects._id,
     "mobileNo":this.regdata.mobileNo,
-"isAgentAccepted":true,
-"Number":parseInt(this.objects.Number), // for send notifi
+    "isAgentAccepted":true,
+    "Number":parseInt(this.objects.Number), // for send notifi
     "Name":this.regdata.firstName + this.regdata.lastName, // for send notifi
     "Bidprice":this.item.tentativefinalPrice, // for send notifi
     "mess":"Accepted a bid for"
@@ -314,7 +332,7 @@ console.log(this.item.mobileNo)
       loading.dismiss()
       
 
-
+window.location.reload()
     }
 
     ).catch(err =>{
@@ -329,5 +347,8 @@ console.log(this.item.mobileNo)
      window.location.reload()
     }, 2000);
   }
-
+routeto(){
+window.location.href="/tab/tab2"
+this.router.navigate(['/tab/tab2'])
+}
 }

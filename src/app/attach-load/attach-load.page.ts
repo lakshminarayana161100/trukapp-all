@@ -21,12 +21,16 @@ export class AttachLoadPage implements OnInit {
   selected:any;
   language:any
   radiovalue:any
+  logindata: any;
   
   
 
   constructor( private router:Router,public loadingController: LoadingController) { }
-  
+  ionViewDidEnter(){
+    this.get()
+  }
   ngOnInit() {
+    this.logindata = JSON.parse(localStorage.getItem('regdata')|| '{}')
     this.get()
 
   }
@@ -44,17 +48,23 @@ export class AttachLoadPage implements OnInit {
       spinner: 'crescent'
     });
     await loading.present();
-    fetch("https://amused-crow-cowboy-hat.cyclic.app/quotes/allQuotes", {
-      method: 'GET',
+    var body ={
+      Number:this.logindata.mobileNo,
+      isActive :'Active'
+    }
+    fetch("https://amused-crow-cowboy-hat.cyclic.app/quotes/loadsByStatusAndNumber", {
+      method: 'POST',
       headers: {
         "access-Control-Allow-Origin": "*",
+        "Content-Type":'application/json'
 
       },
+      body:JSON.stringify(body)
     })
       .then(response => response.json())
       .then(result => {
         console.log(result),
-          this.item = result.Loads
+          this.item = result.load
         console.log(this.item)
         loading.dismiss()
       }

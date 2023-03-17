@@ -1,9 +1,90 @@
+<ion-app>
+  <ion-menu menuId="main-menu" content-id="main">
+    
+    <ion-content>
+      <div class="menu-header-bg"></div>
+      <div class="header-content" routerLink="/profile">
+        <img src="https://th.bing.com/th/id/OIP.c3xZFEubLwRrbMU1w2W1uwHaHa?w=198&h=198&c=7&r=0&o=5&dpr=1.3&pid=1.7" alt="">
+        <ion-label>
+          <h2>{{logindata.firstName}} {{logindata.lastName}}</h2>
+          <p>{{logindata.role}}</p>
+          <p>{{logindata.mobileNo}}</p>
+        </ion-label>
+      </div>
+      <!--<div class="action-button">
+        <ion-button>
+          <ion-icon slot="start" name="add">Add Branch</ion-icon>
+        </ion-button>
+      </div>-->
 
-    <ion-app>
-      
+      <ion-list class="menu-items">
+        <ion-item routerLink="/profile">
+          <ion-menu-toggle>
+          <ion-icon  name="person-circle-outline"></ion-icon>My Profile
+          </ion-menu-toggle>
+        </ion-item>
+        <ion-item>
+          <ion-menu-toggle>
+          <ion-icon name="hammer-outline"></ion-icon>My Bids
+          </ion-menu-toggle>
+        </ion-item>
+        <ion-item routerLink="/referral">
+          <ion-menu-toggle>
+          <ion-icon name="wallet-outline"></ion-icon>Refer & Earn
+          </ion-menu-toggle>
+        </ion-item>
+        <ion-item routerLink="/help-and-guide">
+          <ion-menu-toggle>
+          <ion-icon name="help-circle-outline"></ion-icon>Help $ Guid
+          </ion-menu-toggle>
+        </ion-item>
+        <ion-item class="active" routerLink="/star-rating">
+          <ion-menu-toggle>
+          <ion-icon name="star-outline"></ion-icon>Rate-Us
+          </ion-menu-toggle>
+        </ion-item>
+        <ion-item routerLink="/contact-us">
+          <ion-menu-toggle>
+          <ion-icon name="call-outline"></ion-icon>Contact-us
+          </ion-menu-toggle>
+        </ion-item>
+        <!--<ion-item >
+          <ion-menu-toggle>
+          <ion-icon name="settings-outline"></ion-icon>Setting
+          </ion-menu-toggle>
+        </ion-item>-->
+        <ion-item routerLink="/terms-conditions">
+          <ion-menu-toggle>
+          <ion-icon name="document-text-outline"></ion-icon>Terms & Conditions
+          </ion-menu-toggle>
+        </ion-item>
+        <ion-item routerLink="/privacy-policy">
+          <ion-menu-toggle>
+          <ion-icon name="lock-closed-outline"></ion-icon>Privacy Policy
+          </ion-menu-toggle>
+        </ion-item>
+        <ion-item routerLink="/about-us">
+          <ion-menu-toggle>
+          <ion-icon name="information-circle-outline"></ion-icon>About Us
+          </ion-menu-toggle>
+        </ion-item>
+        <ion-item (click)="signout()">
+          <ion-menu-toggle>
+          <ion-icon name="exit-outline"></ion-icon>Log-out
+          </ion-menu-toggle>
+        </ion-item>
+      </ion-list>
 
-        <ion-router-outlet></ion-router-outlet>
-      </ion-app>
+      <div class="action-button">
+
+      </div>
+    </ion-content>
+
+  </ion-menu>
+
+  <ion-router-outlet id="main"></ion-router-outlet>
+
+</ion-app>
 
    
   

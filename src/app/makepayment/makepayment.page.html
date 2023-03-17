@@ -1,9 +1,11 @@
 <ion-header>
   <ion-toolbar>
-    <div style="display: flex;">
+    <div style="display: flex;" >
       <ion-icon name="arrow-back-sharp" routerLink="/view-bid" style="font-size: 30px;"></ion-icon>
       <ion-title>Make Payment</ion-title>
     </div>
+
+  
   </ion-toolbar>
 </ion-header>
 
@@ -43,8 +45,9 @@
     </div>
   </ion-card>
 </ion-content>
-<div style="display:flex; margin-left:20px;">
-<ion-checkbox ></ion-checkbox> 
-<p style="padding-left:10px;font-size:19px;">I agree to the terms and conditions</p>
+<div style="display: flex;position:absolute ;margin-top:60px;">
+  <input type="checkbox" style="width:19px;height:19px;" [(ngModel)]="checkbox" [ngModelOptions]="{standalone: true}"/>&nbsp;&nbsp;
+  
+  By Signup ,You Accept <a href="/terms-conditions">T&C</a> and Privacy
 </div>
-<ion-button color="#a13cd7;" (click)="pay()">Pay Now</ion-button>
+<ion-button color="#a13cd7;" (click)="pay()" [disabled]="checkbox == false">Pay Now</ion-button>

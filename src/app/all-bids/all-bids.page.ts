@@ -13,55 +13,80 @@ export class AllBidsPage implements OnInit {
   filterShipperAccpt: any;
   sai: any;
   allbidslen: any;
+  mo: any;
+  bidact: any;
+  tranNum: any;
+  usNo: any;
+  bidactlen: any;
 
   constructor(private router:Router,public navController : NavController,) { }
-
+  ionViewDidEnter(){
+  this.all()
+  }
   ngOnInit() {
     this.singlearray =JSON.parse(localStorage.getItem("viewBid") || '{}')
     this.onlybids =this.singlearray.bids
 
     console.log(this.onlybids)
-
-    var data ={
-      "_id":this.singlearray._id
-    }
+this.all()
+   
 
 
-    fetch("https://amused-crow-cowboy-hat.cyclic.app/quotes/getsingleloadbids", {
-      method: 'POST',
-      headers: {
-        "access-Control-Allow-Origin": "*",
-        "Content-Type": 'application/json'
-      },
-      body: JSON.stringify(data),      
+   
+  }
+all(){
+  var data ={
+    "_id":this.singlearray._id
+  }
+  fetch("https://amused-crow-cowboy-hat.cyclic.app/quotes/getsingleloadbids", {
+    method: 'POST',
+    headers: {
+      "access-Control-Allow-Origin": "*",
+      "Content-Type": 'application/json'
+    },
+    body: JSON.stringify(data),      
 
-    })
-      .then(response => response.json())
-      .then(result => {
-        console.log(result.message)
- 
-        for(let i=0; i<result.message.length;i++){
-          this.allbids =result.message[i].bids
-          this.allbidslen =result.message[i].bids.length
-          console.log(this.allbidslen)
-        }
-          
-        this.filterShipperAccpt = this.allbids.filter((data:any)=>{
-        return  data.isShipperAccepted == true
-        })
-        console.log(this.filterShipperAccpt)
+  })
+    .then(response => response.json())
+    .then(result => {
+      console.log(result.message)
 
-     for(let i=0; i<this.filterShipperAccpt.length;i++){
-      this.sai =this.filterShipperAccpt[i].isShipperAccepted
-     }
-      
-
+      for(let i=0; i<result.message.length;i++){
+        this.allbids =result.message[i].bids
+        this.allbidslen =result.message[i].bids.length
+        
       }
 
-      ).catch(err =>
-        console.log(err))
-  }
+      for(let i=0; i<this.allbids.length;i++){
+        this.bidact = this.allbids[i].BidActivity
+        this.bidactlen = this.allbids[i].BidActivity.length
+        this.mo = this.allbids[i].mobileNo
+      }
+      console.log(this.bidactlen)
+      this.tranNum= this.bidact.filter((data:any)=>{
+        return  data.userNo == this.mo
+        })  
+        console.log(this.tranNum)
 
+        for(let i=0; i<this.tranNum.length;i++){
+          this.usNo =this.tranNum[i].userType
+        }
+        console.log(this.usNo)
+      this.filterShipperAccpt = this.allbids.filter((data:any)=>{
+      return  data.isShipperAccepted == true
+      })
+      console.log(this.filterShipperAccpt)
+
+   for(let i=0; i<this.filterShipperAccpt.length;i++){
+    this.sai =this.filterShipperAccpt[i].isShipperAccepted
+   }
+    
+
+    }
+
+    ).catch(err =>
+      console.log(err))
+}
   openbid(data:any){
 
 localStorage.setItem('openedBid',JSON.stringify(data))

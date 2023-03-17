@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+    <div style="display: flex;">
+      <ion-icon name="arrow-back-sharp" routerLink="/tab/tab2" style="font-size: 30px;"></ion-icon>
+      <ion-title style="text-align:center;">Contact Details</ion-title>
+    </div>
+  </ion-toolbar>
+</ion-header>
+<br>
+<ion-content>
+  <ion-card>
+    <br>
+    <h2 style="text-align: center; color: #f58e26;">Contact Details</h2>
+    <div class="container">
+      <ion-item fill="outline">
+        <ion-label position="floating">Enter Your Name</ion-label>
+        <ion-input placeholder="Enter text" [(ngModel)]="Name"></ion-input>
+      </ion-item><br>
+      <ion-item fill="outline">
+        <ion-label position="floating">Enter Your Email Address</ion-label>
+        <ion-input placeholder="Enter Email" [(ngModel)]="To"></ion-input>
+      </ion-item><br>
+      <ion-item fill="outline">
+        <ion-label position="floating">Enter your Mobile Number</ion-label>
+        <ion-input placeholder="Enter phone NUmber" [(ngModel)]="PhoneNumber"></ion-input>
+      </ion-item><br>
+      <ion-item>
+        <ion-textarea placeholder={{type}} [autoGrow]="true" [(ngModel)]="Query">
+        </ion-textarea>
+      </ion-item>
+      <br>
+      <ion-button style="float: right;" (click)="addContact()" class="summit">Submit</ion-button>
+    </div>
+  </ion-card>
+</ion-content>

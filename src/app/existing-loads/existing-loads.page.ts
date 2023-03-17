@@ -29,7 +29,9 @@ export class ExistingLoadsPage implements OnInit {
 
   }
 
-
+ionViewDidEnter(){
+  this.get()
+}
   // out(data: any) {
   //   console.log(data)
   //   this.get()
@@ -67,7 +69,7 @@ export class ExistingLoadsPage implements OnInit {
   }
 
    proceed(){
-     this.router.navigate(['existing-load'])
+     this.router.navigate(['attach-existing-loads'])
    }
 
 }

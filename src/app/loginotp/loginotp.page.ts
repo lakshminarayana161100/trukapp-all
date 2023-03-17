@@ -7,7 +7,7 @@ import 'firebase/compat/firestore';
 //import 'firebase/compat/database.'
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { DeviceDetectorService, DeviceInfo } from 'ngx-device-detector';
+
 import { NavController, NavParams } from '@ionic/angular';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
 //import {OneSignal }from 'onesignal-cordova-plugin';
@@ -35,19 +35,26 @@ regData:any
   regNumber:any
   num!:Number
   spin!: boolean;
-  checkbox:any
-  deviceInfo!:DeviceInfo;
+  checkbox=false
+  
   pattern="^((\\+91-?)|0)?[0-9]{10}$"
   UniqueDeviceID!:string;
 
+  darkMode = false;
+  number: any;
 
+  toggleDarkMode() {
+    console.log('hfg')
+    this.darkMode = !this.darkMode;
+    document.body.classList.toggle('dark', this.darkMode);
+  }
   
   constructor(private router: Router, public navController : NavController,
     private uniqueDeviceID: UniqueDeviceID,
   //private OneSignal:OneSignal,
     private androidPermissions: AndroidPermissions,
     
-     private ngZone: NgZone,public loadingCtrl:LoadingController,public toastCtrl:ToastController,private alert:AlertController,private deviceDetectorService: DeviceDetectorService ) {
+     private ngZone: NgZone,public loadingCtrl:LoadingController,public toastCtrl:ToastController,private alert:AlertController) {
 
       
      }
@@ -55,9 +62,7 @@ regData:any
 
   ngOnInit() {
     firebase.initializeApp(config);
-    this.deviceInfo = this.deviceDetectorService.getDeviceInfo();
-    
-    console.log(this.deviceInfo)
+this.number =localStorage.getItem('Number')
  //const firbase = firebase.messaging().getToken()
  //console.log(firbase)
     //firebaseMessaging.instance.getToken().then((value: any) =>{
@@ -92,7 +97,9 @@ regData:any
   }
 
 route(){
+  window.location.href='/selecttype'
   this.navController.navigateForward('/selecttype');
+
 }
 
 
@@ -156,7 +163,7 @@ route(){
 console.log(this.phoneNumber)
  this.regNumber = this.regData.find((t: { mobileNo: any; })=>t.mobileNo == this.phoneNumber);
 console.log(this.regNumber)*/
-localStorage.setItem('regdata',JSON.stringify(result))
+
 if(result.mobileNo === this.phoneNumber){
 
   this.reCaptchaVerifier = new firebase.auth.RecaptchaVerifier(
@@ -180,6 +187,7 @@ if(result.mobileNo === this.phoneNumber){
         'mobileNo',
         JSON.stringify(this.phoneNumber)
       );
+      localStorage.setItem('regdata',JSON.stringify(result))
       loading.dismiss();
         this.ngZone.run(() => {
           this.router.navigate(['/verifyotp']);
@@ -188,13 +196,14 @@ if(result.mobileNo === this.phoneNumber){
     
     })
     .catch((error:any) => {
+      loading.dismiss()
       console.log(error.message);
       alert(error.message);
    
     });
 
 }else{
-  
+  loading.dismiss()
     //this.loadingCtrl.dismiss();
     const alert = await  this.alert.create({
       header: 'Alert',
@@ -211,7 +220,7 @@ if(result.mobileNo === this.phoneNumber){
   
 }
       }).catch(async error =>{
-        
+        loading.dismiss()
          // this.loadingCtrl.dismiss();
         
          const alert = await this.alert.create({
@@ -240,7 +249,7 @@ if(result.mobileNo === this.phoneNumber){
         });
 }
 gototype(){
- // window.location.href="/selecttype"
+  //window.location.href="/selecttyp"
   this.router.navigateByUrl('/get-started')
 }
 

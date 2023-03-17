@@ -6,8 +6,7 @@
     </div>
   </ion-toolbar>
 </ion-header>
-<br>
-<ion-card-subtitle style="font-size:larger; font-weight: bold; margin-right: 10px;">My Bids :</ion-card-subtitle>
+
 
 <ion-content>
   <ion-refresher slot="fixed" (ionRefresh)="autorefresh($event)">
@@ -15,13 +14,16 @@
 
     </ion-refresher-content>
   </ion-refresher>
+
   <ion-card class="expecPrice">
     <ion-card-header>
-      <ion-card-subtitle>Expected Price:</ion-card-subtitle>
-      <ion-card-title>₹ {{bids.expectedPrice}} -/</ion-card-title>
-      <p>-----------------------------------------------------------------------</p>
+      <ion-card-subtitle style="color: black;">Expected Price:</ion-card-subtitle>
+      <ion-card-title>₹ {{bids.expectedPrice}}/-</ion-card-title>
+      
     </ion-card-header>
+    
     <ion-card-content>
+      <ion-card-subtitle style="color: black;"><u>Details:</u></ion-card-subtitle>
       <p style="font-size: larger; font-weight: bolder; ">{{bids.OriginLocation}} -- {{bids.DestinationLocation}}
       </p>
       <p style="font-size: large; font-weight: bold; "> {{bids.data}} -- {{bids.Quantity}} Tons</p>
@@ -36,7 +38,7 @@
 
     </ion-card-header>
   </ion-card>
-  <br>
+  
 
   <!--  <ion-card *ngFor="let text of bids.bids">
 
@@ -75,8 +77,8 @@
 
        
 
-        <b text-left>{{text.userType}}</b><br>
-        <b text-left>{{text.price}}</b>
+        <b text-left style="font-size: 15px;">{{text.userType}}</b><br>
+        <b text-left style="font-size: 15px;">Price:₹ {{text.price}}</b>
         <div class="time" style="color: black;" text-right><br>
           {{text.time | date:'short'}}
         </div>
@@ -87,18 +89,19 @@
 
     <!-- <ion-row *ngFor="let text of bidActivity"> -->
 
-      <ion-col size="7" *ngIf="text.userType!== regdata.role" class="message other-message">
+      <ion-col size="7" *ngIf="text.userType!== regdata.role" class=" other-message">
 <div *ngIf="text.initialAccept === 'Accepted'">
       <h3>Bid accepted for : {{text.price}}</h3>
     </div>
     <div [hidden]="text.initialAccept === 'Accepted'" >
-      <b>{{text.userType}}:</b><br>
-      <span>{{text.price}}</span>
+      <b style="font-size: 15px;">{{text.userType}}</b><br>
+      <span style="font-size: 15px;">Price:₹{{text.price}}</span>
      <!-- <b>PHno -{{text.userNo}}</b>-->
       <div class="time" text-right><br>
         {{text.time | date:'short'}}
       </div>
     </div>
+    
       <!--   <b>{{text.userType}}::</b><br>
         <span>{{text.price}}</span><br>
         <b>PHno -{{text.userNo}}</b>
@@ -153,13 +156,32 @@
     
 
 </ion-content>
-<div *ngIf="agentconditions == true || initialaccepted === 'Accepted'" align="center" style="margin-top:5px;">
+<div *ngIf="agentconditions == true || initialaccepted === 'Accepted'" align="center" style="margin-top:5px;"  [hidden]="paymentdone == true">
   <ion-button  shape="round" class="next" (click)="makepayment()">PAY NOW</ion-button>
   </div>
 
+  <ion-card style="background-color:orange;" >
+  
+      <ion-card-header>
+        <ion-card-title  style="color:white; font-weight:bolder;">
+          Add Truk & Driver Details
+        </ion-card-title>
+    
+      </ion-card-header>
+  
+    
+  
+    <ion-card-content style="color:white; font-size:18;">
+      Bid is accepted, please add your truk
+    </ion-card-content>
+    <ion-button fill="clear" style="float:right; color:orange; width:140px;background-color:white; border-radius:9px;"  (click)="posttruck()">Add New Truck</ion-button><br>
+    
+    
+  
+  </ion-card>
 
 <div [hidden]="agentconditions == true || initialaccepted === 'Accepted'">
-<ion-button fill="clear" style="float: right; color: green;" (click)="acceptBid()">Accept</ion-button>
+<ion-button fill="clear" style="float: right; color: green;" (click)="acceptBid()" [hidden]="">Accept</ion-button>
 <ion-button id="open-modal" shape="round" class="next">Negotiate</ion-button>
 </div>
 
@@ -180,7 +202,7 @@
       <ion-toolbar color="light">
         <ion-row>
           <ion-col size="10">
-            <textarea autosize maxRowx="3" [(ngModel)]="NegoPrice" class="input">
+            <textarea autosize maxRowx="3" type="number" [(ngModel)]="NegoPrice" class="input">
 
           </textarea>
 

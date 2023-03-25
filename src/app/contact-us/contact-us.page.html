@@ -50,7 +50,7 @@
             </span>
           </ion-card-content>
           <div style="text-align: center; ">
-            <ion-button (click)="selectItem(card)" (click)="contactLoad(card)">Select</ion-button>
+            <ion-button (click)="selectItem(card)" (click)="contactLoad(card)" >Select</ion-button>
           </div>
         </ion-card>
       </ion-item>
@@ -98,7 +98,7 @@
         </div>
         <div style="display:inline-flex;"  >
         
-            <button type="button" class="viewbidbtn" >
+            <button type="button" class="viewbidbtn" (click)="contactLoad(card)" >
               <span>Select Load</span>
               
               </button>

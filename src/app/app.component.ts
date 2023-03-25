@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Platform } from '@ionic/angular';
-//import { OneSignal } from '@ionic-native/onesignal';
+
 import OneSignal from 'onesignal-cordova-plugin';
-//import {OneSignal} from '@ionic-native/onesignal'
+
 import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
 @Component({
   selector: 'app-root',

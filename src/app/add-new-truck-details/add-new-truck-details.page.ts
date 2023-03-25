@@ -24,6 +24,10 @@ export class AddNewTruckDetailsPage implements OnInit {
   DriverName: any;
   DriverNumber: any;
   vehicleType:any;
+  transporterName:any;
+  companyName:any;
+  mobileNumber:any;
+  city:any;
  _id: any;
   sub: any;
 
@@ -87,6 +91,10 @@ this.sub =JSON.parse(localStorage.getItem("loadItem") || '{}')
       isTrukOpenOrClose:this.isTrukOpenOrClose,
       DriverName: this.DriverName,
       DriverNumber: this.DriverNumber,
+      transporterName:this.transporterName,
+      companyName:this.companyName,
+      mobileNumber:this.mobileNumber,
+      city:this.city,
       _id:this.sub
     }
     console.log(data)

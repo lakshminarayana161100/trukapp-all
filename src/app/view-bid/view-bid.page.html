@@ -19,9 +19,9 @@
     <ion-card-header>
       <ion-card-subtitle style="color: black;">Expected Price:</ion-card-subtitle>
       <ion-card-title>₹ {{bids.expectedPrice}}/-</ion-card-title>
-      
+
     </ion-card-header>
-    
+
     <ion-card-content>
       <ion-card-subtitle style="color: black;"><u>Details:</u></ion-card-subtitle>
       <p style="font-size: larger; font-weight: bolder; ">{{bids.OriginLocation}} -- {{bids.DestinationLocation}}
@@ -38,7 +38,7 @@
 
     </ion-card-header>
   </ion-card>
-  
+
 
   <!--  <ion-card *ngFor="let text of bids.bids">
 
@@ -73,9 +73,9 @@
 
       </ion-col> -->
 
-       <ion-col size="8" offset="3" *ngIf="text.userType==regdata.role" class=" my-message">
+      <ion-col size="8" offset="3" *ngIf="text.userType==regdata.role" class=" my-message">
 
-       
+
 
         <b text-left style="font-size: 15px;">{{text.userType}}</b><br>
         <b text-left style="font-size: 15px;">Price:₹ {{text.price}}</b>
@@ -83,26 +83,26 @@
           {{text.time | date:'short'}}
         </div>
 
-      </ion-col> 
-   
+      </ion-col>
 
 
-    <!-- <ion-row *ngFor="let text of bidActivity"> -->
+
+      <!-- <ion-row *ngFor="let text of bidActivity"> -->
 
       <ion-col size="7" *ngIf="text.userType!== regdata.role" class=" other-message">
-<div *ngIf="text.initialAccept === 'Accepted'">
-      <h3>Bid accepted for : {{text.price}}</h3>
-    </div>
-    <div [hidden]="text.initialAccept === 'Accepted'" >
-      <b style="font-size: 15px;">{{text.userType}}</b><br>
-      <span style="font-size: 15px;">Price:₹{{text.price}}</span>
-     <!-- <b>PHno -{{text.userNo}}</b>-->
-      <div class="time" text-right><br>
-        {{text.time | date:'short'}}
-      </div>
-    </div>
-    
-      <!--   <b>{{text.userType}}::</b><br>
+        <div *ngIf="text.initialAccept === 'Accepted'">
+          <h3>Bid accepted for : {{text.price}}</h3>
+        </div>
+        <div [hidden]="text.initialAccept === 'Accepted'">
+          <b style="font-size: 15px;">{{text.userType}}</b><br>
+          <span style="font-size: 15px;">Price:₹{{text.price}}</span>
+          <!-- <b>PHno -{{text.userNo}}</b>-->
+          <div class="time" text-right><br>
+            {{text.time | date:'short'}}
+          </div>
+        </div>
+
+        <!--   <b>{{text.userType}}::</b><br>
         <span>{{text.price}}</span><br>
         <b>PHno -{{text.userNo}}</b>
         <div class="time" text-right><br>
@@ -116,7 +116,7 @@
 
       </ion-col>
 
-       <!-- <ion-col size="9" offset="3" *ngIf="text.userType==currentUserType" class="message my-message">
+      <!-- <ion-col size="9" offset="3" *ngIf="text.userType==currentUserType" class="message my-message">
 
         <b>{{text.userType}}::</b><br>
         <span>{{text.price}}</span><br>
@@ -138,51 +138,53 @@
     </div>
     </ion-card>-->
 
-   
 
-      <ion-card  class="agentAccept"  *ngIf="conditions == true">
-        <div align="center">
-        
-        Agent/Transporter/Fleet accepted bid  for:{{tenprice}}
-        </div>
-        </ion-card>
-        <ion-card  class="shipperAccept" *ngIf="agentconditions == true">
-          <div align="center">
-          
-          You approved for:{{tenprice}}
-          </div>
-          </ion-card>
 
-    
+  <ion-card class="agentAccept" *ngIf="conditions == true">
+    <div align="center">
 
-</ion-content>
-<div *ngIf="agentconditions == true || initialaccepted === 'Accepted'" align="center" style="margin-top:5px;"  [hidden]="paymentdone == true">
-  <ion-button  shape="round" class="next" (click)="makepayment()">PAY NOW</ion-button>
-  </div>
+      Agent/Transporter/Fleet accepted bid for:{{tenprice}}
+    </div>
+  </ion-card>
+  <ion-card class="shipperAccept" *ngIf="agentconditions == true">
+    <div align="center">
 
-  <ion-card style="background-color:orange;" >
-  
-      <ion-card-header>
-        <ion-card-title  style="color:white; font-weight:bolder;">
-          Add Truk & Driver Details
-        </ion-card-title>
-    
-      </ion-card-header>
-  
-    
-  
-    <ion-card-content style="color:white; font-size:18;">
-      Bid is accepted, please add your truk
-    </ion-card-content>
-    <ion-button fill="clear" style="float:right; color:orange; width:140px;background-color:white; border-radius:9px;"  (click)="posttruck()">Add New Truck</ion-button><br>
-    
-    
-  
+      You approved for:{{tenprice}}
+    </div>
   </ion-card>
 
+
+
+</ion-content>
+<div *ngIf="agentconditions == true || initialaccepted === 'Accepted'" align="center" style="margin-top:5px;"
+  [hidden]="paymentdone == true">
+  <ion-button shape="round" class="next" (click)="makepayment()">PAY NOW</ion-button>
+</div>
+
+<ion-card style="background-color:orange;">
+
+  <ion-card-header>
+    <ion-card-title style="color:white; font-weight:bolder;">
+      Add Truk & Driver Details
+    </ion-card-title>
+
+  </ion-card-header>
+
+
+
+  <ion-card-content style="color:white; font-size:18;">
+    Bid is accepted, please add your truk
+  </ion-card-content>
+  <ion-button fill="clear" style="float:right; color:orange; width:140px;background-color:white; border-radius:9px;"
+    (click)="posttruck()">Add New Truck</ion-button><br>
+
+
+
+</ion-card>
+
 <div [hidden]="agentconditions == true || initialaccepted === 'Accepted'">
-<ion-button fill="clear" style="float: right; color: green;" (click)="acceptBid()" [hidden]="">Accept</ion-button>
-<ion-button id="open-modal" shape="round" class="next">Negotiate</ion-button>
+  <ion-button fill="clear" style="float: right; color: green;" (click)="acceptBid()" [hidden]="">Accept</ion-button>
+  <ion-button id="open-modal" shape="round" class="next">Negotiate</ion-button>
 </div>
 
 <ion-modal trigger="open-modal" [initialBreakpoint]="0.25" [breakpoints]="[0, 0.25, 0.5, 0.75]" handleBehavior="cycle">
